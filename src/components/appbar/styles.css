@@ -1,0 +1,23 @@
+.appbar {
+  height: 85px;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #8f8ec3 !important;
+}
+.logo {
+  flex-wrap: nowrap;
+  height: 4.5rem;
+}
+
+.menu {
+  margin-left: 2rem !important;
+}
+
+.menu-items {
+  margin-left: 2rem !important;
+}
+
+.profile-icon {
+  height: 3rem !important;
+  width: 3rem !important;
+}
