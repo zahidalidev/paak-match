@@ -1,3 +1,5 @@
+import Button from 'components/button'
+
 import 'components/header/styles.css'
 
 import backimg1 from 'assets/slider/v2_12.png'
@@ -34,11 +36,18 @@ const Header = () => {
               <img src={headerImg3} className='header-img3'></img>
               <img src={headerImg4} className='header-img4'></img>
             </div>
-
             <span className='header-description'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              10 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore.
             </span>
+          </div>
+        </div>
+        <div className='header-bottom'>
+          <div className='d-flex col-4 header-c3-container justify-content-center'>
+            <span className='header-c3 '>Matrimonial</span>
+          </div>
+          <div className='d-flex col-5 justify-content-center'>
+            <Button title='Get Match' />
           </div>
         </div>
       </div>

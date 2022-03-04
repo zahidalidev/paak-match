@@ -1,0 +1,52 @@
+.section-2 {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+.home-img4 {
+  width: 23rem;
+  height: 18rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto;
+  z-index: 2;
+  margin-right: -6rem;
+  margin-top: 11rem;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.home-img5 {
+  width: 39rem;
+  height: 25rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.c-section2 {
+  color: #8f8ec3;
+  font-size: 2.5rem;
+  font-family: Montserrat;
+  font-weight: 600;
+  margin-left: 3rem;
+  margin-top: 4rem;
+}
+
+.qu-wrapper {
+  margin-top: 1rem;
+}
+
+.qu-list {
+  font-family: Montserrat;
+  font-size: 1.4rem;
+  color: #4d4d4d;
+  margin-left: 2.6rem;
+}
+
+.qu-btn {
+  margin-left: 3.5rem;
+  margin-top: 1rem;
+}
