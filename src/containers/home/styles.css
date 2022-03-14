@@ -108,6 +108,19 @@
   margin-top: 3rem;
 }
 
+.moment-container {
+  margin-top: 10rem;
+}
+.moment-heading {
+  font-weight: bold;
+  color: #8f8ec3;
+}
+
+.moment-bottom-img {
+  height: 22rem;
+  margin-top: -11rem;
+}
+
 @media (max-width: 600px) {
   .pro-c {
     max-width: 20rem !important;

@@ -7,6 +7,7 @@ import 'containers/home/styles.css'
 import homeImg1 from 'assets/slider/v2_14.png'
 import homeImg2 from 'assets/Rectangle 12.png'
 import shyChooseImg from 'assets/Rectangle 39.png'
+import momentBottom from 'assets/SVG File (1) 2.png'
 
 const Home = () => {
   return (
@@ -75,6 +76,12 @@ const Home = () => {
           <div className='d-flex flex-column col-md-4'>
             <img className='intro-img' src={shyChooseImg} />
           </div>
+        </div>
+      </div>
+      <div className='moment-container d-flex flex-column justify-content-center align-items-center'>
+        <div className='d-flex flex-column justify-content-center align-items-center'>
+          <h2 className='moment-heading'>Some moments</h2>
+          <img className='moment-bottom-img' src={momentBottom} />
         </div>
       </div>
     </div>

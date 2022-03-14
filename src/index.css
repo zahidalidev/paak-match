@@ -1,16 +1,10 @@
 @font-face {
   font-family: 'Montserrat';
   src: local('Montserrat'), url(./assets/fonts/Montserrat-VariableFont_wght.ttf);
-  /* other formats include: 'woff2', 'truetype, 'opentype',
-                            'embedded-opentype', and 'svg' */
 }
 
 body {
   margin: 0;
   font-family: Montserrat !important;
-  background-color: #e5e5e5;
+  background-color: #f4f4f4;
 }
-
-/* body {
-  font-family: Roboto, Helvetica, Arial, sans-serif;
-} */
