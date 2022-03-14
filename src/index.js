@@ -8,7 +8,7 @@ import 'mdbreact/dist/css/mdb.css'
 import 'mdb-react-ui-kit/dist/css/mdb.min.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import App from './App'
-import './index.css'
+import 'index.css'
 
 ReactDOM.render(
   <React.StrictMode>

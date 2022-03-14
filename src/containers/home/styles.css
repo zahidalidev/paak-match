@@ -29,7 +29,7 @@
 .c-section2 {
   color: #8f8ec3;
   font-size: 2.5rem;
-  font-family: Montserrat;
+
   font-weight: 600;
   margin-left: 3rem;
   margin-top: 4rem;
@@ -40,7 +40,6 @@
 }
 
 .qu-list {
-  font-family: Montserrat;
   font-size: 1.4rem;
   color: #4d4d4d;
   margin-left: 2.6rem;
@@ -49,4 +48,68 @@
 .qu-btn {
   margin-left: 3.5rem;
   margin-top: 1rem;
+}
+
+.promise-section {
+  margin-top: 5rem;
+}
+
+.pro-heading {
+  font-weight: bold;
+}
+
+.pro-container {
+  margin-top: 3rem;
+}
+
+.pro-wrapper {
+  margin-top: 2rem;
+}
+
+.pro-c {
+  max-width: 30rem;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.pro-icon {
+  height: 8rem;
+}
+
+.intro-section {
+  margin-top: 12rem;
+}
+
+.intro-heading {
+  font-weight: bold;
+}
+
+.intro-c {
+  max-width: 56rem;
+}
+
+.choose-des-wrapper {
+  list-style: none;
+}
+
+.choose-wrapper {
+  margin-top: 5rem;
+}
+
+.choose-des {
+  font-size: 1.5rem;
+}
+.intro-img {
+  height: 36rem;
+  object-fit: contain;
+}
+
+.intro-btn {
+  margin-top: 3rem;
+}
+
+@media (max-width: 600px) {
+  .pro-c {
+    max-width: 20rem !important;
+  }
 }
