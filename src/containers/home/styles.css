@@ -51,7 +51,7 @@
 }
 
 .promise-section {
-  margin-top: 5rem;
+  margin-top: 10rem;
 }
 
 .pro-heading {
@@ -119,6 +119,18 @@
 .moment-bottom-img {
   height: 22rem;
   margin-top: -11rem;
+}
+
+.video-responsive {
+  width: 74rem;
+  height: 34rem;
+  margin-top: -6rem;
+  margin-bottom: 2rem;
+}
+
+.moment-c {
+  max-width: 70rem;
+  text-align: center;
 }
 
 @media (max-width: 600px) {

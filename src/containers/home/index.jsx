@@ -1,6 +1,6 @@
 import Header from 'components/header'
 import Button from 'components/button'
-import { ourPromises } from 'utils/constants'
+import { momentVideo, ourPromises } from 'utils/constants'
 
 import 'containers/home/styles.css'
 
@@ -83,6 +83,20 @@ const Home = () => {
           <h2 className='moment-heading'>Some moments</h2>
           <img className='moment-bottom-img' src={momentBottom} />
         </div>
+        <iframe
+          className='video-responsive'
+          auto
+          src={momentVideo}
+          title='YouTube video player'
+          frameBorder='0'
+          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+          allowFullScreen
+        ></iframe>
+        <h4 className='moment-c'>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore.
+        </h4>
       </div>
     </div>
   )

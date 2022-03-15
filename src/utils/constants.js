@@ -16,3 +16,5 @@ export const ourPromises = [
     img: trustIcon
   }
 ]
+
+export const momentVideo = 'https://www.youtube.com/embed/PaUqCS1Tsxg?controls=0'
