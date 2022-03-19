@@ -8,6 +8,7 @@ import homeImg1 from 'assets/slider/v2_14.png'
 import homeImg2 from 'assets/Rectangle 12.png'
 import shyChooseImg from 'assets/Rectangle 39.png'
 import momentBottom from 'assets/SVG File (1) 2.png'
+import Testimonial from 'components/testimonials/Testimonial'
 
 const Home = () => {
   return (
@@ -98,6 +99,7 @@ const Home = () => {
           incididunt ut labore.
         </h4>
       </div>
+      <Testimonial />
     </div>
   )
 }
