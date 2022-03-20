@@ -10,6 +10,7 @@ import shyChooseImg from 'assets/Rectangle 39.png'
 import momentBottom from 'assets/SVG File (1) 2.png'
 
 import 'containers/home/styles.css'
+import Footer from 'components/footer/Footer'
 
 const Home = () => {
   return (
@@ -102,6 +103,7 @@ const Home = () => {
       </div>
       <Testimonial />
       <Faq />
+      <Footer />
     </div>
   )
 }

@@ -85,6 +85,7 @@ const ResponsiveAppBar = () => {
                 </MenuItem>
               ))}
             </Menu>
+            pages
           </Box>
           <Typography
             variant='h6'
