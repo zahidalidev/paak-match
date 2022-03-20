@@ -1,14 +1,15 @@
+import { momentVideo, ourPromises } from 'utils/constants'
 import Header from 'components/header'
 import Button from 'components/button'
-import { momentVideo, ourPromises } from 'utils/constants'
-
-import 'containers/home/styles.css'
+import Testimonial from 'components/testimonials/Testimonial'
+import Faq from 'components/Faq'
 
 import homeImg1 from 'assets/slider/v2_14.png'
 import homeImg2 from 'assets/Rectangle 12.png'
 import shyChooseImg from 'assets/Rectangle 39.png'
 import momentBottom from 'assets/SVG File (1) 2.png'
-import Testimonial from 'components/testimonials/Testimonial'
+
+import 'containers/home/styles.css'
 
 const Home = () => {
   return (
@@ -100,6 +101,7 @@ const Home = () => {
         </h4>
       </div>
       <Testimonial />
+      <Faq />
     </div>
   )
 }
