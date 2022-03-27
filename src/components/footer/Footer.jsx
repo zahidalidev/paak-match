@@ -1,4 +1,4 @@
-import Button from '@material-ui/core/Button'
+import Button from 'components/button'
 
 import { colors } from 'config/theme'
 
@@ -36,18 +36,8 @@ const Footer = () => {
                     style={{ borderRadius: '0.5rem' }}
                   />
                 </div>
-                <div>
-                  <Button
-                    style={{
-                      backgroundColor: '#1a1a1a',
-                      color: colors.white
-                    }}
-                    className='btn btn-primary py-md-2 px-md-4 mt-2'
-                    variant='contained'
-                    onClick={() => console.log()}
-                  >
-                    Submitt Now
-                  </Button>
+                <div style={{ marginTop: 20 }}>
+                  <Button title='Submitt Now' borderRadius='5px' onClick={() => console.log()} />
                 </div>
                 <div style={{ marginTop: '2rem' }}>
                   <div className='row'>
