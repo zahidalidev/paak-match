@@ -1,8 +1,12 @@
 import { Route, Routes, Navigate } from 'react-router-dom'
 
+import Home from 'containers/home'
 import LandingPage from 'containers/landingPage'
 
-const routeList = [{ path: '/landingPage', component: <LandingPage /> }]
+const routeList = [
+  { path: '/home', component: <Home /> },
+  { path: '/landingPage', component: <LandingPage /> }
+]
 
 const AppRoutes = () => {
   return (
