@@ -11,6 +11,7 @@
   margin-top: 2rem;
   width: 12rem;
   height: 12rem;
+  border-radius: 10rem;
   object-fit: contain;
 }
 
@@ -78,4 +79,9 @@
   margin-top: 1rem;
   margin-left: 10px;
   margin-bottom: 10px;
+}
+
+.recent-h {
+  border: 2px solid #898989cb;
+  border-radius: 10px;
 }
