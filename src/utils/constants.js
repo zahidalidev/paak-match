@@ -3,6 +3,8 @@ import { Home, Article, Photo, People, Settings } from '@mui/icons-material'
 import callIcon from 'assets/callIcon.png'
 import docIcon from 'assets/docIcon.png'
 import trustIcon from 'assets/trustIcon.png'
+import prof1 from 'assets/Ellipse15.png'
+import prof2 from 'assets/Rectangle34.png'
 
 export const momentVideo = 'https://www.youtube.com/embed/PaUqCS1Tsxg?controls=0'
 
@@ -84,5 +86,124 @@ export const faqs = [
     question: 'What is assisted service from PaakMatch Matrimony?',
     answer:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
+  }
+]
+
+export const newMatches = [
+  {
+    name: 'Hibba',
+    age: '22 yrs',
+    type: 'INFP',
+    profileImg: prof2
+  },
+  {
+    name: 'Hibba',
+    age: '22 yrs',
+    type: 'INFP',
+    profileImg: prof2
+  },
+  {
+    name: 'Hibba',
+    age: '22 yrs',
+    type: 'INFP',
+    profileImg: prof2
+  },
+  {
+    name: 'Hibba',
+    age: '22 yrs',
+    type: 'INFP',
+    profileImg: prof2
+  },
+  {
+    name: 'Hibba',
+    age: '22 yrs',
+    type: 'INFP',
+    profileImg: prof2
+  },
+  {
+    name: 'Hibba',
+    age: '22 yrs',
+    type: 'INFP',
+    profileImg: prof2
+  },
+  {
+    name: 'Hibba',
+    age: '22 yrs',
+    type: 'INFP',
+    profileImg: prof2
+  },
+  {
+    name: 'Hibba',
+    age: '22 yrs',
+    type: 'INFP',
+    profileImg: prof2
+  },
+  {
+    name: 'Hibba',
+    age: '22 yrs',
+    type: 'INFP',
+    profileImg: prof2
+  },
+  {
+    name: 'Hibba',
+    age: '22 yrs',
+    type: 'INFP',
+    profileImg: prof2
+  },
+  {
+    name: 'Hibba',
+    age: '22 yrs',
+    type: 'INFP',
+    profileImg: prof2
+  }
+]
+export const recentMatches = [
+  {
+    name: 'Hibba',
+    profileImg: prof1
+  },
+  {
+    name: 'Hibba',
+    profileImg: prof1
+  },
+  {
+    name: 'Hibba',
+    profileImg: prof1
+  },
+  {
+    name: 'Hibba',
+    profileImg: prof1
+  },
+  {
+    name: 'Hibba',
+    profileImg: prof1
+  },
+  {
+    name: 'Hibba',
+    profileImg: prof1
+  },
+  {
+    name: 'Hibba',
+    profileImg: prof1
+  },
+  {
+    name: 'Hibba',
+    profileImg: prof1
+  },
+  {
+    name: 'Hibba',
+    profileImg: prof1
+  },
+  {
+    name: 'Hibba',
+    profileImg: prof1
+  },
+  {
+    name: 'Hibba',
+    profileImg: prof1
+  },
+  {
+    name: 'Hibba',
+    profileImg: prof1
   }
 ]

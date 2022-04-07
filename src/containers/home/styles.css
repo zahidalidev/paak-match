@@ -85,3 +85,89 @@
   border: 2px solid #898989cb;
   border-radius: 10px;
 }
+
+.recent-h > div {
+  display: flex !important;
+  justify-content: space-between;
+}
+
+.recent-heading-h {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.recent-sub-heading-h {
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+.recent-profile-img {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 6rem;
+  margin-top: 1rem;
+}
+
+.recent-profile-c {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.recent-h-wrapper {
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.recent-h-container {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.recent-h-container::-webkit-scrollbar {
+  display: none;
+}
+
+.new-matches-h {
+  margin-top: 2rem;
+  border: 2px solid #898989cb;
+  border-radius: 10px;
+}
+
+.new-matches-h > div {
+  display: flex !important;
+  justify-content: space-between;
+}
+
+.new-match-heading-h {
+  font-size: 1.2rem;
+}
+
+.matches-profile-img {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+}
+.matches-profile-img-total {
+  width: 15rem;
+  height: 15rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+}
+
+.matches-h-wrapper {
+  margin-right: 2rem;
+  cursor: pointer;
+}
+
+.matches-profile-c {
+  font-size: 0.8rem;
+  color: #898989;
+  font-weight: bold;
+  text-align: left;
+}
+
+.matches-name {
+  text-align: left;
+}
