@@ -2,10 +2,12 @@ import { Route, Routes, Navigate } from 'react-router-dom'
 
 import Home from 'containers/home'
 import LandingPage from 'containers/landingPage'
+import UserProfile from 'containers/userProfile'
 
 const routeList = [
   { path: '/home', component: <Home /> },
-  { path: '/landingPage', component: <LandingPage /> }
+  { path: '/landingPage', component: <LandingPage /> },
+  { path: '/userProfile', component: <UserProfile /> }
 ]
 
 const AppRoutes = () => {

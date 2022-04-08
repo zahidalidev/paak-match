@@ -8,7 +8,7 @@ import profileImg from 'assets/Ellipse 13.png'
 
 import 'containers/home/styles.css'
 
-const index = () => {
+const Home = () => {
   const { pathname } = useLocation()
 
   return (
@@ -120,4 +120,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Home
