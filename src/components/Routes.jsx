@@ -7,6 +7,7 @@ import Chat from 'containers/chat'
 import ProfileCreation from 'containers/ProfileCreation'
 import Register from 'containers/register'
 import Login from 'containers/login'
+import ImageVarify from 'containers/imageVerify'
 
 const routeList = [
   { path: '/home', component: <Home /> },
@@ -15,7 +16,8 @@ const routeList = [
   { path: '/chat', component: <Chat /> },
   { path: '/createprofile', component: <ProfileCreation /> },
   { path: '/register', component: <Register /> },
-  { path: '/login', component: <Login /> }
+  { path: '/login', component: <Login /> },
+  { path: '/varify', component: <ImageVarify /> }
 ]
 
 const AppRoutes = () => {
