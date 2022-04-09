@@ -1,4 +1,4 @@
-import { Home, Article, Photo, People, Settings } from '@mui/icons-material'
+import { Home, Article, Photo, People, Settings, Send } from '@mui/icons-material'
 
 import callIcon from 'assets/callIcon.png'
 import docIcon from 'assets/docIcon.png'
@@ -249,3 +249,9 @@ export const profileDetails = [
     ]
   }
 ]
+
+export const SendIcon = (
+  <div style={{ backgroundColor: '#5D46C2', padding: 6, borderRadius: 5 }}>
+    <Send sx={{ height: 22, width: 22 }} style={{ color: '#ffffff' }} />
+  </div>
+)
