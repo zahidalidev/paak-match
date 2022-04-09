@@ -5,13 +5,17 @@ import LandingPage from 'containers/landingPage'
 import UserProfile from 'containers/userProfile'
 import Chat from 'containers/chat'
 import ProfileCreation from 'containers/ProfileCreation'
+import Register from 'containers/register'
+import Login from 'containers/login'
 
 const routeList = [
   { path: '/home', component: <Home /> },
   { path: '/landingpage', component: <LandingPage /> },
   { path: '/profile', component: <UserProfile /> },
   { path: '/chat', component: <Chat /> },
-  { path: '/createprofile', component: <ProfileCreation /> }
+  { path: '/createprofile', component: <ProfileCreation /> },
+  { path: '/register', component: <Register /> },
+  { path: '/login', component: <Login /> }
 ]
 
 const AppRoutes = () => {
