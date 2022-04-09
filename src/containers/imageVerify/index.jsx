@@ -3,6 +3,7 @@ import Button from 'components/button'
 import sideImg from 'assets/Group 37302.png'
 
 import 'containers/register/styles.css'
+import 'containers/imageVerify/styles.css'
 
 const { innerHeight } = window
 
@@ -22,12 +23,12 @@ const VarifyImage = () => {
     <div className='d-flex flex-row container-fluid LoginWrapper justify-content-center align-items-center'>
       <div className='d-flex col-md-6 flex-column align-items-center justify-content-end'>
         <div className='d-flex justify-content-center align-items-center'>
-          <h2 className='auth-heading'>PaakMatch!</h2>
+          <h2 className='auth-heading varify-paak'>PaakMatch!</h2>
         </div>
         <div className='d-flex col-md-12 flex-column justify-content-center align-items-center'>
-          <h4 className='auth-sub-heading'>Upload your image to verify</h4>
+          <h4 className='auth-sub-heading varify-heading'>Upload your image to verify</h4>
 
-          <div className='d-flex auth-btn flex-column'>
+          <div className='d-flex auth-btn flex-column btn-upload-varify'>
             <input
               onChange={e => handlevarify(e)}
               ref={refParam => (inputRef = refParam)}
