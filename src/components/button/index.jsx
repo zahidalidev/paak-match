@@ -1,28 +1,22 @@
-import { Button } from '@mui/material'
+import { Button as MuiButton } from '@mui/material'
 import PropTypes from 'prop-types'
 
 import 'components/button/styles.css'
 
-const CusButton = ({
-  title,
-  width = '10.5rem',
-  borderRadius = '0px',
-  height = '3.4rem',
-  onClick
-}) => {
+const Button = ({ title, width = '10.5rem', borderRadius = '0px', height = '3.4rem', onClick }) => {
   return (
-    <Button
+    <MuiButton
       onClick={onClick}
       variant='contained'
       className='header-btn'
       style={{ width, height, borderRadius }}
     >
       {title}
-    </Button>
+    </MuiButton>
   )
 }
 
-CusButton.propTypes = {
+Button.propTypes = {
   title: PropTypes.string.isRequired,
   width: PropTypes.string,
   height: PropTypes.string,
@@ -30,4 +24,4 @@ CusButton.propTypes = {
   onClick: PropTypes.func
 }
 
-export default CusButton
+export default Button

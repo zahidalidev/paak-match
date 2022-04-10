@@ -8,16 +8,18 @@ import ProfileCreation from 'containers/ProfileCreation'
 import Register from 'containers/register'
 import Login from 'containers/login'
 import ImageVarify from 'containers/imageVerify'
+import TestStart from 'containers/testStart'
 
 const routeList = [
   { path: '/home', component: <Home /> },
-  { path: '/landingpage', component: <LandingPage /> },
+  { path: '/landing', component: <LandingPage /> },
   { path: '/profile', component: <UserProfile /> },
   { path: '/chat', component: <Chat /> },
   { path: '/createprofile', component: <ProfileCreation /> },
   { path: '/register', component: <Register /> },
   { path: '/login', component: <Login /> },
-  { path: '/varify', component: <ImageVarify /> }
+  { path: '/varify', component: <ImageVarify /> },
+  { path: '/teststart', component: <TestStart /> }
 ]
 
 const AppRoutes = () => {
