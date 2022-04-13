@@ -9,7 +9,7 @@ const Input = ({ title, width = '21rem', height = 50, icon, multiline = false, t
   return (
     <FormControl sx={{ m: 1, width, height: 10 }} variant='outlined'>
       <InputLabel
-        style={{ fontSize: height && 16, marginTop: height && -3 }}
+        style={{ fontSize: height && 15, marginTop: height && -3 }}
         htmlFor='outlined-adornment-password'
       >
         {title}

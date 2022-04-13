@@ -9,6 +9,7 @@ import Register from 'containers/register'
 import Login from 'containers/login'
 import ImageVarify from 'containers/imageVerify'
 import TestStart from 'containers/testStart'
+import Preferences from 'containers/preferences'
 
 const routeList = [
   { path: '/home', component: <Home /> },
@@ -19,7 +20,8 @@ const routeList = [
   { path: '/register', component: <Register /> },
   { path: '/login', component: <Login /> },
   { path: '/varify', component: <ImageVarify /> },
-  { path: '/teststart', component: <TestStart /> }
+  { path: '/teststart', component: <TestStart /> },
+  { path: '/preferences', component: <Preferences /> }
 ]
 
 const AppRoutes = () => {

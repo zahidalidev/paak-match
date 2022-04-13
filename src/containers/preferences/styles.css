@@ -1,0 +1,24 @@
+.preferences-wrapper {
+  background-color: #f1f1f1;
+}
+
+.preferences-container {
+  background-color: #ffffff;
+  margin-top: 2rem;
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.pref-h {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.basic-pref-container {
+  margin-top: 1rem;
+}
+
+.range-pref-b {
+  border-bottom: 1px solid rgba(184, 184, 184, 0.5);
+  margin-top: 1rem;
+}
