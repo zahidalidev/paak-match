@@ -1,14 +1,20 @@
 import { useState } from 'react'
-import Button from 'components/button'
+import { toast } from 'react-toastify'
+// import { useDispatch } from 'react-redux'
 
-import sideImg from 'assets/Group 37302.png'
+import Button from 'components/button'
+import Input from 'components/common/Input'
+import { register } from 'services/user'
 
 import 'containers/register/styles.css'
-import Input from 'components/common/Input'
+import sideImg from 'assets/Group 37302.png'
+// import { USER_REGISTER } from 'store/user'
 
 const { innerHeight } = window
 const Register = () => {
-  const [feilds] = useState([
+  // const dispatch = useDispatch()
+
+  const [feilds, setFeilds] = useState([
     {
       name: 'Full Name',
       value: '',
@@ -36,6 +42,32 @@ const Register = () => {
     }
   ])
 
+  const handleChange = (e, index) => {
+    const tempFeilds = [...feilds]
+    tempFeilds[index].value = e.target.value
+    setFeilds(tempFeilds)
+  }
+
+  const handleRegister = async () => {
+    try {
+      const user = {
+        name: feilds[0].value,
+        email: feilds[1].value,
+        contactNumber: feilds[2].value,
+        password: feilds[3].value
+      }
+
+      console.log(user)
+      const res = await register(user)
+      console.log(res.message)
+      // dispatch(USER_REGISTER({ token: token }))
+      toast.success('Registeration Successfull')
+    } catch (error) {
+      console.log('Register error: ', error.response.data)
+      toast.error(error.response.data.message)
+    }
+  }
+
   return (
     <div className='d-flex flex-row container-fluid LoginWrapper justify-content-center align-items-center'>
       <div className='d-flex col-md-6 justify-content-center align-items-center'>
@@ -52,13 +84,18 @@ const Register = () => {
         </div>
         <div className='d-flex col-md-12 flex-column justify-content-center align-items-center'>
           <h4 className='auth-sub-heading'>Register</h4>
-          {feilds.map(item => (
-            <div key={item.name} className='d-flex flex-column feilds-wrapper'>
-              <Input width='25rem' title={item.name} type={item.type} />
+          {feilds.map((item, index) => (
+            <div key={index.toString()} className='d-flex flex-column feilds-wrapper'>
+              <Input
+                handleChange={e => handleChange(e, index)}
+                width='25rem'
+                title={item.name}
+                type={item.type}
+              />
             </div>
           ))}
           <div className='d-flex auth-btn'>
-            <Button title='Register' width='25rem' />
+            <Button onClick={handleRegister} title='Register' width='25rem' />
           </div>
           <div className='d-flex col-md-6 mt-4 flex-row align-items-start justify-content-start'>
             <p className='another-auth-c'>

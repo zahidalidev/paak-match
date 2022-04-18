@@ -5,7 +5,15 @@ import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
 import PropTypes from 'prop-types'
 
-const Input = ({ title, width = '21rem', height = 50, icon, multiline = false, type = 'text' }) => {
+const Input = ({
+  title,
+  width = '21rem',
+  height = 50,
+  icon,
+  multiline = false,
+  type = 'text',
+  handleChange
+}) => {
   return (
     <FormControl sx={{ m: 1, width, height: 10 }} variant='outlined'>
       <InputLabel
@@ -21,7 +29,7 @@ const Input = ({ title, width = '21rem', height = 50, icon, multiline = false, t
         id='outlined-adornment-password'
         // type={values.showPassword ? 'text' : 'password'}
         // value={values.password}
-        // onChange={handleChange('password')}
+        onChange={handleChange}
         endAdornment={
           <InputAdornment position='end'>
             <IconButton
@@ -46,7 +54,8 @@ Input.propTypes = {
   height: PropTypes.string,
   type: PropTypes.string,
   icon: PropTypes.any,
-  multiline: PropTypes.bool
+  multiline: PropTypes.bool,
+  handleChange: PropTypes.func
 }
 
 export default Input
