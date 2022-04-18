@@ -99,7 +99,7 @@ const Register = () => {
           </div>
           <div className='d-flex col-md-6 mt-4 flex-row align-items-start justify-content-start'>
             <p className='another-auth-c'>
-              Already have an Account? <span className='auth-span'>Login</span>
+              Already have an Account?<span className='auth-span'>Login</span>
             </p>
           </div>
         </div>
