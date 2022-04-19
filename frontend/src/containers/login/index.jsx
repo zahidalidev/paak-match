@@ -1,14 +1,26 @@
 import { useState } from 'react'
-import Button from 'components/button'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import sideImg from 'assets/Group 37302.png'
 
-import 'containers/register/styles.css'
+import { USER_LOGIN } from 'store/user'
+import Button from 'components/button'
 import Input from 'components/common/Input'
+import Loader from 'components/loader'
+import { login } from 'services/user'
+
+import 'containers/register/styles.css'
+import { toast } from 'react-toastify'
 
 const { innerHeight } = window
+
 const Login = () => {
-  const [feilds] = useState([
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const [loading, setLoading] = useState(false)
+  const [feilds, setFeilds] = useState([
     {
       name: 'Email',
       value: '',
@@ -22,25 +34,60 @@ const Login = () => {
     }
   ])
 
+  const handleChange = (e, index) => {
+    const tempFeilds = [...feilds]
+    tempFeilds[index].value = e.target.value
+    setFeilds(tempFeilds)
+  }
+
+  const handleLogin = async () => {
+    setLoading(true)
+    try {
+      const user = {
+        email: feilds[0].value,
+        password: feilds[1].value
+      }
+
+      const { data } = await login(user)
+      dispatch(USER_LOGIN({ token: data.hash, name: data.name, email: data.email }))
+      console.log(data)
+    } catch (error) {
+      console.log('Register error: ', error.response.data)
+      // console.log(error)
+      // toast.error(error)
+      toast.error(error.response.data.message)
+    }
+    setLoading(false)
+  }
+
   return (
     <div className='d-flex flex-row container-fluid LoginWrapper justify-content-center align-items-center'>
+      <Loader show={loading} />
       <div className='d-flex col-md-6 flex-column align-items-center justify-content-end'>
         <div className='d-flex justify-content-center align-items-center'>
           <h2 className='auth-heading'>PaakMatch!</h2>
         </div>
         <div className='d-flex col-md-12 flex-column justify-content-center align-items-center'>
           <h4 className='auth-sub-heading'>Login</h4>
-          {feilds.map(item => (
-            <div key={item.name} className='d-flex flex-column feilds-wrapper'>
-              <Input width='25rem' title={item.name} type={item.type} />
+          {feilds.map((item, index) => (
+            <div key={index.toString()} className='d-flex flex-column feilds-wrapper'>
+              <Input
+                handleChange={e => handleChange(e, index)}
+                width='25rem'
+                title={item.name}
+                type={item.type}
+              />
             </div>
           ))}
           <div className='d-flex auth-btn'>
-            <Button title='Register' width='25rem' />
+            <Button onClick={handleLogin} title='Login' width='25rem' />
           </div>
           <div className='d-flex col-md-6 mt-4 flex-row align-items-start justify-content-start'>
             <p className='another-auth-c'>
-              Don’t have an Account? <span className='auth-span'>Login</span>
+              Don’t have an Account?{' '}
+              <span onClick={() => navigate('/register')} className='auth-span'>
+                Register
+              </span>
             </p>
           </div>
         </div>

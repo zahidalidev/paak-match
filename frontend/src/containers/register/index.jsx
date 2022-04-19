@@ -1,19 +1,23 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
-// import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import Button from 'components/button'
 import Input from 'components/common/Input'
 import { register } from 'services/user'
+import { USER_REGISTER } from 'store/user'
+import Loader from 'components/loader'
 
 import 'containers/register/styles.css'
 import sideImg from 'assets/Group 37302.png'
-// import { USER_REGISTER } from 'store/user'
 
 const { innerHeight } = window
 const Register = () => {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
+  const [loading, setLoading] = useState(false)
   const [feilds, setFeilds] = useState([
     {
       name: 'Full Name',
@@ -49,6 +53,7 @@ const Register = () => {
   }
 
   const handleRegister = async () => {
+    setLoading(true)
     try {
       const user = {
         name: feilds[0].value,
@@ -57,19 +62,19 @@ const Register = () => {
         password: feilds[3].value
       }
 
-      console.log(user)
-      const res = await register(user)
-      console.log(res.message)
-      // dispatch(USER_REGISTER({ token: token }))
+      const { data } = await register(user)
+      dispatch(USER_REGISTER({ token: data.hash, name: data.name, email: data.email }))
       toast.success('Registeration Successfull')
     } catch (error) {
       console.log('Register error: ', error.response.data)
       toast.error(error.response.data.message)
     }
+    setLoading(false)
   }
 
   return (
     <div className='d-flex flex-row container-fluid LoginWrapper justify-content-center align-items-center'>
+      <Loader show={loading} />
       <div className='d-flex col-md-6 justify-content-center align-items-center'>
         <div className='d-flex col-md-10 login-img-wrapper justify-content-start align-items-center'>
           <img
@@ -99,7 +104,10 @@ const Register = () => {
           </div>
           <div className='d-flex col-md-6 mt-4 flex-row align-items-start justify-content-start'>
             <p className='another-auth-c'>
-              Already have an Account?<span className='auth-span'>Login</span>
+              Already have an Account?
+              <span onClick={() => navigate('/login')} className='auth-span'>
+                Login
+              </span>
             </p>
           </div>
         </div>
