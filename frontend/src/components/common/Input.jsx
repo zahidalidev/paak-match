@@ -12,7 +12,8 @@ const Input = ({
   icon,
   multiline = false,
   type = 'text',
-  handleChange
+  handleChange,
+  value
 }) => {
   return (
     <FormControl sx={{ m: 1, width, height: 10 }} variant='outlined'>
@@ -28,7 +29,7 @@ const Input = ({
         type={type}
         id='outlined-adornment-password'
         // type={values.showPassword ? 'text' : 'password'}
-        // value={values.password}
+        value={value}
         onChange={handleChange}
         endAdornment={
           <InputAdornment position='end'>
@@ -55,7 +56,8 @@ Input.propTypes = {
   type: PropTypes.string,
   icon: PropTypes.any,
   multiline: PropTypes.bool,
-  handleChange: PropTypes.func
+  handleChange: PropTypes.func,
+  value: PropTypes.string
 }
 
 export default Input

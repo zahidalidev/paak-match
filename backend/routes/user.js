@@ -17,9 +17,29 @@ router.post("/", async (req, res) => {
 
         con.query(sql, (err, result) => {
           if (err) return res.status(400).send({ message: err.sqlMessage });
-          return res.status(200).send({ name: name, email: email, hash: hash });
+          return res
+            .status(200)
+            .send({ id: result.insertId, name, email, hash });
         });
       });
+    });
+  } catch (error) {
+    return res.status(500).send({ message: err.message });
+  }
+});
+
+router.post("/createprofile", async (req, res) => {
+  const { name, email, contactNumber, password } = req.body;
+
+  try {
+    if (err) return res.status(400).send({ message: err.message });
+
+    var sql = `INSERT INTO profileDetails (name, email, hash, contact_number) VALUES ('${name}', '${email}', '${hash}', '${contactNumber}')`;
+
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+
+      return res.status(200).send({ name, email, hash });
     });
   } catch (error) {
     return res.status(500).send({ message: err.message });
@@ -30,39 +50,21 @@ router.get("/:email/:password", async (req, res) => {
   const { email, password } = req.params;
   console.log(email, password);
   try {
-    var sql = `select name, email, role, hash from users where email = '${email}'`;
+    var sql = `select id, name, email, role, hash from users where email = '${email}'`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
-      const { name, email, hash } = result[0];
+      const { id, name, email, hash } = result[0];
       bcrypt.compare(password, hash, (err, resp) => {
         if (err) return res.status(400).send({ message: err.message });
         if (!resp)
           return res
             .status(400)
             .send({ message: "Email or Password is incorrect" });
-        return res.status(200).send({ name: name, email: email, hash: hash });
+        return res.status(200).send({ id, name, email, hash });
       });
     });
   } catch (error) {
     return res.status(500).send({ message: err.message });
-  }
-});
-
-router.get("/:id", async (req, res) => {
-  try {
-  } catch (error) {
-    con.close();
-    return res.status(500).send(error);
-  }
-});
-
-router.delete("/:id", async (req, res) => {});
-
-router.put("/:id", async (req, res) => {
-  try {
-  } catch (error) {
-    conn.close();
-    return res.status(500).send(error);
   }
 });
 

@@ -8,3 +8,7 @@ export const register = async user => {
 export const login = async user => {
   return await axios.get(`${baseURL}/user/${user.email}/${user.password}`)
 }
+
+export const createProfile = async profile => {
+  return await axios.post(`${baseURL}/user/createprofile`, profile)
+}
