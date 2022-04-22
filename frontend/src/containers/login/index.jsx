@@ -52,7 +52,7 @@ const Login = () => {
       dispatch(USER_LOGIN({ id: data.id, token: data.hash, name: data.name, email: data.email }))
       console.log(data)
     } catch (error) {
-      console.log('Register error: ', error.response.data)
+      console.log('Register error: ', error)
       toast.error(error.response.data.message)
     }
     setLoading(false)
@@ -83,7 +83,7 @@ const Login = () => {
           <div className='d-flex col-md-6 mt-4 flex-row align-items-start justify-content-start'>
             <p className='another-auth-c'>
               Don’t have an Account?{' '}
-              <span onClick={() => navigate('/register')} className='auth-span'>
+              <span onClick={() => navigate('/createprofile')} className='auth-span'>
                 Register
               </span>
             </p>

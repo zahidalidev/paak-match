@@ -1,14 +1,19 @@
 import axios from 'axios'
-import baseURL from 'config/baseURL'
+import { nodeBaseURL, pythonBaseURL } from 'config/baseURL'
 
 export const register = async user => {
-  return await axios.post(`${baseURL}/user`, user)
+  return await axios.post(`${nodeBaseURL}/user`, user)
 }
 
 export const login = async user => {
-  return await axios.get(`${baseURL}/user/${user.email}/${user.password}`)
+  return await axios.get(`${nodeBaseURL}/user/${user.email}/${user.password}`)
 }
 
 export const createProfile = async profile => {
-  return await axios.post(`${baseURL}/user/createprofile`, profile)
+  return await axios.post(`${nodeBaseURL}/user/createprofile`, profile)
+}
+
+export const detectPersonality = async (...choices) => {
+  return await axios.post(`${pythonBaseURL}/trainmodel`, choices)
+  // return await axios.get(`${pythonBaseURL}/trainmodel`)
 }

@@ -13,6 +13,9 @@ import Input from 'components/common/Input'
 
 import 'components/form/styles.css'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
+import { createProfile } from 'services/user'
+import { useSelector } from 'react-redux'
 
 const InfoHeading = ({ title, icon }) => (
   <div className='d-flex col-md-12 flex-row mt-3 align-items-center justify-content-center'>
@@ -34,12 +37,12 @@ const InfoHeading = ({ title, icon }) => (
 )
 
 const Form = () => {
+  const user = useSelector(state => state.user)
   const [profData, setProfData] = useState({
-    fullName: '',
+    city: '',
     DOB: '',
     religion: '',
     motherTongue: '',
-    contactNumber: '',
     gender: '',
     maritalStatus: '',
     height: '',
@@ -52,13 +55,23 @@ const Form = () => {
   })
 
   const handleChange = (value, key) => {
-    console.log('handleChange: ', value, key)
     const tempFeilds = { ...profData }
     tempFeilds[key] = value
     setProfData(tempFeilds)
   }
 
-  const handleSubmit = () => {}
+  const handleSubmit = async () => {
+    const tempObj = { ...profData }
+    tempObj.userID = user.id
+
+    try {
+      const { data } = await createProfile(tempObj)
+      console.log(data)
+    } catch (error) {
+      console.log('Create Profile error: ', error)
+      toast.error(error.response.data.message)
+    }
+  }
 
   return (
     <>
@@ -70,14 +83,14 @@ const Form = () => {
           className='d-flex col-md-5 flex-row mt-3 align-items-center'
         >
           <div className='d-flex col-md-3'>
-            <h6 style={{ marginBottom: '-1.5rem', fontSize: '1.2rem' }}>Full Name</h6>
+            <h6 style={{ marginBottom: '-1.5rem', fontSize: '1.2rem' }}>City</h6>
           </div>
           <div className='d-flex col-md-9'>
             <Input
               width='35rem'
-              handleChange={e => handleChange(e.target.value, 'fullName')}
-              value={profData.fullName}
-              title='Full Name'
+              handleChange={e => handleChange(e.target.value, 'city')}
+              value={profData.city}
+              title='City'
             />
           </div>
         </div>
@@ -95,7 +108,6 @@ const Form = () => {
               value={profData.DOB}
               type='date'
               width='35rem'
-              title='Date of Birth'
             />
           </div>
         </div>
@@ -165,24 +177,6 @@ const Form = () => {
                 <MenuItem value='Other'>Other</MenuItem>
               </Select>
             </FormControl>
-          </div>
-        </div>
-
-        <div
-          style={{ marginLeft: '-1rem', marginTop: '1rem' }}
-          className='d-flex col-md-5 flex-row align-items-center'
-        >
-          <div className='d-flex col-md-3'>
-            <h6 style={{ marginBottom: '-1.5rem', fontSize: '1.2rem' }}>Phone Number</h6>
-          </div>
-          <div className='d-flex col-md-9'>
-            <Input
-              handleChange={e => handleChange(e.target.value, 'contactNumber')}
-              value={profData.contactNumber}
-              type='number'
-              width='35rem'
-              title='03000000000'
-            />
           </div>
         </div>
 
@@ -570,9 +564,9 @@ const Form = () => {
                 <MenuItem value='' selected='selected' disabled={true}>
                   Enter Income (PKR)
                 </MenuItem>
-                <MenuItem value='notdefined2'>less than 20,000</MenuItem>
-                <MenuItem value='notdefined2'>20,000-30,000</MenuItem>
-                <MenuItem value='notdefined2'>30,000-40,000</MenuItem>
+                <MenuItem value='less than 20,000'>less than 20,000</MenuItem>
+                <MenuItem value='20,000-30,000'>20,000-30,000</MenuItem>
+                <MenuItem value='30,000-40,000'>30,000-40,000</MenuItem>
                 <MenuItem value='notdefined2'>40,000-50,000</MenuItem>
                 <MenuItem value='notdefined2'>50,000-60,000</MenuItem>
                 <MenuItem value='notdefined2'>60,000-70,000</MenuItem>

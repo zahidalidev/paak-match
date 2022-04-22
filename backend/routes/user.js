@@ -29,20 +29,35 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/createprofile", async (req, res) => {
-  const { name, email, contactNumber, password } = req.body;
+  const {
+    userID,
+    city,
+    DOB,
+    religion,
+    motherTongue,
+    gender,
+    maritalStatus,
+    height,
+    caste,
+    subCaste,
+    education,
+    occupation,
+    income,
+    about,
+  } = req.body;
+
+  const img =
+    "https://www.hygradebusiness.com/assets/media/2017/11/hygrade_analytics_blog.jpg";
 
   try {
-    if (err) return res.status(400).send({ message: err.message });
-
-    var sql = `INSERT INTO profileDetails (name, email, hash, contact_number) VALUES ('${name}', '${email}', '${hash}', '${contactNumber}')`;
+    var sql = `INSERT INTO profileDetails VALUES ('${userID}', '${DOB}', '${religion}', '${motherTongue}', '${gender}', '${maritalStatus}', '${height}', '${caste}','${subCaste}','${education}','${occupation}','${income}','${about}','${city}','${img}')`;
 
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
-
-      return res.status(200).send({ name, email, hash });
+      return res.status(200).send(`${result.affectedRows} Affected`);
     });
   } catch (error) {
-    return res.status(500).send({ message: err.message });
+    return res.status(500).send({ message: error.message });
   }
 });
 
