@@ -20,3 +20,7 @@ export const detectPersonality = async (...choices) => {
 export const addPersonality = async type => {
   return await axios.put(`${nodeBaseURL}/user/updatepersonality`, type)
 }
+
+export const verifyProfileImages = async data => {
+  return await axios.post(`${pythonBaseURL}/verifyimages`, data)
+}

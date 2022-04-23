@@ -65,7 +65,7 @@ const Register = () => {
       const { data } = await register(user)
       dispatch(USER_REGISTER({ id: data.id, token: data.hash, name: data.name, email: data.email }))
       toast.success('Registeration Successfull')
-      navigate('/createprofile')
+      navigate('/verify')
     } catch (error) {
       console.log('Register error: ', error.response.data)
       toast.error(error.response.data.message)

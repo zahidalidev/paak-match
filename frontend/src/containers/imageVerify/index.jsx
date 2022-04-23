@@ -1,23 +1,54 @@
+import { useRef, useState } from 'react'
+import Webcam from 'react-webcam'
+
 import Button from 'components/button'
 
 import sideImg from 'assets/Group 37302.png'
 
 import 'containers/register/styles.css'
 import 'containers/imageVerify/styles.css'
+import { toast } from 'react-toastify'
+import { verifyProfileImages } from 'services/user'
 
 const { innerHeight } = window
 
-const VarifyImage = () => {
+const VerifyImage = () => {
   let inputRef
+  const webcamRef = useRef(null)
+  const [uploadedImage, setUploadedImage] = useState(null)
+  const [imgSrc, setImgSrc] = useState(null)
+  const [showCamera, setShowCamera] = useState(false)
 
   const handleUpload = () => {
     inputRef.click()
-    console.log(file)
+    setShowCamera(true)
   }
 
-  const handlevarify = event => {
-    console.log(event.target.files.item(0))
+  const capture = () => {
+    const imageSrc = webcamRef.current.getScreenshot()
+    setImgSrc(imageSrc)
   }
+
+  const handlevarify = async () => {
+    if (!imgSrc || !uploadedImage) {
+      toast.error('Please select both images!')
+      return
+    } else {
+      let data = new FormData()
+      const blob = await fetch(imgSrc).then(res => res.blob())
+      data.append('image1', blob)
+      data.append('image2', uploadedImage)
+
+      try {
+        const res = await verifyProfileImages(data)
+        console.log(res)
+      } catch (error) {
+        console.log('Verification error: ', error)
+      }
+    }
+  }
+
+  console.log('uploadedImage: ', uploadedImage)
 
   return (
     <div className='d-flex flex-row container-fluid LoginWrapper justify-content-center align-items-center'>
@@ -30,12 +61,47 @@ const VarifyImage = () => {
 
           <div className='d-flex auth-btn flex-column btn-upload-varify'>
             <input
-              onChange={e => handlevarify(e)}
+              onChange={e => setUploadedImage(e.target.files.item(0))}
               ref={refParam => (inputRef = refParam)}
               hidden={true}
               type='file'
             />
+            {uploadedImage && (
+              <img
+                style={{ height: '10rem', objectFit: 'contain', marginBottom: 15 }}
+                src={URL.createObjectURL(uploadedImage)}
+              />
+            )}
+
             <Button onClick={handleUpload} title='Upload' width='25rem' />
+          </div>
+          <div className='d-flex auth-btn justify-content-center align-items-center flex-column btn-upload-varify'>
+            {imgSrc && (
+              <img
+                style={{ height: '10rem', objectFit: 'contain', marginBottom: 15 }}
+                src={imgSrc}
+              />
+            )}
+            {showCamera && (
+              <Webcam
+                style={{ height: '10rem', objectFit: 'contain', marginBottom: 15 }}
+                ref={webcamRef}
+                audio={false}
+                screenshotFormat='image/jpeg'
+              />
+            )}
+            {uploadedImage && (
+              <Button
+                onClick={capture}
+                title={imgSrc ? 'Capture Again' : 'Capture'}
+                width='25rem'
+              />
+            )}
+          </div>
+          <div className='d-flex auth-btn flex-column btn-upload-varify mb-4'>
+            {uploadedImage && imgSrc && (
+              <Button onClick={handlevarify} title='Verify' width='25rem' />
+            )}
           </div>
         </div>
       </div>
@@ -51,4 +117,4 @@ const VarifyImage = () => {
   )
 }
 
-export default VarifyImage
+export default VerifyImage

@@ -7,7 +7,7 @@ import Chat from 'containers/chat'
 import ProfileCreation from 'containers/ProfileCreation'
 import Register from 'containers/register'
 import Login from 'containers/login'
-import ImageVarify from 'containers/imageVerify'
+import ImageVerify from 'containers/imageVerify'
 import TestStart from 'containers/testStart'
 import Preferences from 'containers/preferences'
 import Test from 'containers/test'
@@ -20,7 +20,7 @@ const routeList = [
   { path: '/createprofile', component: <ProfileCreation /> },
   { path: '/register', component: <Register /> },
   { path: '/login', component: <Login /> },
-  { path: '/varify', component: <ImageVarify /> },
+  { path: '/verify', component: <ImageVerify /> },
   { path: '/teststart', component: <TestStart /> },
   { path: '/preferences', component: <Preferences /> },
   { path: '/test', component: <Test /> }
