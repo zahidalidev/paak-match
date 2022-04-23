@@ -63,7 +63,6 @@ router.post("/createprofile", async (req, res) => {
 
 router.get("/:email/:password", async (req, res) => {
   const { email, password } = req.params;
-  console.log(email, password);
   try {
     var sql = `select id, name, email, role, hash from users where email = '${email}'`;
     con.query(sql, (err, result) => {
@@ -77,6 +76,21 @@ router.get("/:email/:password", async (req, res) => {
             .send({ message: "Email or Password is incorrect" });
         return res.status(200).send({ id, name, email, hash });
       });
+    });
+  } catch (error) {
+    return res.status(500).send({ message: err.message });
+  }
+});
+
+router.put("/updatepersonality", async (req, res) => {
+  const { id, type } = req.body;
+  console.log(id, type);
+  try {
+    var sql = `UPDATE users SET personality_type = '${type}' where id = '${id}'`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      // console.log(result);
+      return res.status(200).send(`${result.affectedRows} Affected`);
     });
   } catch (error) {
     return res.status(500).send({ message: err.message });

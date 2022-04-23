@@ -8,12 +8,21 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import 'containers/test/styles.css'
 import Button from 'components/button'
 import { toast } from 'react-toastify'
-import { detectPersonality } from 'services/user'
+import { addPersonality, detectPersonality } from 'services/user'
+import { useSelector } from 'react-redux'
+
+const itemsPerPage = 12
+const personalitiesCombinations = [
+  ['E', 'I'],
+  ['S', 'N'],
+  ['T', 'F'],
+  ['J', 'P']
+]
 
 const Test = () => {
-  const itemsPerPage = 12
   const [endOffset, setEndOffset] = useState(itemsPerPage)
   const [itemOffset, setItemOffset] = useState(0)
+  const user = useSelector(state => state.user)
 
   const [questionsData, setQuestionsData] = useState([
     {
@@ -333,8 +342,13 @@ const Test = () => {
       else choices4.push(item.choice)
     })
     try {
-      const res = await detectPersonality(choices1, choices2, choices3, choices4)
-      console.log(res.data)
+      const { data } = await detectPersonality(choices1, choices2, choices3, choices4)
+      let predictedPersonality = ''
+      data.forEach((element, index) => {
+        predictedPersonality += personalitiesCombinations[index][element]
+      })
+      const { data: res } = await addPersonality({ id: user.id, type: predictedPersonality })
+      console.log(res, user)
     } catch (error) {
       console.log(error)
     }

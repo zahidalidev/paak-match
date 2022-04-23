@@ -15,5 +15,8 @@ export const createProfile = async profile => {
 
 export const detectPersonality = async (...choices) => {
   return await axios.post(`${pythonBaseURL}/trainmodel`, choices)
-  // return await axios.get(`${pythonBaseURL}/trainmodel`)
+}
+
+export const addPersonality = async type => {
+  return await axios.put(`${nodeBaseURL}/user/updatepersonality`, type)
 }
