@@ -50,7 +50,6 @@ const Login = () => {
 
       const { data } = await login(user)
       dispatch(USER_LOGIN({ id: data.id, token: data.hash, name: data.name, email: data.email }))
-      console.log(data)
     } catch (error) {
       console.log('Register error: ', error)
       toast.error(error.response.data.message)

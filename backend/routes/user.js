@@ -61,21 +61,45 @@ router.post("/createprofile", async (req, res) => {
   }
 });
 
+router.post("/loginwithtoken", async (req, res) => {
+  console.log("token");
+  const { token } = req.body;
+  console.log(token);
+  try {
+    var sql = `select id, name, email, role, hash from users where hash = '${token}'`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      if (result.length != 0) {
+        const { id, name, email, hash } = result[0];
+        return res.status(200).send({ id, name, email, hash });
+      } else {
+        res.status(400).send({ message: "Not Found" });
+      }
+    });
+  } catch (error) {
+    return res.status(500).send({ message: err.message });
+  }
+});
+
 router.get("/:email/:password", async (req, res) => {
   const { email, password } = req.params;
   try {
     var sql = `select id, name, email, role, hash from users where email = '${email}'`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
-      const { id, name, email, hash } = result[0];
-      bcrypt.compare(password, hash, (err, resp) => {
-        if (err) return res.status(400).send({ message: err.message });
-        if (!resp)
-          return res
-            .status(400)
-            .send({ message: "Email or Password is incorrect" });
-        return res.status(200).send({ id, name, email, hash });
-      });
+      if (result.length != 0) {
+        const { id, name, email, hash } = result[0];
+        bcrypt.compare(password, hash, (err, resp) => {
+          if (err) return res.status(400).send({ message: err.message });
+          if (!resp)
+            return res
+              .status(400)
+              .send({ message: "Email or Password is incorrect" });
+          return res.status(200).send({ id, name, email, hash });
+        });
+      } else {
+        res.status(400).send({ message: "Not Found" });
+      }
     });
   } catch (error) {
     return res.status(500).send({ message: err.message });
@@ -84,7 +108,6 @@ router.get("/:email/:password", async (req, res) => {
 
 router.put("/updatepersonality", async (req, res) => {
   const { id, type } = req.body;
-  console.log(id, type);
   try {
     var sql = `UPDATE users SET personality_type = '${type}' where id = '${id}'`;
     con.query(sql, (err, result) => {
