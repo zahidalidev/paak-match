@@ -1,24 +1,28 @@
 import { useRef, useState } from 'react'
 import Webcam from 'react-webcam'
+import { toast } from 'react-toastify'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
+import { addProfileImage, verifyProfileImages } from 'services/user'
 import Button from 'components/button'
 
 import sideImg from 'assets/Group 37302.png'
 
 import 'containers/register/styles.css'
 import 'containers/imageVerify/styles.css'
-import { toast } from 'react-toastify'
-import { addProfileImage, verifyProfileImages } from 'services/user'
-import { useSelector } from 'react-redux'
+import Loader from 'components/loader'
 
 const { innerHeight } = window
 
 const VerifyImage = () => {
-  let inputRef
-  const webcamRef = useRef(null)
   const [uploadedImage, setUploadedImage] = useState(null)
   const [imgSrc, setImgSrc] = useState(null)
   const [showCamera, setShowCamera] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+  let inputRef
+  const webcamRef = useRef(null)
   const user = useSelector(state => state.user)
 
   const handleUpload = () => {
@@ -32,8 +36,10 @@ const VerifyImage = () => {
   }
 
   const handlevarify = async () => {
+    setLoading(true)
     if (!imgSrc || !uploadedImage) {
       toast.error('Please select both images!')
+      setLoading(false)
       return
     } else {
       let data = new FormData()
@@ -46,8 +52,8 @@ const VerifyImage = () => {
         if (result) {
           let dataP = new FormData()
           dataP.append('file', uploadedImage)
-          const res = await addProfileImage(dataP, user.id)
-          console.log(res)
+          await addProfileImage(dataP, user.id)
+          navigate('/createprofile')
         } else {
           toast.error('Picture not verified try again!')
         }
@@ -55,12 +61,12 @@ const VerifyImage = () => {
         console.log('Verification error: ', error)
       }
     }
+    setLoading(false)
   }
-
-  console.log('uploadedImage: ', uploadedImage)
 
   return (
     <div className='d-flex flex-row container-fluid LoginWrapper justify-content-center align-items-center'>
+      <Loader show={loading} />
       <div className='d-flex col-md-6 flex-column align-items-center justify-content-end'>
         <div className='d-flex justify-content-center align-items-center'>
           <h2 className='auth-heading varify-paak'>PaakMatch!</h2>
