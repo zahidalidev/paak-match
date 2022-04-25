@@ -8,7 +8,8 @@ import sideImg from 'assets/Group 37302.png'
 import 'containers/register/styles.css'
 import 'containers/imageVerify/styles.css'
 import { toast } from 'react-toastify'
-import { verifyProfileImages } from 'services/user'
+import { addProfileImage, verifyProfileImages } from 'services/user'
+import { useSelector } from 'react-redux'
 
 const { innerHeight } = window
 
@@ -18,6 +19,7 @@ const VerifyImage = () => {
   const [uploadedImage, setUploadedImage] = useState(null)
   const [imgSrc, setImgSrc] = useState(null)
   const [showCamera, setShowCamera] = useState(false)
+  const user = useSelector(state => state.user)
 
   const handleUpload = () => {
     inputRef.click()
@@ -40,8 +42,15 @@ const VerifyImage = () => {
       data.append('image2', uploadedImage)
 
       try {
-        const res = await verifyProfileImages(data)
-        console.log(res)
+        const { data: result } = await verifyProfileImages(data)
+        if (result) {
+          let dataP = new FormData()
+          dataP.append('file', uploadedImage)
+          const res = await addProfileImage(dataP, user.id)
+          console.log(res)
+        } else {
+          toast.error('Picture not verified try again!')
+        }
       } catch (error) {
         console.log('Verification error: ', error)
       }

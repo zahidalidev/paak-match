@@ -18,5 +18,8 @@ export const addPersonality = async type =>
 export const verifyProfileImages = async data =>
   await axios.post(`${pythonBaseURL}/verifyimages`, data)
 
+export const addProfileImage = async (file, id) =>
+  await axios.post(`${nodeBaseURL}/user/userprofile/${id}`, file)
+
 export const LoginWithToken = async token =>
   await axios.post(`${nodeBaseURL}/user/loginwithtoken`, token)

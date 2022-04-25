@@ -2,8 +2,22 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const con = require("../config/db");
+const multer = require("multer");
+const fs = require("fs-extra");
 
 const router = express.Router();
+
+// saving file
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./assets/images/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage });
 
 router.post("/", async (req, res) => {
   const { name, email, contactNumber, password } = req.body;
@@ -25,6 +39,23 @@ router.post("/", async (req, res) => {
     });
   } catch (error) {
     return res.status(500).send({ message: err.message });
+  }
+});
+
+router.post("/userprofile/:id", upload.single("file"), async (req, res) => {
+  const imgPath = req.file.path.replace("assets\\", "");
+  const { id } = req.params;
+  console.log("imgPath: ", imgPath, id);
+
+  try {
+    var sql = `INSERT INTO profileDetails (user_id, image) VALUES ('${id}', '${imgPath}')`;
+
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      return res.status(200).send(`${result.affectedRows} Affected`);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
   }
 });
 
@@ -112,7 +143,6 @@ router.put("/updatepersonality", async (req, res) => {
     var sql = `UPDATE users SET personality_type = '${type}' where id = '${id}'`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
-      // console.log(result);
       return res.status(200).send(`${result.affectedRows} Affected`);
     });
   } catch (error) {

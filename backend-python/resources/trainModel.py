@@ -5,8 +5,6 @@ import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from flask_restful import Resource
 from flask import request
-from bson import json_util
-import json
 
 class TrainModel(Resource):
 

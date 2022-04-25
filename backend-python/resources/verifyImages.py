@@ -27,6 +27,8 @@ class VerifyImages(Resource):
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 images.append(image)
 
+            print(len(images))
+
             if(len(images) != 2):
                 raise Exception("Verification failed, Two faces are required!")
 
