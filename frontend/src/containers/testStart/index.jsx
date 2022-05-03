@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 import Button from 'components/button'
 
 import testimg1 from 'assets/teststartimg.png'
@@ -5,7 +7,9 @@ import testimg1 from 'assets/teststartimg.png'
 import 'containers/testStart/styles.css'
 
 const TestStart = () => {
+  const navigate = useNavigate()
   const { innerHeight } = window
+
   return (
     <div
       style={{ height: innerHeight - 150 }}
@@ -27,7 +31,7 @@ const TestStart = () => {
 
           <p className='test-start-d'>Take our official Test to find out your type:</p>
           <div className='test-start-bnt'>
-            <Button width='20rem' title='Let’s Begin' />
+            <Button onClick={() => navigate('/test')} width='20rem' title='Let’s Begin' />
           </div>
         </div>
       </div>

@@ -1,13 +1,10 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const con = require("../config/db");
 const multer = require("multer");
-const fs = require("fs-extra");
 
 const router = express.Router();
 
-// saving file
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./assets/images/");
@@ -43,13 +40,10 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/userprofile/:id", upload.single("file"), async (req, res) => {
-  const imgPath = req.file.path.replace("assets\\", "");
+  const imgPath = req.file.path.replace("assets/", "");
   const { id } = req.params;
-  console.log("imgPath: ", imgPath, id);
-
   try {
     var sql = `INSERT INTO profileDetails (user_id, image) VALUES ('${id}', '${imgPath}')`;
-
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
       return res.status(200).send(`${result.affectedRows} Affected`);
@@ -59,7 +53,33 @@ router.post("/userprofile/:id", upload.single("file"), async (req, res) => {
   }
 });
 
-router.post("/createprofile", async (req, res) => {
+router.post("/addpartnerpreferences", async (req, res) => {
+  const {
+    userID,
+    age,
+    height,
+    maritalStatus,
+    motherTongue,
+    religion,
+    income,
+    occupation,
+    city,
+    education,
+    caste,
+  } = req.body;
+  console.log(req.body);
+  try {
+    var sql = `INSERT INTO paakmatch.preferences VALUES (${userID}, '${age}', '${height}', '${maritalStatus}', '${motherTongue}', '${religion}', '${income}', '${occupation}', '${education}', '${city}', '${caste}');`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      return res.status(200).send(`${result.affectedRows} Affected`);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+});
+
+router.put("/createprofile", async (req, res) => {
   const {
     userID,
     city,
@@ -77,11 +97,8 @@ router.post("/createprofile", async (req, res) => {
     about,
   } = req.body;
 
-  const img =
-    "https://www.hygradebusiness.com/assets/media/2017/11/hygrade_analytics_blog.jpg";
-
   try {
-    var sql = `INSERT INTO profileDetails VALUES ('${userID}', '${DOB}', '${religion}', '${motherTongue}', '${gender}', '${maritalStatus}', '${height}', '${caste}','${subCaste}','${education}','${occupation}','${income}','${about}','${city}','${img}')`;
+    var sql = `UPDATE profileDetails SET DOB = '${DOB}', religion = '${religion}', mother_tongue = '${motherTongue}', gender = '${gender}', marital_status = '${maritalStatus}', height = '${height}', caste = '${caste}', sub_caste = '${subCaste}', education = '${education}', occupation = '${occupation}', income = '${income}', about = '${about}', city = '${city}' where user_id = '${userID}'`;
 
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
@@ -95,7 +112,6 @@ router.post("/createprofile", async (req, res) => {
 router.post("/loginwithtoken", async (req, res) => {
   console.log("token");
   const { token } = req.body;
-  console.log(token);
   try {
     var sql = `select id, name, email, role, hash from users where hash = '${token}'`;
     con.query(sql, (err, result) => {

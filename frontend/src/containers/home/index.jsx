@@ -1,15 +1,37 @@
-import Button from 'components/button'
+import { useEffect, useState } from 'react'
 import { Card } from '@material-ui/core'
 import { useLocation } from 'react-router-dom'
-import { ArrowForward } from '@mui/icons-material'
-import { newMatches, recentMatches, sideBarHomeMenues } from 'utils/constants'
+import { sideBarHomeMenues } from 'utils/constants'
+import { useSelector } from 'react-redux'
+
+import Button from 'components/button'
+import { matchedUserProfile } from 'services/profile'
 
 import profileImg from 'assets/Ellipse 13.png'
 
 import 'containers/home/styles.css'
+import { toast } from 'react-toastify'
+import { nodeBaseURL } from 'config/baseURL'
 
 const Home = () => {
   const { pathname } = useLocation()
+  const user = useSelector(state => state.user)
+  const [matches, setMatches] = useState([])
+
+  const getMatchedProfiles = async () => {
+    try {
+      const { data } = await matchedUserProfile(user.id)
+      setMatches(data)
+      console.log('data: ', data)
+    } catch (error) {
+      console.log(error)
+      toast.error(error)
+    }
+  }
+
+  useEffect(() => {
+    getMatchedProfiles()
+  }, [user])
 
   return (
     <div className='d-flex align-items-center justify-content-center home-container'>
@@ -41,7 +63,7 @@ const Home = () => {
           </div>
         </div>
         <div className='d-flex flex-column col-md-9'>
-          <div className='d-flex flex-column recent-h p-4'>
+          {/* <div className='d-flex flex-column recent-h p-4'>
             <div className='d-flex flex-row align-items-center'>
               <h5 className='recent-heading-h'>Recent Matches</h5>
               <div className='d-flex flex-row align-items-center'>
@@ -60,35 +82,31 @@ const Home = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
           <div className='d-flex flex-column new-matches-h p-4'>
             <div className='d-flex flex-row align-items-center'>
               <div className='d-flex flex-column'>
-                <h5 className='recent-heading-h'>12 New Matches</h5>
-                <h5 className='new-match-heading-h'>PAAKMATCH Members recently joined</h5>
-              </div>
-              <div className='d-flex flex-row align-items-center'>
-                <h5 className='recent-sub-heading-h'>View All</h5>
-                <ArrowForward sx={{ height: 25, width: 25 }} />
+                <h5 className='recent-heading-h'>Matches</h5>
+                <h5 className='new-match-heading-h'>PAAKMATCH Members</h5>
               </div>
             </div>
             <div className='d-flex flex-row recent-h-container'>
-              {newMatches.map((item, index) => (
+              {matches.map((item, index) => (
                 <div
                   key={index.toString()}
-                  className='d-flex matches-h-wrapper flex-column justify-content-center align-items-start '
+                  className='d-flex matches-h-wrapper col-md-2 flex-column justify-content-center align-items-start '
                 >
-                  <img className='matches-profile-img' src={item.profileImg} />
+                  <img className='matches-profile-img' src={nodeBaseURL + '/' + item.image} />
                   <h5 className='recent-profile-c matches-name'>{item.name}</h5>
                   <p className='matches-profile-c'>
-                    {item.age}, Type: {item.type}
+                    {item.points * 10}%, Type: {item.personality_type}
                   </p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className='d-flex flex-column new-matches-h p-4'>
+          {/* <div className='d-flex flex-column new-matches-h p-4'>
             <div className='d-flex flex-row align-items-center'>
               <div className='d-flex flex-column'>
                 <h5 className='recent-heading-h'>100 Total Matches</h5>
@@ -113,7 +131,7 @@ const Home = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

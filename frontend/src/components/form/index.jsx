@@ -1,21 +1,23 @@
+import { useState } from 'react'
+import { toast } from 'react-toastify'
+import { updateUserProfile } from 'services/user'
+import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import Button from 'components/button'
+import Input from 'components/common/Input'
+import Loader from 'components/loader'
+import { useNavigate } from 'react-router-dom'
 
 import prof1Icon from 'assets/basic.png'
 import casteIcon from 'assets/caste.png'
 import professionIcon from 'assets/prof.png'
 import bioIcon from 'assets/bio.png'
-import Input from 'components/common/Input'
 
 import 'components/form/styles.css'
-import { useState } from 'react'
-import { toast } from 'react-toastify'
-import { createProfile } from 'services/user'
-import { useSelector } from 'react-redux'
 
 const InfoHeading = ({ title, icon }) => (
   <div className='d-flex col-md-12 flex-row mt-3 align-items-center justify-content-center'>
@@ -38,6 +40,8 @@ const InfoHeading = ({ title, icon }) => (
 
 const Form = () => {
   const user = useSelector(state => state.user)
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
   const [profData, setProfData] = useState({
     city: '',
     DOB: '',
@@ -61,21 +65,24 @@ const Form = () => {
   }
 
   const handleSubmit = async () => {
+    setLoading(true)
     const tempObj = { ...profData }
     tempObj.userID = user.id
-
     try {
-      const { data } = await createProfile(tempObj)
-      console.log(data)
+      await updateUserProfile(tempObj)
+      setLoading(false)
+      navigate('/preferences')
     } catch (error) {
       console.log('Create Profile error: ', error)
       toast.error(error.response.data.message)
     }
+    setLoading(false)
   }
 
   return (
     <>
       <section className='d-flex flex-column mt-5 justify-content-center align-items-center'>
+        <Loader show={loading} />
         <InfoHeading title='Basic Information' icon={prof1Icon} />
 
         <div
@@ -564,10 +571,9 @@ const Form = () => {
                 <MenuItem value='' selected='selected' disabled={true}>
                   Enter Income (PKR)
                 </MenuItem>
-                <MenuItem value='less than 20,000'>less than 20,000</MenuItem>
                 <MenuItem value='20,000-30,000'>20,000-30,000</MenuItem>
                 <MenuItem value='30,000-40,000'>30,000-40,000</MenuItem>
-                <MenuItem value='notdefined2'>40,000-50,000</MenuItem>
+                <MenuItem value='40,000-50,000'>40,000-50,000</MenuItem>
                 <MenuItem value='notdefined2'>50,000-60,000</MenuItem>
                 <MenuItem value='notdefined2'>60,000-70,000</MenuItem>
                 <MenuItem value='notdefined2'>70,000-80,000</MenuItem>
@@ -584,7 +590,11 @@ const Form = () => {
                 <MenuItem value='notdefined2'>1,70,000-1,80,000</MenuItem>
                 <MenuItem value='notdefined2'>1,80,000-1,90,000</MenuItem>
                 <MenuItem value='notdefined2'>1,90,000-2,00,000</MenuItem>
-                <MenuItem value='notdefined2'>more than 2,00,000</MenuItem>
+                <MenuItem value='notdefined2'>2,00,000-3,00,000</MenuItem>
+                <MenuItem value='notdefined2'>3,00,000-4,00,000</MenuItem>
+                <MenuItem value='notdefined2'>4,00,000-5,00,000</MenuItem>
+                <MenuItem value='notdefined2'>5,00,000-10,00,000</MenuItem>
+                <MenuItem value='notdefined2'>10,00,000-20,00,000</MenuItem>
               </Select>
             </FormControl>
           </div>

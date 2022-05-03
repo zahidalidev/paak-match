@@ -3,26 +3,24 @@ import { ArrowForward } from '@material-ui/icons'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
-// import FormControl from '@mui/material/FormControl'
+import { toast } from 'react-toastify'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import Button from 'components/button'
+import { itemsPerPage, personalitiesCombinations } from 'utils/constants'
+import { addPersonality, detectPersonality } from 'services/user'
 
 import 'containers/test/styles.css'
-import Button from 'components/button'
-import { toast } from 'react-toastify'
-import { addPersonality, detectPersonality } from 'services/user'
-import { useSelector } from 'react-redux'
-
-const itemsPerPage = 12
-const personalitiesCombinations = [
-  ['E', 'I'],
-  ['S', 'N'],
-  ['T', 'F'],
-  ['J', 'P']
-]
+import Loader from 'components/loader'
 
 const Test = () => {
   const [endOffset, setEndOffset] = useState(itemsPerPage)
   const [itemOffset, setItemOffset] = useState(0)
   const user = useSelector(state => state.user)
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
+  const [backButton, setBackButton] = useState(false)
 
   const [questionsData, setQuestionsData] = useState([
     {
@@ -318,6 +316,8 @@ const Test = () => {
   const handleNext = async () => {
     const tempChoices = [...questionsData]
     if (endOffset < tempChoices.length) {
+      window.scrollTo(0, 0)
+      setBackButton(true)
       setItemOffset(itemOffset + itemsPerPage)
       setEndOffset(endOffset + itemsPerPage)
     } else if (endOffset === tempChoices.length) {
@@ -330,7 +330,21 @@ const Test = () => {
     }
   }
 
+  const handleBack = () => {
+    if (itemOffset > 0) {
+      window.scrollTo(0, 0)
+      setItemOffset(itemOffset - itemsPerPage)
+      setEndOffset(endOffset - itemsPerPage)
+    }
+    if (itemOffset <= 12) {
+      setBackButton(false)
+    } else {
+      setBackButton(true)
+    }
+  }
+
   const handleSubmit = async () => {
+    setLoading(true)
     let choices1 = []
     let choices2 = []
     let choices3 = []
@@ -347,18 +361,14 @@ const Test = () => {
       data.forEach((element, index) => {
         predictedPersonality += personalitiesCombinations[index][element]
       })
-      const { data: res } = await addPersonality({ id: user.id, type: predictedPersonality })
-      console.log(res, user)
+      await addPersonality({ id: user.id, type: predictedPersonality })
+      setLoading(false)
+      navigate('/home')
     } catch (error) {
+      toast.error(error.response.data.message)
       console.log(error)
     }
-  }
-
-  const handleBack = () => {
-    if (itemOffset > 0) {
-      setItemOffset(itemOffset - itemsPerPage)
-      setEndOffset(endOffset - itemsPerPage)
-    }
+    setLoading(false)
   }
 
   const handleChange = (value, index) => {
@@ -369,6 +379,7 @@ const Test = () => {
 
   return (
     <div className='d-flex test-question-contaienr container-fluid flex-column justify-content-center align-items-center'>
+      <Loader show={loading} />
       {questionsData.slice(itemOffset, endOffset).map(item => (
         <div key={item.id.toString()} className='d-flex flex-column col-md-8 questions-wrapper'>
           <div className='d-flex flex-column justify-content-center align-items-center  mt-3 range-pref-b'>
@@ -403,9 +414,7 @@ const Test = () => {
         </div>
       ))}
       <div className='d-flex flex-row next-btn-wrapper'>
-        <div>
-          <Button title='BACK' width='15rem' onClick={handleBack} />
-        </div>
+        <div>{backButton && <Button title='BACK' width='15rem' onClick={handleBack} />}</div>
         <div className='ml-3'>
           <Button title='NEXT' width='15rem' onClick={handleNext} />
         </div>

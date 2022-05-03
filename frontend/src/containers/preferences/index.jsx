@@ -1,14 +1,61 @@
+import { useState } from 'react'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
+import { toast } from 'react-toastify'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 import Input from 'components/common/Input'
-import 'containers/preferences/styles.css'
 import Button from 'components/button'
+import Loader from 'components/loader'
+import { addPartnerPreferences } from 'services/user'
+
+import 'containers/preferences/styles.css'
 
 const Preferences = () => {
+  const [loading, setLoading] = useState(false)
+  const user = useSelector(state => state.user)
+  const navigate = useNavigate()
+
+  const [profData, setProfData] = useState({
+    age: '',
+    height: '',
+    maritalStatus: '',
+    motherTongue: '',
+    religion: '',
+    income: '',
+    occupation: '',
+    city: '',
+    education: '',
+    caste: ''
+  })
+
+  const handleChange = (value, key) => {
+    const tempFeilds = { ...profData }
+    tempFeilds[key] = value
+    setProfData(tempFeilds)
+  }
+
+  const handleSubmit = async () => {
+    setLoading(true)
+    const tempObj = { ...profData }
+    tempObj.userID = user.id
+    try {
+      await addPartnerPreferences(tempObj)
+      setLoading(false)
+      navigate('/teststart')
+    } catch (error) {
+      console.log('Create Profile error: ', error)
+      toast.error(error.response.data.message)
+    }
+    setLoading(false)
+  }
+
   return (
     <div className='d-flex preferences-wrapper container-fluid justify-content-center align-items-center'>
+      <Loader show={loading} />
       <div className='d-flex col-md-6 flex-column preferences-container justify-content-end align-items-end'>
         <div className='d-flex col-md-12 flex-column'>
           <p className='pref-h'>Partner Preferences</p>
@@ -30,7 +77,13 @@ const Preferences = () => {
               <h6 style={{ marginBottom: '-2rem', fontSize: '1rem' }}>Age Range</h6>
             </div>
             <div className='d-flex col-md-9'>
-              <Input width='35rem' height='45px' title='20-25' />
+              <Input
+                handleChange={e => handleChange(e.target.value, 'age')}
+                value={profData.age}
+                width='35rem'
+                height='45px'
+                title='20-25'
+              />
             </div>
           </div>
           <div className='d-flex col-md-11 range-pref-b'></div>
@@ -39,7 +92,13 @@ const Preferences = () => {
               <h6 style={{ marginBottom: '-2rem', fontSize: '1rem' }}>Height Range</h6>
             </div>
             <div className='d-flex col-md-9'>
-              <Input width='35rem' height='45px' title='50-55 in inch' />
+              <Input
+                handleChange={e => handleChange(e.target.value, 'height')}
+                value={profData.height}
+                width='35rem'
+                height='45px'
+                title='50-55 in inch'
+              />
             </div>
           </div>
           <div className='d-flex col-md-11 range-pref-b'></div>
@@ -56,9 +115,9 @@ const Preferences = () => {
                   style={{ height: 50 }}
                   labelId='demo-simple-select-label'
                   id='demo-simple-select'
-                  // value={age}
-                  label='Religion'
-                  // onChange={handleChange}
+                  label='Marital Status'
+                  onChange={e => handleChange(e.target.value, 'maritalStatus')}
+                  value={profData.maritalStatus}
                 >
                   <MenuItem value='Never Married'>Never Married</MenuItem>
                   <MenuItem value='Widowed'>Widowed</MenuItem>
@@ -81,20 +140,20 @@ const Preferences = () => {
                   style={{ height: 50 }}
                   labelId='demo-simple-select-label'
                   id='demo-simple-select'
-                  // value={age}
-                  label='Religion'
-                  // onChange={handleChange}
+                  onChange={e => handleChange(e.target.value, 'motherTongue')}
+                  value={profData.motherTongue}
+                  label='Mother Tongue'
                 >
                   <MenuItem value='' selected='selected' disabled='disabled'>
                     Select Mother Tongue
                   </MenuItem>
-                  <MenuItem value='UR'>Urdu</MenuItem>
-                  <MenuItem value='HI'>Hindi</MenuItem>
-                  <MenuItem value='PA'>Punjabi</MenuItem>
-                  <MenuItem value='SI'>Sindhi</MenuItem>
-                  <MenuItem value='BA'>Balochi</MenuItem>
-                  <MenuItem value='SA'>Saraiki</MenuItem>
-                  <MenuItem value='EN'>English</MenuItem>
+                  <MenuItem value='Urdu'>Urdu</MenuItem>
+                  <MenuItem value='Hindi'>Hindi</MenuItem>
+                  <MenuItem value='Punjabi'>Punjabi</MenuItem>
+                  <MenuItem value='Sindhi'>Sindhi</MenuItem>
+                  <MenuItem value='Balochi'>Balochi</MenuItem>
+                  <MenuItem value='Saraiki'>Saraiki</MenuItem>
+                  <MenuItem value='English'>English</MenuItem>
                   <MenuItem value='Other'>Other</MenuItem>
                 </Select>
               </FormControl>
@@ -114,21 +173,20 @@ const Preferences = () => {
                   style={{ height: 50 }}
                   labelId='demo-simple-select-label'
                   id='demo-simple-select'
-                  // value={age}
+                  onChange={e => handleChange(e.target.value, 'religion')}
+                  value={profData.religion}
                   label='Religion'
-                  // onChange={handleChange}
                 >
                   <MenuItem value='' selected='selected' disabled='disabled'>
                     Select Religion
                   </MenuItem>
-                  <MenuItem value='Agnostic'>Sunnis(Muslim)</MenuItem>
-                  <MenuItem value='Atheist'>Shia(Muslim)</MenuItem>
-                  <MenuItem value='Buddhism'>Wahabi(Muslim)</MenuItem>
-                  <MenuItem value='Christianity'>Brailvi(Muslim)</MenuItem>
-                  <MenuItem value='Hinduism'>Abbasi(Muslim)</MenuItem>
-                  <MenuItem value='Islam'>Deobandi(Muslim)</MenuItem>
-                  <MenuItem value='Judaism'>Hindu(Non-Muslim)</MenuItem>
-                  <MenuItem value='Judaism'>Christian(Non-Muslim)</MenuItem>
+                  <MenuItem value='Sunnis(Muslim)'>Sunnis(Muslim)</MenuItem>
+                  <MenuItem value='Shia(Muslim)'>Shia(Muslim)</MenuItem>
+                  <MenuItem value='Wahabi(Muslim)'>Wahabi(Muslim)</MenuItem>
+                  <MenuItem value='Brailvi(Muslim)'>Brailvi(Muslim)</MenuItem>
+                  <MenuItem value='Abbasi(Muslim)'>Abbasi(Muslim)</MenuItem>
+                  <MenuItem value='Deobandi(Muslim)'>Deobandi(Muslim)</MenuItem>
+                  <MenuItem value='Any(Muslim)'>Any(Muslim)</MenuItem>
                   <MenuItem value='Other'>Other</MenuItem>
                 </Select>
               </FormControl>
@@ -148,17 +206,16 @@ const Preferences = () => {
                   style={{ height: 50 }}
                   labelId='demo-simple-select-label'
                   id='demo-simple-select'
-                  // value={age}
+                  onChange={e => handleChange(e.target.value, 'income')}
+                  value={profData.income}
                   label='Income'
-                  // onChange={handleChange}
                 >
                   <MenuItem value='' selected='selected' disabled='disabled'>
                     Enter Income (PKR)
                   </MenuItem>
-                  <MenuItem value='notdefined2'>less than 20,000</MenuItem>
-                  <MenuItem value='notdefined2'>20,000-30,000</MenuItem>
-                  <MenuItem value='notdefined2'>30,000-40,000</MenuItem>
-                  <MenuItem value='notdefined2'>40,000-50,000</MenuItem>
+                  <MenuItem value='20,000-30,000'>20,000-30,000</MenuItem>
+                  <MenuItem value='30,000-40,000'>30,000-40,000</MenuItem>
+                  <MenuItem value='40,000-50,000'>40,000-50,000</MenuItem>
                   <MenuItem value='notdefined2'>50,000-60,000</MenuItem>
                   <MenuItem value='notdefined2'>60,000-70,000</MenuItem>
                   <MenuItem value='notdefined2'>70,000-80,000</MenuItem>
@@ -175,7 +232,11 @@ const Preferences = () => {
                   <MenuItem value='notdefined2'>1,70,000-1,80,000</MenuItem>
                   <MenuItem value='notdefined2'>1,80,000-1,90,000</MenuItem>
                   <MenuItem value='notdefined2'>1,90,000-2,00,000</MenuItem>
-                  <MenuItem value='notdefined2'>more than 2,00,000</MenuItem>
+                  <MenuItem value='notdefined2'>2,00,000-3,00,000</MenuItem>
+                  <MenuItem value='notdefined2'>3,00,000-4,00,000</MenuItem>
+                  <MenuItem value='notdefined2'>4,00,000-5,00,000</MenuItem>
+                  <MenuItem value='notdefined2'>5,00,000-10,00,000</MenuItem>
+                  <MenuItem value='notdefined2'>10,00,000-20,00,000</MenuItem>
                 </Select>
               </FormControl>
             </div>
@@ -194,9 +255,9 @@ const Preferences = () => {
                   style={{ height: 50 }}
                   labelId='demo-simple-select-label'
                   id='demo-simple-select'
-                  // value={age}
+                  onChange={e => handleChange(e.target.value, 'occupation')}
+                  value={profData.occupation}
                   label='Occupation'
-                  // onChange={handleChange}
                 >
                   <MenuItem value='1'>- Chiropractor</MenuItem>
                   <MenuItem value='2'>- Dentist</MenuItem>
@@ -320,7 +381,13 @@ const Preferences = () => {
               <h6 style={{ marginBottom: '-2rem', fontSize: '1rem' }}>City</h6>
             </div>
             <div className='d-flex col-md-9'>
-              <Input width='35rem' height='45px' title='City Name' />
+              <Input
+                handleChange={e => handleChange(e.target.value, 'city')}
+                value={profData.city}
+                width='35rem'
+                height='45px'
+                title='City Name'
+              />
             </div>
           </div>
           <div className='d-flex col-md-11 range-pref-b'></div>
@@ -338,9 +405,9 @@ const Preferences = () => {
                   style={{ height: 50 }}
                   labelId='demo-simple-select-label'
                   id='demo-simple-select'
-                  // value={age}
-                  label='Religion'
-                  // onChange={handleChange}
+                  onChange={e => handleChange(e.target.value, 'education')}
+                  value={profData.education}
+                  label='Education'
                 >
                   <MenuItem value='' selected='selected' disabled='disabled'>
                     Select Education
@@ -352,16 +419,64 @@ const Preferences = () => {
                   </MenuItem>
                   <MenuItem value='GED'>GED</MenuItem>
                   <MenuItem value='Vocational qualification'>Vocational qualification</MenuItem>
-                  <MenuItem value="Bachelor's degree">Bachelor&apos;s degree</MenuItem>
-                  <MenuItem value="Master's degree">Master&apos;s degree</MenuItem>
+                  <MenuItem value='Bachelor degree'>Bachelor&apos;s degree</MenuItem>
+                  <MenuItem value='Master degree'>Master&apos;s degree</MenuItem>
                   <MenuItem value='Doctorate or higher'>Doctorate or higher</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+          </div>
+          <div className='d-flex col-md-11 range-pref-b'></div>
+
+          <div className='d-flex col-md-12 mt-3 flex-row align-items-center'>
+            <div className='d-flex col-md-3'>
+              <h6 style={{ fontSize: '1rem' }}>Caste</h6>
+            </div>
+            <div className='d-flex col-md-9'>
+              <FormControl style={{ width: '33rem', marginLeft: 9 }}>
+                <InputLabel style={{ fontSize: 15, marginTop: -2 }} id='demo-simple-select-label'>
+                  Caste
+                </InputLabel>
+                <Select
+                  style={{ height: 50 }}
+                  labelId='demo-simple-select-label'
+                  id='demo-simple-select'
+                  onChange={e => handleChange(e.target.value, 'caste')}
+                  value={profData.caste}
+                  label='Caste'
+                >
+                  <MenuItem value='' selected='selected' disabled={true}>
+                    Select Caste
+                  </MenuItem>
+                  <MenuItem value='Ansari'>Ansari</MenuItem>
+                  <MenuItem value='Arain'>Arain</MenuItem>
+                  <MenuItem value='Awan'>Awan</MenuItem>
+                  <MenuItem value='Bohra'>Bohra</MenuItem>
+                  <MenuItem value='Hanafi'>Hanafi</MenuItem>
+                  <MenuItem value='Jat'>Jat</MenuItem>
+                  <MenuItem value='Khoja'>Khoja</MenuItem>
+                  <MenuItem value='Lebbai'>Lebbai</MenuItem>
+                  <MenuItem value='Malik'>Malik</MenuItem>
+                  <MenuItem value='Arain'>Arain</MenuItem>
+                  <MenuItem value='Memon'>Memon</MenuItem>
+                  <MenuItem value='Mughal'>Mughal</MenuItem>
+                  <MenuItem value='Qureshi'>Qureshi</MenuItem>
+                  <MenuItem value='Rajput'>Rajput</MenuItem>
+                  <MenuItem value='Pathan'>Pathan</MenuItem>
+                  <MenuItem value='Rowther'>Rowther</MenuItem>
+                  <MenuItem value='Shafi'>Shafi</MenuItem>
+                  <MenuItem value='Sheikh'>Sheikh</MenuItem>
+                  <MenuItem value='Siddiqui'>Siddiqui</MenuItem>
+                  <MenuItem value='Syed'>Syed</MenuItem>
+                  <MenuItem value='Any'>Any</MenuItem>
+                  <MenuItem value='Other'>Other</MenuItem>
                 </Select>
               </FormControl>
             </div>
           </div>
 
           <center style={{ marginBottom: '2rem', marginTop: '2.5rem' }}>
-            <Button title='Submit' />
+            <Button title='Submit' onClick={handleSubmit} />
           </center>
         </div>
       </div>

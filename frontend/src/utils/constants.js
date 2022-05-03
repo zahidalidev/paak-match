@@ -8,6 +8,15 @@ import prof2 from 'assets/Rectangle34.png'
 
 export const momentVideo = 'https://www.youtube.com/embed/PaUqCS1Tsxg?controls=0'
 
+export const itemsPerPage = 12
+
+export const personalitiesCombinations = [
+  ['E', 'I'],
+  ['S', 'N'],
+  ['T', 'F'],
+  ['J', 'P']
+]
+
 export const sideBarHomeMenues = [
   {
     title: 'Home',
