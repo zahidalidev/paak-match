@@ -222,3 +222,22 @@ export const SendIcon = (
     <Send sx={{ height: 22, width: 22 }} style={{ color: '#ffffff' }} />
   </div>
 )
+
+export const CompaTable = {
+  ISTJ: 'The extrovert personalities and laid-back traits work alongside the sometimes serious nature of the ISTJ',
+  INTJ: 'Their relaxed nature lets them appreciate the INTJ’s independence & they can support them in social situations',
+  ISFJ: 'ISFJs nurturing, planning traits are balanced nicely by these extrovert personalities',
+  INFJ: 'Compatible with a range of personalities as they are good, instinctive listeners',
+  ISTP: 'ISTPs live in the present, whilst the extrovert types enjoy planning which makes for a balanced relationship',
+  ISFP: 'The ISFP benefits from the structure that the ESTJ or ESFJ can bring to their lives',
+  INFP: 'INFPs are led by feelings, which these extrovert types can intuitively understand',
+  INTP: 'The INTP needs space, and these extrovert types know when to step back and let them breathe',
+  ESTP: 'ESTPs can help the introvert to enjoy new experiences with them, and both types are not swayed by their emotions',
+  ESFP: 'ESFPs will take the ISTJ & ISFP’s introversion as a challenge, creating a fun relationship or companionship',
+  ENFP: 'These introverts can balance out the impulsiveness of the ENFP',
+  ENTP: 'Both the ENTP and the introvert types here have a passion and appreciation of knowledge',
+  ESTJ: 'These types are not overly emotional, but the ESTJ’s need for structure balances the introverts laid back ways',
+  ESFJ: 'Driven by emotion, the ESFJ needs the logic of the ISFP or ISTP to create a well-rounded dynamic',
+  ENFJ: 'The ENFJ and these introverts are equally intuitive, so can easily cater to each other’s needs within a relationship',
+  ENTJ: 'ENTJs aren’t comfortable discussing emotional topics, which these introverts understand'
+}

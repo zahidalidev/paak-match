@@ -17,6 +17,7 @@ import { nodeBaseURL } from 'config/baseURL'
 import { getProfileDetails } from 'services/profile'
 import { toast } from 'react-toastify'
 import Loader from 'components/loader'
+import { CompaTable } from 'utils/constants'
 
 const BorderLinearProgress = styled(LinearProgress)(() => ({
   height: 10,
@@ -118,7 +119,7 @@ const UserProfile = () => {
           details: [
             {
               title: 'Compatibility',
-              des: 'INFP x INJT: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
+              des: CompaTable[currentprofileDetail.personality_type],
               icon: true
             }
           ]
