@@ -217,48 +217,6 @@ export const recentMatches = [
   }
 ]
 
-export const profileDetails = [
-  {
-    heading: 'Basic preferences',
-    details: [
-      { title: 'Age', des: '22 - 26 yrs', icon: true },
-      { title: 'Height', des: '65 - 75 inch', icon: true },
-      { title: 'Marital Status', des: 'Any', icon: false },
-      { title: 'Mother Tongue', des: 'Urdu, Hindi, English', icon: false }
-    ]
-  },
-  {
-    heading: 'Regious Status',
-    details: [
-      {
-        title: 'Religion',
-        des: 'Muslim',
-        icon: true
-      }
-    ]
-  },
-  {
-    heading: 'Location Preference',
-    details: [
-      {
-        title: 'Lives in',
-        des: 'Pakistan',
-        icon: true
-      }
-    ]
-  },
-  {
-    heading: 'Personality type',
-    details: [
-      {
-        title: 'Compatibility',
-        des: 'INFP x INJT: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.',
-        icon: true
-      }
-    ]
-  }
-]
-
 export const SendIcon = (
   <div style={{ backgroundColor: '#5D46C2', padding: 6, borderRadius: 5 }}>
     <Send sx={{ height: 22, width: 22 }} style={{ color: '#ffffff' }} />

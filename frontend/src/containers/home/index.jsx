@@ -3,6 +3,7 @@ import { Card } from '@material-ui/core'
 import { useLocation } from 'react-router-dom'
 import { sideBarHomeMenues } from 'utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import Button from 'components/button'
 import { matchedUserProfile } from 'services/profile'
@@ -18,6 +19,7 @@ const Home = () => {
   const user = useSelector(state => state.user)
   const { currentprofileDetail, matchedProfiles } = useSelector(state => state.profile)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const getMatchedProfiles = async () => {
     try {
@@ -34,7 +36,7 @@ const Home = () => {
   useEffect(() => {
     getMatchedProfiles()
   }, [user])
-  console.log(currentprofileDetail)
+
   return (
     <div className='d-flex align-items-center justify-content-center home-container'>
       <div className='d-flex flex-row col-md-10 align-items-start'>
@@ -80,6 +82,7 @@ const Home = () => {
             <div className='d-flex flex-row recent-h-container'>
               {matchedProfiles.map((item, index) => (
                 <div
+                  onClick={() => navigate(`/profile/${item.id}`)}
                   key={index.toString()}
                   className='d-flex matches-h-wrapper col-md-2 flex-column justify-content-center align-items-start '
                 >

@@ -15,7 +15,7 @@ import Test from 'containers/test'
 const routeList = [
   { path: '/home', component: <Home /> },
   { path: '/landing', component: <LandingPage /> },
-  { path: '/profile', component: <UserProfile /> },
+  { path: '/profile/:id', component: <UserProfile /> },
   { path: '/chat', component: <Chat /> },
   { path: '/createprofile', component: <ProfileCreation /> },
   { path: '/register', component: <Register /> },

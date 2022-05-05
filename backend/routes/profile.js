@@ -21,7 +21,7 @@ router.get("/:id", async (req, res) => {
         con.query(sql, (err, result) => {
           if (err) return res.status(400).send({ message: err.sqlMessage });
           currentUserDetailsPref = { ...currentUserDetailsPref, ...result[0] };
-          sql = `select DOB, height, personality_type, marital_status, mother_tongue, religion, income, occupation, education, city, caste, image from users u JOIN profileDetails p on u.id = p.user_id where gender = '${
+          sql = `select id, DOB, height, personality_type, marital_status, mother_tongue, religion, income, occupation, education, city, caste, image from users u JOIN profileDetails p on u.id = p.user_id where gender = '${
             currentUserDetailsPref.gender
           }' AND personality_type IN ${
             table[currentUserDetailsPref.personality_type]
@@ -29,6 +29,7 @@ router.get("/:id", async (req, res) => {
           con.query(sql, (err, result) => {
             if (err) return res.status(400).send({ message: err.sqlMessage });
             let matchedProfiles = [...result];
+
             [currentUserDetailsPref.height1, currentUserDetailsPref.height2] =
               currentUserDetailsPref.height_range.split("-");
             [currentUserDetailsPref.age1, currentUserDetailsPref.age2] =
@@ -60,6 +61,8 @@ router.get("/details/:id", async (req, res) => {
     var sql = `select * from users u JOIN profileDetails p on u.id = p.user_id where u.id = ${id}`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
+      const tempData = result[0];
+      tempData.age = getAge(tempData.DOB);
       return res.status(200).send(result[0]);
     });
   } catch (error) {
@@ -82,12 +85,15 @@ const getProfilesWithPoints = (currentUserDetailsPref, matchedProf) => {
   let matchedProfiles = [...matchedProf];
   matchedProfiles.forEach((obj, index) => {
     let points = 0;
+    let matchedKeys = [];
     for (let key in currentUserDetailsPref) {
       if (
         matchedProfiles[index][key] == currentUserDetailsPref[key] &&
-        key != "personality_type"
+        key != "personality_type" &&
+        key != "id"
       ) {
         points++;
+        matchedKeys.push(key);
       }
 
       if (key == "age1") {
@@ -97,6 +103,7 @@ const getProfilesWithPoints = (currentUserDetailsPref, matchedProf) => {
           parseInt(matchedProfiles[index]["age"]) <= currentUserDetailsPref.age2
         ) {
           points++;
+          matchedKeys.push(key);
         }
       }
       if (key == "height1") {
@@ -107,10 +114,15 @@ const getProfilesWithPoints = (currentUserDetailsPref, matchedProf) => {
             currentUserDetailsPref.height2
         ) {
           points++;
+          matchedKeys.push(key);
         }
       }
     }
+    matchedProfiles[index]["age_range"] = currentUserDetailsPref.age_range;
+    matchedProfiles[index]["height_range"] =
+      currentUserDetailsPref.height_range;
     matchedProfiles[index]["points"] = points;
+    matchedProfiles[index]["matchedKeys"] = matchedKeys;
   });
 
   return matchedProfiles;
