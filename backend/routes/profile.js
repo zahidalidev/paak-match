@@ -6,7 +6,6 @@ const con = require("../config/db");
 const router = express.Router();
 
 router.get("/:id", async (req, res) => {
-  console.log("hhh");
   const { id } = req.params;
 
   try {
@@ -50,7 +49,22 @@ router.get("/:id", async (req, res) => {
         res.status(400).send({ message: "Not Found" });
       }
     });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).send({ message: err.message });
+  }
+});
+
+router.get("/details/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    var sql = `select * from users u JOIN profileDetails p on u.id = p.user_id where u.id = ${id}`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      return res.status(200).send(result[0]);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: err.message });
+  }
 });
 
 const getAge = (dateString) => {

@@ -9,6 +9,8 @@ import Routes from 'components/Routes'
 import { USER_LOGIN } from 'store/user'
 
 import 'react-toastify/dist/ReactToastify.css'
+import { getProfileDetails } from 'services/profile'
+import { ADD_CURRENT_PROFILE } from 'store/profiles'
 
 const App = () => {
   const { pathname } = useLocation()
@@ -19,8 +21,9 @@ const App = () => {
   const getUser = async token => {
     try {
       const { data } = await LoginWithToken(token)
-      console.log(data)
       dispatch(USER_LOGIN({ id: data.id, token: data.hash, name: data.name, email: data.email }))
+      const { data: details } = await getProfileDetails(data.id)
+      dispatch(ADD_CURRENT_PROFILE({ currentprofileDetail: details }))
     } catch (error) {
       console.log('Login Error: ', error)
       toast.error('User Login Faild, Try Again!')
