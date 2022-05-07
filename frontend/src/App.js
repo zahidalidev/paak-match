@@ -18,9 +18,9 @@ const App = () => {
   const dispatch = useDispatch()
   const showAppBar = pathname != '/createprofile'
 
-  const getUser = async token => {
+  const getUser = async body => {
     try {
-      const { data } = await LoginWithToken(token)
+      const { data } = await LoginWithToken(body)
       dispatch(USER_LOGIN({ id: data.id, token: data.hash, name: data.name, email: data.email }))
       const { data: details } = await getProfileDetails(data.id)
       console.log('app.js user: ', details)
@@ -34,8 +34,9 @@ const App = () => {
 
   useEffect(() => {
     let token = localStorage.getItem('token')
+    let email = localStorage.getItem('email')
     if (token) {
-      getUser({ token: JSON.parse(token) })
+      getUser({ token: JSON.parse(token), email: JSON.parse(email) })
     } else {
       navigate('/register')
     }

@@ -21,7 +21,7 @@ router.get("/:id", async (req, res) => {
         con.query(sql, (err, result) => {
           if (err) return res.status(400).send({ message: err.sqlMessage });
           currentUserDetailsPref = { ...currentUserDetailsPref, ...result[0] };
-          sql = `select id, DOB, height, personality_type, marital_status, mother_tongue, religion, income, occupation, education, city, caste, image from users u JOIN profileDetails p on u.id = p.user_id where gender = '${
+          sql = `select id, DOB, name, height, personality_type, marital_status, mother_tongue, religion, income, occupation, education, city, caste, image from users u JOIN profileDetails p on u.id = p.user_id where gender = '${
             currentUserDetailsPref.gender
           }' AND personality_type IN ${
             table[currentUserDetailsPref.personality_type]
@@ -105,7 +105,8 @@ const getProfilesWithPoints = (currentUserDetailsPref, matchedProf) => {
       if (
         matchedProfiles[index][key] == currentUserDetailsPref[key] &&
         key != "personality_type" &&
-        key != "id"
+        key != "id" &&
+        key != "name"
       ) {
         points++;
         matchedKeys.push(key);

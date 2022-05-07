@@ -17,7 +17,7 @@ const routeList = [
   { path: '/matches', component: <Matches /> },
   { path: '/home', component: <LandingPage /> },
   { path: '/profile/:id', component: <UserProfile /> },
-  { path: '/chat', component: <Chat /> },
+  { path: '/chat/:id1/:id2', component: <Chat /> },
   { path: '/createprofile', component: <ProfileCreation /> },
   { path: '/createprofile/:id', component: <ProfileCreation /> },
   { path: '/register', component: <Register /> },

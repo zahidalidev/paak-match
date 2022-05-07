@@ -144,7 +144,7 @@ const UserProfile = () => {
     if (currentprofileDetail.plan === null) {
       setSubModel(true)
     } else {
-      navigate('/chat')
+      navigate(`/chat/${currentprofileDetail.id}/${path.id}`)
     }
   }
 

@@ -27,5 +27,5 @@ export const updatePartnerPreferences = async data =>
 export const addProfileImage = async (file, id) =>
   await axios.post(`${nodeBaseURL}/api/user/userprofile/${id}`, file)
 
-export const LoginWithToken = async token =>
-  await axios.post(`${nodeBaseURL}/api/user/loginwithtoken`, token)
+export const LoginWithToken = async body =>
+  await axios.post(`${nodeBaseURL}/api/user/loginwithtoken`, body)

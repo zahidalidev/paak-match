@@ -134,10 +134,9 @@ router.put("/createprofile", async (req, res) => {
 });
 
 router.post("/loginwithtoken", async (req, res) => {
-  console.log("token");
-  const { token } = req.body;
+  const { token, email } = req.body;
   try {
-    var sql = `select id, name, email, role, hash from users where hash = '${token}'`;
+    var sql = `select id, name, email, role, hash from users where hash = '${token}' AND email = '${email}'`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
       if (result.length != 0) {
@@ -166,6 +165,7 @@ router.get("/:email/:password", async (req, res) => {
             return res
               .status(400)
               .send({ message: "Email or Password is incorrect" });
+          console.log({ id, name, email, hash });
           return res.status(200).send({ id, name, email, hash });
         });
       } else {

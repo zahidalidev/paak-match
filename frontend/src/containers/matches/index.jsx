@@ -61,6 +61,7 @@ const Matches = () => {
   }, [user])
 
   console.log('currentprofileDetail: ', currentprofileDetail)
+  console.log('matchedProfiles: ', matchedProfiles)
   return (
     <div className='d-flex align-items-center justify-content-center home-container'>
       <div className='d-flex flex-row col-md-10 align-items-start'>
@@ -118,11 +119,11 @@ const Matches = () => {
                 <div
                   onClick={() => navigate(`/profile/${item.id}`)}
                   key={index.toString()}
-                  className='d-flex matches-h-wrapper col-md-2 flex-column justify-content-center align-items-start '
+                  className='d-flex matches-h-wrapper col-md-2 flex-column justify-content-center align-items-start'
                 >
                   <img className='matches-profile-img' src={nodeBaseURL + '/' + item.image} />
-                  <h5 className='recent-profile-c matches-name'>{item.name}</h5>
-                  <p className='matches-profile-c'>
+                  <h5 className='recent-profile-c matches-name ml-1'>{item.name}</h5>
+                  <p className='matches-profile-c ml-1'>
                     {item.points * 10}%, Type: {item.personality_type}
                   </p>
                 </div>
