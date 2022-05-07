@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { Card } from '@material-ui/core'
 import { useLocation } from 'react-router-dom'
-import { sideBarHomeMenues } from 'utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { Home, Article, Photo, People } from '@mui/icons-material'
 
 import Button from 'components/button'
 import { matchedUserProfile } from 'services/profile'
@@ -11,15 +11,38 @@ import { matchedUserProfile } from 'services/profile'
 import { toast } from 'react-toastify'
 import { nodeBaseURL } from 'config/baseURL'
 
-import 'containers/home/styles.css'
+import 'containers/matches/styles.css'
 import { ADD_MATCHED_PROFILE } from 'store/profiles'
 
-const Home = () => {
+const Matches = () => {
   const { pathname } = useLocation()
   const user = useSelector(state => state.user)
   const { currentprofileDetail, matchedProfiles } = useSelector(state => state.profile)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const sideBarHomeMenues = [
+    {
+      title: 'Home',
+      path: '/home',
+      icon: <Home sx={{ height: 25, width: 25 }} className='home-menu-icons' />
+    },
+    {
+      title: 'Edit Preferences',
+      path: `/preferences/${user.id}`,
+      icon: <Article sx={{ height: 25, width: 25 }} className='home-menu-icons' />
+    },
+    {
+      title: 'Your Matches',
+      path: '/matches',
+      icon: <Photo sx={{ height: 25, width: 25 }} className='home-menu-icons' />
+    },
+    {
+      title: 'Edit Profile',
+      path: `/createprofile/${user.id}`,
+      icon: <People sx={{ height: 25, width: 25 }} className='home-menu-icons' />
+    }
+  ]
 
   const getMatchedProfiles = async () => {
     try {
@@ -58,6 +81,7 @@ const Home = () => {
           <div className='d-flex flex-column side-menues-h justify-content-center align-items-start'>
             {sideBarHomeMenues.map(item => (
               <div
+                onClick={() => navigate(item.path)}
                 className={`d-flex ${
                   pathname === item.path ? 'menu-container-active' : null
                 } menu-container-h flex-row justify-content-start align-items-center`}
@@ -101,4 +125,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Matches

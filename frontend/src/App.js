@@ -23,6 +23,7 @@ const App = () => {
       const { data } = await LoginWithToken(token)
       dispatch(USER_LOGIN({ id: data.id, token: data.hash, name: data.name, email: data.email }))
       const { data: details } = await getProfileDetails(data.id)
+      console.log('app.js user: ', details)
       dispatch(ADD_CURRENT_PROFILE({ currentprofileDetail: details }))
     } catch (error) {
       console.log('Login Error: ', error)

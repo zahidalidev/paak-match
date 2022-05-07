@@ -9,7 +9,7 @@ const Button = ({ title, width = '10.5rem', borderRadius = '0px', height = '3.4r
       onClick={onClick}
       variant='contained'
       className='header-btn'
-      style={{ width, height, borderRadius }}
+      style={{ width, height, borderRadius, color: '#ffffff' }}
     >
       {title}
     </MuiButton>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { updateUserProfile } from 'services/user'
 import { useSelector } from 'react-redux'
@@ -10,7 +10,7 @@ import Select from '@mui/material/Select'
 import Button from 'components/button'
 import Input from 'components/common/Input'
 import Loader from 'components/loader'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import prof1Icon from 'assets/basic.png'
 import casteIcon from 'assets/caste.png'
@@ -18,6 +18,7 @@ import professionIcon from 'assets/prof.png'
 import bioIcon from 'assets/bio.png'
 
 import 'components/form/styles.css'
+import { getProfileDetails } from 'services/profile'
 
 const InfoHeading = ({ title, icon }) => (
   <div className='d-flex col-md-12 flex-row mt-3 align-items-center justify-content-center'>
@@ -42,6 +43,8 @@ const Form = () => {
   const user = useSelector(state => state.user)
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
+  const params = useParams()
+
   const [profData, setProfData] = useState({
     city: '',
     DOB: '',
@@ -58,6 +61,48 @@ const Form = () => {
     about: ''
   })
 
+  const getUserDetails = async () => {
+    if (params.id) {
+      const { data } = await getProfileDetails(params.id)
+      console.log(data)
+      setProfData({
+        city: data.city,
+        DOB: data.DOB,
+        religion: data.religion,
+        motherTongue: data.mother_tongue,
+        gender: data.gender,
+        maritalStatus: data.marital_status,
+        height: data.height,
+        caste: data.caste,
+        subCaste: data.sub_caste,
+        education: data.education,
+        occupation: data.occupation,
+        income: data.income,
+        about: data.about
+      })
+    } else {
+      setProfData({
+        city: '',
+        DOB: '',
+        religion: '',
+        motherTongue: '',
+        gender: '',
+        maritalStatus: '',
+        height: '',
+        caste: '',
+        subCaste: '',
+        education: '',
+        occupation: '',
+        income: '',
+        about: ''
+      })
+    }
+  }
+
+  useEffect(() => {
+    getUserDetails()
+  }, [params.id])
+
   const handleChange = (value, key) => {
     const tempFeilds = { ...profData }
     tempFeilds[key] = value
@@ -71,7 +116,11 @@ const Form = () => {
     try {
       await updateUserProfile(tempObj)
       setLoading(false)
-      navigate('/preferences')
+      if (params.id) {
+        navigate('/matches')
+      } else {
+        navigate('/preferences')
+      }
     } catch (error) {
       console.log('Create Profile error: ', error)
       toast.error(error.response.data.message)
@@ -627,8 +676,8 @@ const Form = () => {
           </div>
         </div>
       </section>
-      <center style={{ marginBottom: '8rem', marginTop: '8rem' }}>
-        <Button onClick={handleSubmit} title='Submit' />
+      <center className='text-white' style={{ marginBottom: '8rem', marginTop: '8rem' }}>
+        <Button onClick={handleSubmit} title={params.id ? 'Update' : 'Submit'} />
       </center>
     </>
   )

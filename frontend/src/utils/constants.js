@@ -1,4 +1,4 @@
-import { Home, Article, Photo, People, Settings, Send } from '@mui/icons-material'
+import { Send } from '@mui/icons-material'
 
 import callIcon from 'assets/callIcon.png'
 import docIcon from 'assets/docIcon.png'
@@ -15,34 +15,6 @@ export const personalitiesCombinations = [
   ['S', 'N'],
   ['T', 'F'],
   ['J', 'P']
-]
-
-export const sideBarHomeMenues = [
-  {
-    title: 'Home',
-    path: '/home',
-    icon: <Home sx={{ height: 25, width: 25 }} className='home-menu-icons' />
-  },
-  {
-    title: 'Edit Preferences',
-    path: '/editpreferences',
-    icon: <Article sx={{ height: 25, width: 25 }} className='home-menu-icons' />
-  },
-  {
-    title: 'Your Matches',
-    path: '/matches',
-    icon: <Photo sx={{ height: 25, width: 25 }} className='home-menu-icons' />
-  },
-  {
-    title: 'Edit Profile',
-    path: '/editprofile',
-    icon: <People sx={{ height: 25, width: 25 }} className='home-menu-icons' />
-  },
-  {
-    title: 'Settings',
-    path: '/settings',
-    icon: <Settings sx={{ height: 25, width: 25 }} className='home-menu-icons' />
-  }
 ]
 
 export const ourPromises = [

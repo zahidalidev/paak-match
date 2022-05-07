@@ -138,9 +138,6 @@ const UserProfile = () => {
     getMatchedProfile()
   }, [user, path.id, matchedProfiles])
 
-  console.log('matchedProfileStored: ', matchedProfileStored)
-  console.log('currentprofileDetail: ', currentprofileDetail)
-
   return (
     <div className='d-flex align-items-center justify-content-center home-container'>
       <Loader show={loading} />
@@ -157,10 +154,7 @@ const UserProfile = () => {
             <span className='horizontal-c-barder' />
             <div className='d-flex flex-row btn-pro-h'>
               <div className='mr-2 ml-2'>
-                <Button borderRadius='10px' title='Send Interest' width='9rem' height='2.8rem' />
-              </div>
-              <div className='mr-2 ml-2'>
-                <Button borderRadius='10px' title='Message' width='9rem' height='2.8rem' />
+                <Button borderRadius='10px' title='Message' width='12rem' height='2.8rem' />
               </div>
             </div>
             <div className='d-flex flex-column col-md-11 justify-content-start mt-2 mb-2'>

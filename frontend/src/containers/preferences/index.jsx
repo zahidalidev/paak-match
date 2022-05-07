@@ -1,23 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import Input from 'components/common/Input'
 import Button from 'components/button'
 import Loader from 'components/loader'
-import { addPartnerPreferences } from 'services/user'
+import { addPartnerPreferences, updatePartnerPreferences } from 'services/user'
 
 import 'containers/preferences/styles.css'
+import { getProfilePreferences } from 'services/profile'
 
 const Preferences = () => {
   const [loading, setLoading] = useState(false)
   const user = useSelector(state => state.user)
   const navigate = useNavigate()
+  const params = useParams()
 
   const [profData, setProfData] = useState({
     age: '',
@@ -32,6 +34,41 @@ const Preferences = () => {
     caste: ''
   })
 
+  const getUserPreferences = async () => {
+    if (params.id) {
+      const { data } = await getProfilePreferences(params.id)
+      setProfData({
+        age: data.age_range,
+        height: data.height_range,
+        maritalStatus: data.marital_status,
+        motherTongue: data.mother_tongue,
+        religion: data.religion,
+        income: data.income,
+        occupation: data.occupation,
+        city: data.city,
+        education: data.education,
+        caste: data.caste
+      })
+    } else {
+      setProfData({
+        age: '',
+        height: '',
+        maritalStatus: '',
+        motherTongue: '',
+        religion: '',
+        income: '',
+        occupation: '',
+        city: '',
+        education: '',
+        caste: ''
+      })
+    }
+  }
+
+  useEffect(() => {
+    getUserPreferences()
+  }, [params.id])
+
   const handleChange = (value, key) => {
     const tempFeilds = { ...profData }
     tempFeilds[key] = value
@@ -43,9 +80,15 @@ const Preferences = () => {
     const tempObj = { ...profData }
     tempObj.userID = user.id
     try {
-      await addPartnerPreferences(tempObj)
-      setLoading(false)
-      navigate('/teststart')
+      if (params.id) {
+        await updatePartnerPreferences(tempObj)
+        setLoading(false)
+        navigate('/matches')
+      } else {
+        await addPartnerPreferences(tempObj)
+        setLoading(false)
+        navigate('/teststart')
+      }
     } catch (error) {
       console.log('Create Profile error: ', error)
       toast.error(error.response.data.message)
@@ -475,8 +518,8 @@ const Preferences = () => {
             </div>
           </div>
 
-          <center style={{ marginBottom: '2rem', marginTop: '2.5rem' }}>
-            <Button title='Submit' onClick={handleSubmit} />
+          <center className='text-white' style={{ marginBottom: '2rem', marginTop: '2.5rem' }}>
+            <Button title={params.id ? 'Update' : 'Submit'} onClick={handleSubmit} />
           </center>
         </div>
       </div>

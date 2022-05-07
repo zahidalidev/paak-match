@@ -363,7 +363,7 @@ const Test = () => {
       })
       await addPersonality({ id: user.id, type: predictedPersonality })
       setLoading(false)
-      navigate('/home')
+      navigate('/matches')
     } catch (error) {
       toast.error(error.response.data.message)
       console.log(error)

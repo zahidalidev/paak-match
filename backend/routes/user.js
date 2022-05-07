@@ -69,7 +69,31 @@ router.post("/addpartnerpreferences", async (req, res) => {
   } = req.body;
   console.log(req.body);
   try {
-    var sql = `INSERT INTO paakmatch.preferences VALUES (${userID}, '${age}', '${height}', '${maritalStatus}', '${motherTongue}', '${religion}', '${income}', '${occupation}', '${education}', '${city}', '${caste}');`;
+    var sql = `INSERT INTO preferences VALUES (${userID}, '${age}', '${height}', '${maritalStatus}', '${motherTongue}', '${religion}', '${income}', '${occupation}', '${education}', '${city}', '${caste}');`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      return res.status(200).send(`${result.affectedRows} Affected`);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+});
+router.put("/updatePartnerPreferences", async (req, res) => {
+  const {
+    userID,
+    age,
+    height,
+    maritalStatus,
+    motherTongue,
+    religion,
+    income,
+    occupation,
+    city,
+    education,
+    caste,
+  } = req.body;
+  try {
+    var sql = `UPDATE preferences SET age_range = '${age}', height_range = '${height}', marital_status = '${maritalStatus}', mother_tongue = '${motherTongue}', religion = '${religion}', income = '${income}', occupation = '${occupation}', education = '${education}', city = '${city}', caste = '${caste}' where user_id = ${userID}`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
       return res.status(200).send(`${result.affectedRows} Affected`);

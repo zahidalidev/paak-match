@@ -21,6 +21,9 @@ export const verifyProfileImages = async data =>
 export const addPartnerPreferences = async data =>
   await axios.post(`${nodeBaseURL}/api/user/addpartnerpreferences`, data)
 
+export const updatePartnerPreferences = async data =>
+  await axios.put(`${nodeBaseURL}/api/user/updatePartnerPreferences`, data)
+
 export const addProfileImage = async (file, id) =>
   await axios.post(`${nodeBaseURL}/api/user/userprofile/${id}`, file)
 
