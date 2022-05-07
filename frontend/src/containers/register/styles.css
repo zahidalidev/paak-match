@@ -1,0 +1,38 @@
+.login-img-wrapper {
+  margin: 2rem;
+  border-radius: 1rem;
+  background-color: #8f8ec3;
+}
+
+.auth-heading {
+  color: #8f8ec3;
+  font-weight: bolder;
+  margin-top: -4rem;
+}
+
+.auth-sub-heading {
+  margin-top: 4rem;
+  color: #515151;
+  font-weight: bolder;
+}
+
+.feilds-wrapper {
+  margin-top: 3rem;
+}
+
+.auth-btn {
+  margin-top: 5rem;
+}
+
+.another-auth-c {
+  font-size: 0.9rem;
+  color: #515151;
+  text-align: left;
+  margin-left: 8px;
+}
+
+.auth-span {
+  cursor: pointer;
+  color: #8f8ec3;
+  font-weight: bold;
+}

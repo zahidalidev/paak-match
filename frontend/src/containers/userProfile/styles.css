@@ -1,0 +1,37 @@
+.flex-card-profile {
+  min-width: 22rem;
+  background-color: #8f8ec37a !important;
+  border-radius: 15px;
+}
+
+.header-profile {
+  font-size: 1.4rem !important;
+}
+
+.matches-p-wrapper {
+  cursor: pointer;
+}
+
+.type-matches-p-h {
+  font-size: 0.8rem;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.horizontal-usr-p-border {
+  background-color: #2227302b;
+  width: 98%;
+  margin-left: 1%;
+  height: 1px;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.profile-details {
+  font-size: 1.2rem !important;
+}
+
+.checkbox-p-details {
+  width: 1.6rem;
+  height: 1.6rem;
+}

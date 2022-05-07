@@ -1,0 +1,20 @@
+.test-question-contaienr {
+  margin-top: 6rem;
+}
+
+.arrow-f-question {
+  color: #8f8ec3;
+}
+
+.test-options-wrapper {
+  display: flex !important;
+  flex: row;
+  justify-content: space-between;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.next-btn-wrapper {
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+}

@@ -1,0 +1,32 @@
+.test-start-img {
+  width: 28rem;
+  object-fit: cover;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  align-self: flex-start;
+}
+
+.test-start-wrapper {
+  box-shadow: 3px 4px 17px -3px #888888;
+  border-radius: 20px;
+  padding-left: 0px;
+}
+
+.test-start-h {
+  font-weight: bold;
+  margin-top: 3rem;
+}
+
+.test-start-d {
+  width: 85%;
+  text-align: left;
+  margin-top: 2rem;
+}
+
+.test-start-d1 {
+  margin-top: 1rem;
+}
+
+.test-start-bnt {
+  margin-top: 2rem;
+}
