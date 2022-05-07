@@ -63,7 +63,7 @@ router.get("/details/:id", async (req, res) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
       const tempData = result[0];
       tempData.age = getAge(tempData.DOB);
-      return res.status(200).send(result[0]);
+      return res.status(200).send(tempData);
     });
   } catch (error) {
     return res.status(500).send({ message: err.message });

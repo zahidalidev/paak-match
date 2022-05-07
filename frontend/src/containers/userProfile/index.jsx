@@ -3,9 +3,8 @@ import { Card } from '@material-ui/core'
 import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress'
+import { useNavigate } from 'react-router-dom'
 
-import profileImg from 'assets/Ellipse 13.png'
-import prof1 from 'assets/Ellipse15.png'
 import tickBox from 'assets/tickbox.png'
 import crossBox from 'assets/crossBox.png'
 
@@ -18,6 +17,7 @@ import { getProfileDetails } from 'services/profile'
 import { toast } from 'react-toastify'
 import Loader from 'components/loader'
 import { CompaTable } from 'utils/constants'
+import SubModel from 'components/subModel'
 
 const BorderLinearProgress = styled(LinearProgress)(() => ({
   height: 10,
@@ -38,7 +38,9 @@ const UserProfile = () => {
   const [matchedProfile, setMatchedProfile] = useState({})
   const [matchedProfileStored, setMatchedProfileStored] = useState({})
   const [loading, setLoading] = useState(false)
+  const [subModel, setSubModel] = useState(false)
   const [profileDetailsSet, setProfileDetailsSet] = useState([])
+  const navigate = useNavigate()
 
   const getMatchedProfile = async () => {
     setLoading(true)
@@ -138,9 +140,23 @@ const UserProfile = () => {
     getMatchedProfile()
   }, [user, path.id, matchedProfiles])
 
+  const handleMessage = () => {
+    if (currentprofileDetail.plan === null) {
+      setSubModel(true)
+    } else {
+      navigate('/chat')
+    }
+  }
+
   return (
     <div className='d-flex align-items-center justify-content-center home-container'>
       <Loader show={loading} />
+      <SubModel
+        onCancel={() => setSubModel(false)}
+        onContinue={() => navigate('/subscription')}
+        show={subModel}
+      />
+
       <div className='d-flex flex-row col-md-10 align-items-start'>
         <div className='d-flex flex-column col-md-4 justify-content-end align-items-center'>
           <Card className='d-flex flex-card-profile flex-column justify-content-center align-items-center'>
@@ -154,7 +170,13 @@ const UserProfile = () => {
             <span className='horizontal-c-barder' />
             <div className='d-flex flex-row btn-pro-h'>
               <div className='mr-2 ml-2'>
-                <Button borderRadius='10px' title='Message' width='12rem' height='2.8rem' />
+                <Button
+                  onClick={handleMessage}
+                  borderRadius='5px'
+                  title='Message'
+                  width='12rem'
+                  height='2.8rem'
+                />
               </div>
             </div>
             <div className='d-flex flex-column col-md-11 justify-content-start mt-2 mb-2'>
@@ -179,7 +201,10 @@ const UserProfile = () => {
             <div className='d-flex flex-row justify-content-start'>
               <div className='d-flex flex-row recent-h-container'>
                 <div className='d-flex matches-p-wrapper flex-column justify-content-center align-items-center '>
-                  <img className='recent-profile-img' src={profileImg} />
+                  <img
+                    className='recent-profile-img profile-img-h'
+                    src={`${nodeBaseURL}/${matchedProfile.image}`}
+                  />
                 </div>
               </div>
               <div className='d-flex flex-row col-md-2 justify-content-center align-items-center'>
@@ -193,7 +218,10 @@ const UserProfile = () => {
               </div>
               <div className='d-flex flex-row recent-h-container'>
                 <div className='d-flex matches-p-wrapper flex-column justify-content-center align-items-center '>
-                  <img className='recent-profile-img' src={prof1} />
+                  <img
+                    className='recent-profile-img profile-img-h'
+                    src={`${nodeBaseURL}/${currentprofileDetail.image}`}
+                  />
                 </div>
               </div>
             </div>

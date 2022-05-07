@@ -60,6 +60,7 @@ const Matches = () => {
     getMatchedProfiles()
   }, [user])
 
+  console.log('currentprofileDetail: ', currentprofileDetail)
   return (
     <div className='d-flex align-items-center justify-content-center home-container'>
       <div className='d-flex flex-row col-md-10 align-items-start'>
@@ -75,7 +76,16 @@ const Matches = () => {
             <span className='horizontal-c-barder' />
             <h6 className='profile-completion'>Your Profile is complete 100%</h6>
             <div className='btn-pro-h'>
-              <Button title='Upgrade Pro' width='15.5rem' height='2.8rem' />
+              <Button
+                onClick={() =>
+                  currentprofileDetail.plan === 'premium'
+                    ? toast.info('You are a Premium Member')
+                    : navigate('/subscription')
+                }
+                title={currentprofileDetail.plan === 'premium' ? 'Premium' : 'Upgrade Pro'}
+                width='15.5rem'
+                height='2.8rem'
+              />
             </div>
           </Card>
           <div className='d-flex flex-column side-menues-h justify-content-center align-items-start'>

@@ -1,4 +1,5 @@
 const express = require("express");
+const con = require("../config/db");
 
 const stripe = require("stripe")(
   "sk_test_51KvhGiGiFJ94VHTI02Wg8SNxzZredPLLzxs2218EpMQQUFjSr4GD4dn9bbsWMHUN6yiUifm7fdkhmXLadj1Br6iP00bRTG5G7p"
@@ -30,15 +31,14 @@ router.post("/sub", async (req, res) => {
       subscription["latest_invoice"]["payment_intent"]["client_secret"];
     const new1 = subscription["latest_invoice"];
 
-    res.json({
+    return res.status(200).send({
       client_secret: client_secret,
       status: status,
       user_sub_id: new1.subscription,
       latest_invoice: subscription["latest_invoice"],
     });
   } catch (error) {
-    console.log("ERROR: ", error);
-    res.json({ fail: true, error: error });
+    return res.json({ fail: true, error: error });
   }
 });
 
@@ -49,6 +49,19 @@ router.delete("/cancel/:subscriptionId", async (req, res) => {
     res.send(da);
   } catch (error) {
     res.send(error);
+  }
+});
+
+router.post("/subscribed", async (req, res) => {
+  const { subscriptionId, userId } = req.body;
+  try {
+    var sql = `INSERT INTO subscriptions (plan, subscription_id, plan_user_id) VALUES ("premium", '${subscriptionId}', ${userId})`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      return res.status(200).send(`${result.affectedRows} Affected`);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
   }
 });
 

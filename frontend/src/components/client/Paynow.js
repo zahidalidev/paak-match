@@ -1,20 +1,23 @@
 import { useState } from 'react'
-import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import { makeStyles } from '@material-ui/core/styles'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { toast } from 'react-toastify'
 
 import CardInput from 'components/client/CardInput'
-import { paySubscription } from 'services/plan'
-import { useSelector } from 'react-redux'
+import { addUserSubscription, paySubscription } from 'services/plan'
+import { useDispatch, useSelector } from 'react-redux'
+import Loader from 'components/loader'
+import { useNavigate } from 'react-router-dom'
+import Button from 'components/button'
+import { getProfileDetails } from 'services/profile'
+import { ADD_CURRENT_PROFILE } from 'store/profiles'
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 500,
-    margin: '35vh auto',
+    minWidth: 500,
     marginTop: '0vh'
   },
   content: {
@@ -37,10 +40,11 @@ const useStyles = makeStyles({
 const PayNow = () => {
   const classes = useStyles()
   const user = useSelector(state => state.user)
-
+  const navigate = useNavigate()
   const stripe = useStripe()
   const elements = useElements()
   const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch()
 
   const handleSubmitSub = async () => {
     const email = user.email
@@ -65,37 +69,29 @@ const PayNow = () => {
         const res = await paySubscription(result, email)
         // eslint-disable-next-line camelcase
         if (!res.data.fail) {
-          const { client_secret, status, latest_invoice } = res.data
-          console.log('client_secret: ', latest_invoice)
+          const { client_secret, status } = res.data
+          console.log('client_secret: ')
 
-          if (status === 'requires_action') {
-            stripe.confirmCardPayment(client_secret).then(function (result) {
+          if (status === 'succeeded') {
+            stripe.confirmCardPayment(client_secret).then(async result => {
               if (result.error) {
                 console.log('Something went wrong!: ', result.error)
                 toast.error('Something went wrong!')
-                setLoading(false)
-                return false
-                // The card was declined (i.e. insufficient funds, card has expired, etc)
               } else {
+                await addUserSubscription(res.data.user_sub_id, user.id)
+
+                const { data: details } = await getProfileDetails(user.id)
+                dispatch(ADD_CURRENT_PROFILE({ currentprofileDetail: details }))
+
+                navigate('/matches')
+                toast.success('Subscribed Successfully')
                 console.log('You got the money!')
-                console.log('latest_invoice: ', latest_invoice)
-                setLoading(false)
-                return true
               }
             })
-          } else {
-            console.log('You got the money!')
-            setLoading(false)
-            return true
           }
-        } else {
-          setLoading(false)
-          return false
         }
       }
-      setLoading(false)
     } catch (error) {
-      setLoading(false)
       console.log('latest error: ', error)
       toast.error('Something went wrong!')
     }
@@ -104,23 +100,14 @@ const PayNow = () => {
 
   return (
     <Card className={classes.root}>
+      <Loader show={loading} />
       <CardContent className={classes.content}>
         <CardInput />
         <div className={classes.div}>
-          <Button
-            variant='contained'
-            color='primary'
-            className={classes.button}
-            onClick={handleSubmitSub}
-          >
-            Pay Now
-          </Button>
-        </div>
-        {loading ? (
-          <div className='d-flex align-items-center justify-content-center'>
-            <CircularProgress disableShrink />
+          <div className={classes.button}>
+            <Button height='3.5rem' title='Subscribe Now' onClick={handleSubmitSub} />
           </div>
-        ) : null}
+        </div>
       </CardContent>
     </Card>
   )
