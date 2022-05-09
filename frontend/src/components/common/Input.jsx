@@ -13,7 +13,8 @@ const Input = ({
   multiline = false,
   type = 'text',
   handleChange,
-  value
+  value,
+  onEnter
 }) => {
   return (
     <FormControl sx={{ m: 1, width, height: 10 }} variant='outlined'>
@@ -24,6 +25,11 @@ const Input = ({
         {title}
       </InputLabel>
       <OutlinedInput
+        onKeyPress={e => {
+          if (e.key === 'Enter') {
+            onEnter()
+          }
+        }}
         multiline={multiline}
         style={{ height }}
         type={type}
@@ -57,7 +63,8 @@ Input.propTypes = {
   icon: PropTypes.any,
   multiline: PropTypes.bool,
   handleChange: PropTypes.func,
-  value: PropTypes.string
+  value: PropTypes.string,
+  onEnter: PropTypes.func
 }
 
 export default Input

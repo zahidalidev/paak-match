@@ -22,6 +22,8 @@
   height: 3rem;
   border-radius: 3rem;
   margin-left: 15px;
+  object-position: top;
+  object-fit: cover;
 }
 
 .chat-profile-c {
@@ -32,6 +34,7 @@
   font-size: 0.9rem;
   margin-bottom: 2px;
   margin-top: 11px;
+  font-weight: bold;
 }
 
 .chat-last-seen {

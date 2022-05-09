@@ -3,9 +3,9 @@ import ChatProfile from 'components/chatProfileCard'
 import Input from 'components/common/Input'
 import { Search } from '@mui/icons-material'
 import { Send } from '@mui/icons-material'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
-import { getChat, getChatRef, saveChat } from 'services/chat'
+import { getChat, getChatRef, saveChat, getCurrentUserFriends } from 'services/chat'
 
 import 'containers/chat/styles.css'
 import { useEffect, useState } from 'react'
@@ -13,12 +13,14 @@ import { useEffect, useState } from 'react'
 const Chat = () => {
   const { innerHeight } = window
   const param = useParams()
+  const navigate = useNavigate()
   const [chats, setChats] = useState([])
   const [messageField, setMessageField] = useState('')
+  const [currentFriends, setCurrentFriends] = useState([])
 
   useEffect(() => {
     getMessages()
-  }, [])
+  }, [param])
 
   const getMessages = async () => {
     try {
@@ -27,8 +29,12 @@ const Chat = () => {
       chatRef.onSnapshot(querySnapshot => {
         querySnapshot.docChanges().forEach(async () => {
           let chatRes = await getChat(param.id1, param.id2)
+          const tempCurrentFriends = await getCurrentUserFriends(param.id1)
           chatRes.chat.sort((a, b) => new Date(b.date) - new Date(a.date))
           setChats(chatRes.chat)
+          if (currentFriends != tempCurrentFriends) {
+            setCurrentFriends(tempCurrentFriends)
+          }
         })
       })
     } catch (error) {
@@ -50,9 +56,14 @@ const Chat = () => {
     }
     try {
       await saveChat(body)
+      setMessageField('')
     } catch (error) {
       console.log('Chat Error: ', error)
     }
+  }
+
+  const handleAnotherChat = id => {
+    navigate(`/chat/${param.id1}/${id}`)
   }
 
   return (
@@ -65,21 +76,24 @@ const Chat = () => {
           <div className='d-flex search-chat-container justify-content-center align-items-center'>
             <Input title='Password' icon={<Search />} />
           </div>
-          <ChatProfile />
-          <ChatProfile />
-          <ChatProfile />
-          <ChatProfile />
-          <ChatProfile />
-          <ChatProfile />
+          {currentFriends.map((item, index) => (
+            <ChatProfile
+              onClick={() => handleAnotherChat(item.id)}
+              data={item}
+              active={item.id == param.id2}
+              message={currentFriends[currentFriends.length - (index + 1)].message}
+              key={index.toString()}
+            />
+          ))}
         </div>
         <div className='col-md-9 chat-wrapper'>
           <Input
-            multiline={true}
             title='Write a message'
             width='100%'
             value={messageField}
             handleChange={e => setMessageField(e.target.value)}
             height={null}
+            onEnter={sendMessage}
             icon={
               <div
                 onClick={sendMessage}

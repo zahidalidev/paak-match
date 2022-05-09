@@ -5,6 +5,21 @@ const con = require("../config/db");
 
 const router = express.Router();
 
+router.post("/chatsetdetails", async (req, res) => {
+  const { set } = req.body;
+  console.log("set: ", set);
+  try {
+    var sql = `select u.id, u.name, p.image from users u JOIN profileDetails p on u.id = p.user_id where u.id in ${set}`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      const tempData = result;
+      return res.status(200).send(tempData);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: err.message });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
