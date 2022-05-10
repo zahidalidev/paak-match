@@ -28,7 +28,7 @@ const App = () => {
     } catch (error) {
       console.log('Login Error: ', error)
       toast.error('User Login Faild, Try Again!')
-      navigate('/register')
+      navigate('/home')
     }
   }
 
@@ -38,7 +38,7 @@ const App = () => {
     if (token) {
       getUser({ token: JSON.parse(token), email: JSON.parse(email) })
     } else {
-      navigate('/register')
+      navigate('/home')
     }
   }, [])
 

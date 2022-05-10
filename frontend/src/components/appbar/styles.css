@@ -22,3 +22,8 @@
   height: 3rem !important;
   width: 3rem !important;
 }
+
+.css-1pqm26d-MuiAvatar-img {
+  object-fit: cover !important;
+  object-position: top !important;
+}

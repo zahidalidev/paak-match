@@ -9,6 +9,8 @@ import { getChat, getChatRef, saveChat, getCurrentUserFriends } from 'services/c
 
 import 'containers/chat/styles.css'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import _ from 'lodash'
 
 const Chat = () => {
   const { innerHeight } = window
@@ -17,10 +19,11 @@ const Chat = () => {
   const [chats, setChats] = useState([])
   const [messageField, setMessageField] = useState('')
   const [currentFriends, setCurrentFriends] = useState([])
+  const user = useSelector(state => state.user)
 
   useEffect(() => {
     getMessages()
-  }, [param])
+  }, [param, user])
 
   const getMessages = async () => {
     try {
@@ -28,10 +31,12 @@ const Chat = () => {
 
       chatRef.onSnapshot(querySnapshot => {
         querySnapshot.docChanges().forEach(async () => {
-          let chatRes = await getChat(param.id1, param.id2)
-          const tempCurrentFriends = await getCurrentUserFriends(param.id1)
-          chatRes.chat.sort((a, b) => new Date(b.date) - new Date(a.date))
-          setChats(chatRes.chat)
+          if (!_.isEmpty(param)) {
+            let chatRes = await getChat(param.id1, param.id2)
+            chatRes.chat.sort((a, b) => new Date(b.date) - new Date(a.date))
+            setChats(chatRes.chat)
+          }
+          const tempCurrentFriends = await getCurrentUserFriends(user.id.toString())
           if (currentFriends != tempCurrentFriends) {
             setCurrentFriends(tempCurrentFriends)
           }
@@ -63,7 +68,7 @@ const Chat = () => {
   }
 
   const handleAnotherChat = id => {
-    navigate(`/chat/${param.id1}/${id}`)
+    navigate(`/chat/${user.id.toString()}/${id}`)
   }
 
   return (

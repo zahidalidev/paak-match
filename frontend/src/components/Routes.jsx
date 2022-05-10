@@ -1,7 +1,7 @@
 import { Route, Routes, Navigate } from 'react-router-dom'
 
 import Matches from 'containers/matches'
-import LandingPage from 'containers/landingPage'
+import Home from 'containers/home'
 import UserProfile from 'containers/userProfile'
 import Chat from 'containers/chat'
 import ProfileCreation from 'containers/ProfileCreation'
@@ -15,9 +15,10 @@ import Subscription from 'containers/subscription'
 
 const routeList = [
   { path: '/matches', component: <Matches /> },
-  { path: '/home', component: <LandingPage /> },
+  { path: '/home', component: <Home /> },
   { path: '/profile/:id', component: <UserProfile /> },
   { path: '/chat/:id1/:id2', component: <Chat /> },
+  { path: '/chat', component: <Chat /> },
   { path: '/createprofile', component: <ProfileCreation /> },
   { path: '/createprofile/:id', component: <ProfileCreation /> },
   { path: '/register', component: <Register /> },
