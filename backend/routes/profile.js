@@ -76,6 +76,9 @@ router.get("/details/:id", async (req, res) => {
     var sql = `select * from users u JOIN profileDetails p on u.id = p.user_id LEFT JOIN subscriptions su on su.plan_user_id = u.id where u.id = ${id}`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
+      if (result.length == 0) {
+        return res.status(200).send([]);
+      }
       const tempData = result[0];
       tempData.age = getAge(tempData.DOB);
       return res.status(200).send(tempData);

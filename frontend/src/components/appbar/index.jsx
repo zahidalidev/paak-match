@@ -10,14 +10,18 @@ import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 // import Tooltip from '@mui/material/Tooltip'
 
-import 'components/appbar/styles.css'
+import { nodeBaseURL } from 'config/baseURL'
 
 import logo from 'assets/logo.png'
-// import profileIcon from 'assets/profileIcon.png'
-import { useSelector } from 'react-redux'
-import { nodeBaseURL } from 'config/baseURL'
+import profileIcon from 'assets/profileIcon.png'
+
+import 'components/appbar/styles.css'
+import { USER_LOGOUT } from 'store/user'
+import { REMOVE_PROFILE } from 'store/profiles'
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
@@ -26,27 +30,39 @@ const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = useState(null)
   const { currentprofileDetail } = useSelector(state => state.profile)
   const user = useSelector(state => state.user)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [pages, setPages] = useState([{ name: 'Home', path: '/home' }])
 
+  const token = localStorage.getItem('token')
   useEffect(() => {
-    const token = localStorage.getItem('token')
     let tempPages = [{ name: 'Home', path: '/home' }]
     if (token) {
       tempPages = [...tempPages, { name: 'Matches', path: '/matches' }]
+      console.log('currentprofileDetail: ', currentprofileDetail, user)
       if (currentprofileDetail.plan == 'premium') {
-        tempPages = [...tempPages, { name: 'Chat' }, { name: 'Logout' }]
+        tempPages = [
+          ...tempPages,
+          { name: 'Chat', path: '/chat' },
+          { name: 'Logout', path: '/home' }
+        ]
       } else {
-        tempPages = [...tempPages, { name: 'Logout' }]
+        tempPages = [...tempPages, { name: 'Logout', path: '/home' }]
       }
     } else {
-      tempPages = [...tempPages, { name: 'Login' }, { name: 'Register' }]
+      tempPages = [
+        ...tempPages,
+        { name: 'Login', path: '/login' },
+        { name: 'Register', path: '/register' }
+      ]
     }
     setPages(tempPages)
-  }, user)
+  }, [user, currentprofileDetail, token])
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget)
   }
+
   // const handleOpenUserMenu = event => {
   //   setAnchorElUser(event.currentTarget)
   // }
@@ -57,6 +73,12 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
+  }
+
+  const handleLogout = () => {
+    console.log('LOgout')
+    dispatch(USER_LOGOUT())
+    dispatch(REMOVE_PROFILE())
   }
 
   return (
@@ -103,7 +125,7 @@ const ResponsiveAppBar = () => {
                 <MenuItem
                   key={index.toString()}
                   className='menu-items'
-                  onClick={handleCloseNavMenu}
+                  onClick={page.name === 'Logout' ? handleLogout : () => navigate(page.path)}
                 >
                   <Typography textAlign='center'>{page.name}</Typography>
                 </MenuItem>
@@ -124,7 +146,7 @@ const ResponsiveAppBar = () => {
               <Button
                 className='menu-items'
                 key={index.toString()}
-                onClick={handleCloseNavMenu}
+                onClick={page.name === 'Logout' ? handleLogout : () => navigate(page.path)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page.name}
@@ -138,7 +160,11 @@ const ResponsiveAppBar = () => {
               <Avatar
                 className='profile-icon'
                 alt='Profile icon'
-                src={`${nodeBaseURL}/${currentprofileDetail.image}`}
+                src={
+                  localStorage.getItem('token')
+                    ? `${nodeBaseURL}/${currentprofileDetail.image}`
+                    : profileIcon
+                }
               />
             </IconButton>
             {/* </Tooltip> */}

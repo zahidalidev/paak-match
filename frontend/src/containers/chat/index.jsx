@@ -33,8 +33,10 @@ const Chat = () => {
         querySnapshot.docChanges().forEach(async () => {
           if (!_.isEmpty(param)) {
             let chatRes = await getChat(param.id1, param.id2)
-            chatRes.chat.sort((a, b) => new Date(b.date) - new Date(a.date))
-            setChats(chatRes.chat)
+            if (chatRes) {
+              chatRes.chat.sort((a, b) => new Date(b.date) - new Date(a.date))
+              setChats(chatRes.chat)
+            }
           }
           const tempCurrentFriends = await getCurrentUserFriends(user.id.toString())
           if (currentFriends != tempCurrentFriends) {

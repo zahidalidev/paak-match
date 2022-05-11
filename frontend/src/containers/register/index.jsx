@@ -11,6 +11,8 @@ import Loader from 'components/loader'
 
 import 'containers/register/styles.css'
 import sideImg from 'assets/Group 37302.png'
+// import { getProfileDetails } from 'services/profile'
+// import { ADD_CURRENT_PROFILE } from 'store/profiles'
 
 const { innerHeight } = window
 const Register = () => {
@@ -64,7 +66,10 @@ const Register = () => {
 
       const { data } = await register(user)
       dispatch(USER_REGISTER({ id: data.id, token: data.hash, name: data.name, email: data.email }))
+      // const { data: details } = await getProfileDetails(data.id)
+      // dispatch(ADD_CURRENT_PROFILE({ currentprofileDetail: details }))
       toast.success('Registeration Successfull')
+      setLoading(false)
       navigate('/verify')
     } catch (error) {
       console.log('Register error: ', error.response.data)
