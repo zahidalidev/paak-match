@@ -7,7 +7,6 @@ const router = express.Router();
 
 router.post("/chatsetdetails", async (req, res) => {
   const { set } = req.body;
-  console.log("set: ", set);
   try {
     var sql = `select u.id, u.name, p.image from users u JOIN profileDetails p on u.id = p.user_id where u.id in ${set}`;
     con.query(sql, (err, result) => {
@@ -44,6 +43,7 @@ router.get("/:id", async (req, res) => {
           con.query(sql, (err, result) => {
             if (err) return res.status(400).send({ message: err.sqlMessage });
             let matchedProfiles = [...result];
+            console.log("matchedProfiles: ", matchedProfiles);
 
             [currentUserDetailsPref.height1, currentUserDetailsPref.height2] =
               currentUserDetailsPref.height_range.split("-");
@@ -51,7 +51,6 @@ router.get("/:id", async (req, res) => {
               currentUserDetailsPref.age_range.split("-");
 
             matchedProfiles.map((item) => (item.age = getAge(item.DOB)));
-
             let pointedProfiles = getProfilesWithPoints(
               currentUserDetailsPref,
               matchedProfiles
@@ -124,10 +123,21 @@ const getProfilesWithPoints = (currentUserDetailsPref, matchedProf) => {
         matchedProfiles[index][key] == currentUserDetailsPref[key] &&
         key != "personality_type" &&
         key != "id" &&
-        key != "name"
+        key != "name" &&
+        key != "religion"
       ) {
         points++;
         matchedKeys.push(key);
+      }
+
+      if (key == "religion") {
+        if (currentUserDetailsPref[key] == "Any(Muslim)") {
+          points++;
+          matchedKeys.push(key);
+        } else if (matchedProfiles[index][key] == currentUserDetailsPref[key]) {
+          points++;
+          matchedKeys.push(key);
+        }
       }
 
       if (key == "age1") {

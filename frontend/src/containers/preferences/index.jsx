@@ -164,6 +164,7 @@ const Preferences = () => {
                 >
                   <MenuItem value='Never Married'>Never Married</MenuItem>
                   <MenuItem value='Widowed'>Widowed</MenuItem>
+                  <MenuItem value='widower'>widower</MenuItem>
                   <MenuItem value='Divorced'>Divorced</MenuItem>
                 </Select>
               </FormControl>
@@ -254,32 +255,36 @@ const Preferences = () => {
                   label='Income'
                 >
                   <MenuItem value='' selected='selected' disabled='disabled'>
-                    Enter Income (PKR)
+                    Select Income (PKR)
                   </MenuItem>
-                  <MenuItem value='20,000-30,000'>20,000-30,000</MenuItem>
-                  <MenuItem value='30,000-40,000'>30,000-40,000</MenuItem>
-                  <MenuItem value='40,000-50,000'>40,000-50,000</MenuItem>
-                  <MenuItem value='notdefined2'>50,000-60,000</MenuItem>
-                  <MenuItem value='notdefined2'>60,000-70,000</MenuItem>
-                  <MenuItem value='notdefined2'>70,000-80,000</MenuItem>
-                  <MenuItem value='notdefined2'>80,000-90,000</MenuItem>
-                  <MenuItem value='notdefined2'>90,000-1,00,000</MenuItem>
-                  <MenuItem value='notdefined2'>1,00,000-1,10,000</MenuItem>
-                  <MenuItem value='notdefined2'>1,00,000-1,10,000</MenuItem>
-                  <MenuItem value='notdefined2'>1,10,000-1,20,000</MenuItem>
-                  <MenuItem value='notdefined2'>1,20,000-1,30,000</MenuItem>
-                  <MenuItem value='notdefined2'>1,30,000-1,40,000</MenuItem>
-                  <MenuItem value='notdefined2'>1,40,000-1,50,000</MenuItem>
-                  <MenuItem value='notdefined2'>1,50,000-1,60,000</MenuItem>
-                  <MenuItem value='notdefined2'>1,60,000-1,70,000</MenuItem>
-                  <MenuItem value='notdefined2'>1,70,000-1,80,000</MenuItem>
-                  <MenuItem value='notdefined2'>1,80,000-1,90,000</MenuItem>
-                  <MenuItem value='notdefined2'>1,90,000-2,00,000</MenuItem>
-                  <MenuItem value='notdefined2'>2,00,000-3,00,000</MenuItem>
-                  <MenuItem value='notdefined2'>3,00,000-4,00,000</MenuItem>
-                  <MenuItem value='notdefined2'>4,00,000-5,00,000</MenuItem>
-                  <MenuItem value='notdefined2'>5,00,000-10,00,000</MenuItem>
-                  <MenuItem value='notdefined2'>10,00,000-20,00,000</MenuItem>
+                  <MenuItem value='10000-20000'>10,000-20,000</MenuItem>
+                  <MenuItem value='20000-30000'>20,000-30,000</MenuItem>
+                  <MenuItem value='30000-40000'>30,000-40,000</MenuItem>
+                  <MenuItem value='40000-50000'>40,000-50,000</MenuItem>
+                  <MenuItem value='50000-60000'>50,000-60,000</MenuItem>
+                  <MenuItem value='60000-70000'>60,000-70,000</MenuItem>
+                  <MenuItem value='70000-80000'>70,000-80,000</MenuItem>
+                  <MenuItem value='80000-90000'>80,000-90,000</MenuItem>
+                  <MenuItem value='90000-100000'>90,000-1,00,000</MenuItem>
+                  <MenuItem value='100000-110000'>1,00,000-1,10,000</MenuItem>
+                  <MenuItem value='110000-120000'>1,10,000-1,20,000</MenuItem>
+                  <MenuItem value='120000-130000'>1,20,000-1,30,000</MenuItem>
+                  <MenuItem value='130000-140000'>1,30,000-1,40,000</MenuItem>
+                  <MenuItem value='140000-150000'>1,40,000-1,50,000</MenuItem>
+                  <MenuItem value='150000-160000'>1,50,000-1,60,000</MenuItem>
+                  <MenuItem value='160000-170000'>1,60,000-1,70,000</MenuItem>
+                  <MenuItem value='170000-180000'>1,70,000-1,80,000</MenuItem>
+                  <MenuItem value='180000-190000'>1,80,000-1,90,000</MenuItem>
+                  <MenuItem value='190000-200000'>1,90,000-2,00,000</MenuItem>
+                  <MenuItem value='200000-300000'>2,00,000-3,00,000</MenuItem>
+                  <MenuItem value='300000-400000'>3,00,000-4,00,000</MenuItem>
+                  <MenuItem value='400000-500000'>4,00,000-5,00,000</MenuItem>
+                  <MenuItem value='500000-1000000'>5,00,000-10,00,000</MenuItem>
+                  <MenuItem value='1000000-2000000'>10,00,000-20,00,000</MenuItem>
+                  <MenuItem value='2000000-3000000'>20,00,000-30,00,000</MenuItem>
+                  <MenuItem value='3000000-4000000'>30,00,000-40,00,000</MenuItem>
+                  <MenuItem value='4000000-5000000'>40,00,000-50,00,000</MenuItem>
+                  <MenuItem value='5000000-100000000'>50,00,000-1,00,00,000</MenuItem>
                 </Select>
               </FormControl>
             </div>
@@ -291,129 +296,169 @@ const Preferences = () => {
             </div>
             <div className='d-flex col-md-9'>
               <FormControl style={{ width: '33rem', marginLeft: 9 }}>
-                <InputLabel style={{ fontSize: 15, marginTop: -2 }} id='demo-simple-select-label'>
+                <InputLabel style={{ fontSize: 16, marginTop: -2 }} id='demo-simple-select-label'>
                   Occupation
                 </InputLabel>
                 <Select
                   style={{ height: 50 }}
-                  labelId='demo-simple-select-label'
-                  id='demo-simple-select'
                   onChange={e => handleChange(e.target.value, 'occupation')}
                   value={profData.occupation}
                   label='Occupation'
                 >
-                  <MenuItem value='1'>- Chiropractor</MenuItem>
-                  <MenuItem value='2'>- Dentist</MenuItem>
-                  <MenuItem value='3'>- Dietitian or Nutritionist</MenuItem>
-                  <MenuItem value='4'>- Optometrist</MenuItem>
-                  <MenuItem value='5'>- Pharmacist</MenuItem>
-                  <MenuItem value='6'>- Physician</MenuItem>
-                  <MenuItem value='7'>- Physician Assistant</MenuItem>
-                  <MenuItem value='8'>- Podiatrist</MenuItem>
-                  <MenuItem value='9'>- Registered Nurse</MenuItem>
-                  <MenuItem value='10'>- Therapist</MenuItem>
-                  <MenuItem value='11'>- Veterinarian</MenuItem>
-                  <MenuItem value='12'>- Health Technologist or Technician</MenuItem>
-                  <MenuItem value='13'>
+                  <MenuItem value='Chiropractor'>- Chiropractor</MenuItem>
+                  <MenuItem value='Dentist'>- Dentist</MenuItem>
+                  <MenuItem value='Dietitian or Nutritionist'>- Dietitian or Nutritionist</MenuItem>
+                  <MenuItem value='Optometrist'>- Optometrist</MenuItem>
+                  <MenuItem value='Pharmacist'>- Pharmacist</MenuItem>
+                  <MenuItem value='Physician'>- Physician</MenuItem>
+                  <MenuItem value='Physician Assistant'>- Physician Assistant</MenuItem>
+                  <MenuItem value='Podiatrist'>- Podiatrist</MenuItem>
+                  <MenuItem value='Registered Nurse'>- Registered Nurse</MenuItem>
+                  <MenuItem value='Therapist'>- Therapist</MenuItem>
+                  <MenuItem value='Veterinarian'>- Veterinarian</MenuItem>
+                  <MenuItem value='Health Technologist or Technician'>
+                    - Health Technologist or Technician
+                  </MenuItem>
+                  <MenuItem value='Other Healthcare Practitioners and Technical Occupation'>
                     - Other Healthcare Practitioners and Technical Occupation
                   </MenuItem>
-                  <MenuItem value='14'>- Nursing, Psychiatric, or Home Health Aide</MenuItem>
-                  <MenuItem value='15'>
+                  <MenuItem value='Nursing, Psychiatric, or Home Health Aide'>
+                    - Nursing, Psychiatric, or Home Health Aide
+                  </MenuItem>
+                  <MenuItem value='Occupational and Physical Therapist Assistant or Aide'>
                     - Occupational and Physical Therapist Assistant or Aide
                   </MenuItem>
-                  <MenuItem value='16'>- Other Healthcare Support Occupation</MenuItem>
-                  <MenuItem value='17'>- Chief Executive</MenuItem>
-                  <MenuItem value='18'>- General and Operations Manager</MenuItem>
-                  <MenuItem value='19'>
+                  <MenuItem value='Other Healthcare Support Occupation'>
+                    - Other Healthcare Support Occupation
+                  </MenuItem>
+                  <MenuItem value='Chief Executive'>- Chief Executive</MenuItem>
+                  <MenuItem value='General and Operations Manager'>
+                    - General and Operations Manager
+                  </MenuItem>
+                  <MenuItem value='Advertising, Marketing, Promotions, Public Relations, and Sales Manager'>
                     - Advertising, Marketing, Promotions, Public Relations, and Sales Manager
                   </MenuItem>
-                  <MenuItem value='20'>
+                  <MenuItem value='Operations Specialties Manager (e.g., IT or HR Manager)'>
                     - Operations Specialties Manager (e.g., IT or HR Manager)
                   </MenuItem>
-                  <MenuItem value='21'>- Construction Manager</MenuItem>
-                  <MenuItem value='22'>- Engineering Manager</MenuItem>
-                  <MenuItem value='23'>- Accountant, Auditor</MenuItem>
-                  <MenuItem value='24'>- Business Operations or Financial Specialist</MenuItem>
-                  <MenuItem value='25'>- Business Owner</MenuItem>
-                  <MenuItem value='26'>
+                  <MenuItem value='Construction Manager'>- Construction Manager</MenuItem>
+                  <MenuItem value='Engineering Manager'>- Engineering Manager</MenuItem>
+                  <MenuItem value='Accountant, Auditor'>- Accountant, Auditor</MenuItem>
+                  <MenuItem value='Business Operations or Financial Specialist'>
+                    - Business Operations or Financial Specialist
+                  </MenuItem>
+                  <MenuItem value='Business Owner'>- Business Owner</MenuItem>
+                  <MenuItem value='Other Business, Executive, Management, Financial Occupation'>
                     - Other Business, Executive, Management, Financial Occupation
                   </MenuItem>
-                  <MenuItem value='27'>- Architect, Surveyor, or Cartographer</MenuItem>
-                  <MenuItem value='28'>- Engineer</MenuItem>
-                  <MenuItem value='29'>- Other Architecture and Engineering Occupation</MenuItem>
-                  <MenuItem value='30'>- Postsecondary Teacher (e.g., College Professor)</MenuItem>
-                  <MenuItem value='31'>
+                  <MenuItem value='Architect, Surveyor, or Cartographer'>
+                    - Architect, Surveyor, or Cartographer
+                  </MenuItem>
+                  <MenuItem value='Engineer'>- Engineer</MenuItem>
+                  <MenuItem value='Other Architecture and Engineering Occupation'>
+                    - Other Architecture and Engineering Occupation
+                  </MenuItem>
+                  <MenuItem value='Postsecondary Teacher (e.g., College Professor)'>
+                    - Postsecondary Teacher (e.g., College Professor)
+                  </MenuItem>
+                  <MenuItem value='Primary, Secondary, or Special Education School Teacher'>
                     - Primary, Secondary, or Special Education School Teacher
                   </MenuItem>
-                  <MenuItem value='32'>- Other Teacher or Instructor</MenuItem>
-                  <MenuItem value='33'>
+                  <MenuItem value='Other Teacher or Instructor'>
+                    - Other Teacher or Instructor
+                  </MenuItem>
+                  <MenuItem value='Other Education, Training, and Library Occupation'>
                     - Other Education, Training, and Library Occupation
                   </MenuItem>
-                  <MenuItem value='34'>
+                  <MenuItem value='Arts, Design, Entertainment, Sports, and Media Occupations'>
                     - Arts, Design, Entertainment, Sports, and Media Occupations
                   </MenuItem>
-                  <MenuItem value='35'>- Computer Specialist, Mathematical Science</MenuItem>
-                  <MenuItem value='36'>
+                  <MenuItem value='Computer Specialist, Mathematical Science'>
+                    - Computer Specialist, Mathematical Science
+                  </MenuItem>
+                  <MenuItem value='Counselor, Social Worker, or Other Community and Social Service Specialist'>
                     - Counselor, Social Worker, or Other Community and Social Service Specialist
                   </MenuItem>
-                  <MenuItem value='37'>- Lawyer, Judge</MenuItem>
-                  <MenuItem value='38'>
+                  <MenuItem value='Lawyer, Judge'>- Lawyer, Judge</MenuItem>
+                  <MenuItem value='Life Scientist (e.g., Animal, Food, Soil, or Biological Scientist, Zoologist)'>
                     - Life Scientist (e.g., Animal, Food, Soil, or Biological Scientist, Zoologist)
                   </MenuItem>
-                  <MenuItem value='39'>
+                  <MenuItem value='Physical Scientist (e.g., Astronomer, Physicist, Chemist, Hydrologist)'>
                     - Physical Scientist (e.g., Astronomer, Physicist, Chemist, Hydrologist)
                   </MenuItem>
-                  <MenuItem value='40'>
+                  <MenuItem value='Religious Worker (e.g., Clergy, Director of Religious Activities or Education)'>
                     - Religious Worker (e.g., Clergy, Director of Religious Activities or Education)
                   </MenuItem>
-                  <MenuItem value='41'>- Social Scientist and Related Worker</MenuItem>
-                  <MenuItem value='42'>- Other Professional Occupation</MenuItem>
-                  <MenuItem value='43'>- Supervisor of Administrative Support Workers</MenuItem>
-                  <MenuItem value='44'>- Financial Clerk</MenuItem>
-                  <MenuItem value='45'>- Secretary or Administrative Assistant</MenuItem>
-                  <MenuItem value='46'>
+                  <MenuItem value='Social Scientist and Related Worker'>
+                    - Social Scientist and Related Worker
+                  </MenuItem>
+                  <MenuItem value='Other Professional Occupation'>
+                    - Other Professional Occupation
+                  </MenuItem>
+                  <MenuItem value='Supervisor of Administrative Support Workers'>
+                    - Supervisor of Administrative Support Workers
+                  </MenuItem>
+                  <MenuItem value='Financial Clerk'>- Financial Clerk</MenuItem>
+                  <MenuItem value='Secretary or Administrative Assistant'>
+                    - Secretary or Administrative Assistant
+                  </MenuItem>
+                  <MenuItem value='Material Recording, Scheduling, and Dispatching Worker'>
                     - Material Recording, Scheduling, and Dispatching Worker
                   </MenuItem>
-                  <MenuItem value='47'>
+                  <MenuItem value='Other Office and Administrative Support Occupation'>
                     - Other Office and Administrative Support Occupation
                   </MenuItem>
-                  <MenuItem value='48'>
+                  <MenuItem value='Protective Service (e.g., Fire Fighting, Police Officer, Correctional Officer)'>
                     - Protective Service (e.g., Fire Fighting, Police Officer, Correctional Officer)
                   </MenuItem>
-                  <MenuItem value='49'>- Chef or Head Cook</MenuItem>
-                  <MenuItem value='50'>- Cook or Food Preparation Worker</MenuItem>
-                  <MenuItem value='51'>
+                  <MenuItem value='Chef or Head Cook'>- Chef or Head Cook</MenuItem>
+                  <MenuItem value='Cook or Food Preparation Worker'>
+                    - Cook or Food Preparation Worker
+                  </MenuItem>
+                  <MenuItem value='Food and Beverage Serving Worker (e.g., Bartender, Waiter, Waitress)'>
                     - Food and Beverage Serving Worker (e.g., Bartender, Waiter, Waitress)
                   </MenuItem>
-                  <MenuItem value='52'>- Building and Grounds Cleaning and Maintenance</MenuItem>
-                  <MenuItem value='53'>
+                  <MenuItem value='Building and Grounds Cleaning and Maintenance'>
+                    - Building and Grounds Cleaning and Maintenance
+                  </MenuItem>
+                  <MenuItem value='Personal Care and Service (e.g., Hairdresser, Flight Attendant, Concierge)'>
                     - Personal Care and Service (e.g., Hairdresser, Flight Attendant, Concierge)
                   </MenuItem>
-                  <MenuItem value='54'>- Sales Supervisor, Retail Sales</MenuItem>
-                  <MenuItem value='55'>- Retail Sales Worker</MenuItem>
-                  <MenuItem value='56'>- Insurance Sales Agent</MenuItem>
-                  <MenuItem value='57'>- Sales Representative</MenuItem>
-                  <MenuItem value='58'>- Real Estate Sales Agent</MenuItem>
-                  <MenuItem value='59'>- Other Services Occupation</MenuItem>
-                  <MenuItem value='60'>
+                  <MenuItem value='Sales Supervisor, Retail Sales'>
+                    - Sales Supervisor, Retail Sales
+                  </MenuItem>
+                  <MenuItem value='Retail Sales Worker'>- Retail Sales Worker</MenuItem>
+                  <MenuItem value='Insurance Sales Agent'>- Insurance Sales Agent</MenuItem>
+                  <MenuItem value='Sales Representative'>- Sales Representative</MenuItem>
+                  <MenuItem value='Real Estate Sales Agent'>- Real Estate Sales Agent</MenuItem>
+                  <MenuItem value='Other Services Occupation'>- Other Services Occupation</MenuItem>
+                  <MenuItem value='Construction and Extraction (e.g., Construction Laborer, Electrician)'>
                     - Construction and Extraction (e.g., Construction Laborer, Electrician)
                   </MenuItem>
-                  <MenuItem value='61'>- Farming, Fishing, and Forestry</MenuItem>
-                  <MenuItem value='62'>- Installation, Maintenance, and Repair</MenuItem>
-                  <MenuItem value='63'>- Production Occupations</MenuItem>
-                  <MenuItem value='64'>
+                  <MenuItem value='Farming, Fishing, and Forestry'>
+                    - Farming, Fishing, and Forestry
+                  </MenuItem>
+                  <MenuItem value='Installation, Maintenance, and Repair'>
+                    - Installation, Maintenance, and Repair
+                  </MenuItem>
+                  <MenuItem value='Production Occupations'>- Production Occupations</MenuItem>
+                  <MenuItem value='Other Agriculture, Maintenance, Repair, and Skilled Crafts Occupation'>
                     - Other Agriculture, Maintenance, Repair, and Skilled Crafts Occupation
                   </MenuItem>
-                  <MenuItem value='65'>- Aircraft Pilot or Flight Engineer</MenuItem>
-                  <MenuItem value='66'>
+                  <MenuItem value='Aircraft Pilot or Flight Engineer'>
+                    - Aircraft Pilot or Flight Engineer
+                  </MenuItem>
+                  <MenuItem value='Motor Vehicle Operator (e.g., Ambulance, Bus, Taxi, or Truck Driver)'>
                     - Motor Vehicle Operator (e.g., Ambulance, Bus, Taxi, or Truck Driver)
                   </MenuItem>
-                  <MenuItem value='67'>- Other Transportation Occupation</MenuItem>
-                  <MenuItem value='68'>- Military</MenuItem>
-                  <MenuItem value='69'>- Homemaker</MenuItem>
-                  <MenuItem value='70'>- Other Occupation</MenuItem>
-                  <MenuItem value='71'>- Don&apos;t Know</MenuItem>
-                  <MenuItem value='72'>- Not Applicable</MenuItem>
+                  <MenuItem value='Other Transportation Occupation'>
+                    - Other Transportation Occupation
+                  </MenuItem>
+                  <MenuItem value='Military'>- Military</MenuItem>
+                  <MenuItem value='Homemaker'>- Homemaker</MenuItem>
+                  <MenuItem value='Other Occupation'>- Other Occupation</MenuItem>
+                  <MenuItem value='Do not Know'>- Do not Know</MenuItem>
+                  <MenuItem value='Not Applicable'>- Not Applicable</MenuItem>
                 </Select>
               </FormControl>
             </div>

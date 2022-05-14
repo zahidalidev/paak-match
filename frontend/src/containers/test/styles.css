@@ -18,3 +18,9 @@
   margin-top: 3rem;
   margin-bottom: 4rem;
 }
+
+.bluecircle {
+  width: 6rem;
+  height: 6rem;
+  cursor: pointer;
+}

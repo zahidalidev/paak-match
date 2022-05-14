@@ -1,18 +1,23 @@
 import { useState } from 'react'
 import { ArrowForward } from '@material-ui/icons'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
-import FormControlLabel from '@mui/material/FormControlLabel'
+// import Radio from '@mui/material/Radio'
+// import RadioGroup from '@mui/material/RadioGroup'
+// import FormControlLabel from '@mui/material/FormControlLabel'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import Button from 'components/button'
 import { itemsPerPage, personalitiesCombinations } from 'utils/constants'
 import { addPersonality, detectPersonality } from 'services/user'
+import Button from 'components/button'
+import Loader from 'components/loader'
+
+import bluecircle from 'assets/bluecircle.png'
+import blueOutlineCircle from 'assets/blueOutlineCircle.png'
+import orangeCircle from 'assets/orangeCircle.png'
+import orangeOutlineCircle from 'assets/orangeOutlineCircle.png'
 
 import 'containers/test/styles.css'
-import Loader from 'components/loader'
 
 const Test = () => {
   const [endOffset, setEndOffset] = useState(itemsPerPage)
@@ -374,6 +379,7 @@ const Test = () => {
   const handleChange = (value, index) => {
     const tempQues = [...questionsData]
     tempQues[index - 1].choice = parseInt(value)
+    console.log('tempQues: ', tempQues)
     setQuestionsData(tempQues)
   }
 
@@ -391,25 +397,24 @@ const Test = () => {
                 <h5>{item.question}</h5>
               </div>
             </div>
-            <RadioGroup
-              onChange={e => handleChange(e.target.value, item.id)}
-              row
-              value={item.choice}
-              className='col-md-8 test-options-wrapper '
-            >
-              <FormControlLabel
-                value={0}
-                control={<Radio />}
-                label={item.answerA}
-                labelPlacement='bottom'
-              />
-              <FormControlLabel
-                value={1}
-                control={<Radio />}
-                label={item.answerB}
-                labelPlacement='bottom'
-              />
-            </RadioGroup>
+            <div className='d-flex justify-content-center align-items-center col-md-11 test-options-wrapper text-center'>
+              <div className='d-flex flex-column justify-content-center align-items-center text-center col-md-6'>
+                <img
+                  onClick={() => handleChange(0, item.id)}
+                  className='bluecircle'
+                  src={item.choice == 0 ? bluecircle : blueOutlineCircle}
+                />
+                <p className='mt-4'>{item.answerA}</p>
+              </div>
+              <div className='d-flex flex-column justify-content-center align-items-center text-center col-md-6'>
+                <img
+                  onClick={() => handleChange(1, item.id)}
+                  className='bluecircle'
+                  src={item.choice == 1 ? orangeCircle : orangeOutlineCircle}
+                />
+                <p className='mt-4'>{item.answerB}</p>
+              </div>
+            </div>
           </div>
         </div>
       ))}

@@ -16,8 +16,15 @@ const App = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const showAppBar = pathname != '/createprofile'
-
+  const showAppBar =
+    pathname == '/createprofile' ||
+    pathname == '/verify' ||
+    pathname == '/preferences' ||
+    pathname == '/teststart' ||
+    pathname == '/test'
+      ? false
+      : true
+  console.log('app.js pathname: ', pathname)
   const getUser = async body => {
     try {
       const { data } = await LoginWithToken(body)

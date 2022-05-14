@@ -12,12 +12,11 @@ import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-// import Tooltip from '@mui/material/Tooltip'
+import Tooltip from '@mui/material/Tooltip'
 
 import { nodeBaseURL } from 'config/baseURL'
 
 import logo from 'assets/logo.png'
-import profileIcon from 'assets/profileIcon.png'
 
 import 'components/appbar/styles.css'
 import { USER_LOGOUT } from 'store/user'
@@ -76,7 +75,6 @@ const ResponsiveAppBar = () => {
   }
 
   const handleLogout = () => {
-    console.log('LOgout')
     dispatch(USER_LOGOUT())
     dispatch(REMOVE_PROFILE())
   }
@@ -90,6 +88,7 @@ const ResponsiveAppBar = () => {
             noWrap
             component='div'
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+            onClick={() => navigate('/home')}
           >
             <img className='logo' src={logo} />
           </Typography>
@@ -156,17 +155,18 @@ const ResponsiveAppBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             {/* <Tooltip title='Open settings'> */}
-            <IconButton sx={{ p: 0 }}>
-              <Avatar
-                className='profile-icon'
-                alt='Profile icon'
-                src={
-                  localStorage.getItem('token')
-                    ? `${nodeBaseURL}/${currentprofileDetail.image}`
-                    : profileIcon
-                }
-              />
-            </IconButton>
+            {currentprofileDetail.image && (
+              <Tooltip title={user.name}>
+                <IconButton sx={{ p: 0 }}>
+                  <Avatar
+                    className='profile-icon'
+                    alt='Profile icon'
+                    src={`${nodeBaseURL}/${currentprofileDetail.image}`}
+                  />
+                </IconButton>
+              </Tooltip>
+            )}
+
             {/* </Tooltip> */}
             <Menu
               sx={{ mt: '45px' }}

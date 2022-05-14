@@ -27,9 +27,9 @@ const Header = () => {
 
             <div className='c-m-header'>
               <img src={headerImg2} className='header-img2'></img>
-              <span className='header-c1'>Muslims don’t date they marry</span>
+              <span className='header-c1'>Find Your Best Personality Match</span>
             </div>
-            <span className='header-c2'>Muslims don’t date they marry</span>
+            <span className='header-c2'>Find Your Best Personality Match</span>
           </div>
           <div className='header-right d-flex flex-column'>
             <div className='d-flex flex-row'>
