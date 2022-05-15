@@ -65,6 +65,7 @@ const PayNow = () => {
 
       if (result.error) {
         console.log(result.error.message)
+        toast.error(result.error.message)
       } else {
         const res = await paySubscription(result, email)
         // eslint-disable-next-line camelcase

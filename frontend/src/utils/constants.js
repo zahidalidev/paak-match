@@ -1,5 +1,3 @@
-import { Send } from '@mui/icons-material'
-
 import callIcon from 'assets/callIcon.png'
 import docIcon from 'assets/docIcon.png'
 import trustIcon from 'assets/trustIcon.png'
@@ -188,12 +186,6 @@ export const recentMatches = [
     profileImg: prof1
   }
 ]
-
-export const SendIcon = (
-  <div style={{ backgroundColor: '#5D46C2', padding: 6, borderRadius: 5 }}>
-    <Send sx={{ height: 22, width: 22 }} style={{ color: '#ffffff' }} />
-  </div>
-)
 
 export const CompaTable = {
   ISTJ: 'The extrovert personalities and laid-back traits work alongside the sometimes serious nature of the ISTJ',

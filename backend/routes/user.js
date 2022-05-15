@@ -134,10 +134,9 @@ router.put("/createprofile", async (req, res) => {
 });
 
 router.post("/loginwithtoken", async (req, res) => {
-  console.log("token");
-  const { token } = req.body;
+  const { token, email } = req.body;
   try {
-    var sql = `select id, name, email, role, hash from users where hash = '${token}'`;
+    var sql = `select id, name, email, role, hash from users where hash = '${token}' AND email = '${email}'`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
       if (result.length != 0) {
@@ -146,6 +145,32 @@ router.post("/loginwithtoken", async (req, res) => {
       } else {
         res.status(400).send({ message: "Not Found" });
       }
+    });
+  } catch (error) {
+    return res.status(500).send({ message: err.message });
+  }
+});
+
+router.get("/allsubscriptions", async (req, res) => {
+  try {
+    var sql = `select * from users u JOIN subscriptions s on u.id = s.plan_user_id`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      console.log(result);
+      return res.status(200).send(result);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: err.message });
+  }
+});
+
+router.get("/allusers/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    var sql = `select * from users where id != '${id}'`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      return res.status(200).send(result);
     });
   } catch (error) {
     return res.status(500).send({ message: err.message });
@@ -166,6 +191,7 @@ router.get("/:email/:password", async (req, res) => {
             return res
               .status(400)
               .send({ message: "Email or Password is incorrect" });
+          console.log({ id, name, email, hash });
           return res.status(200).send({ id, name, email, hash });
         });
       } else {

@@ -16,11 +16,18 @@ const App = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const showAppBar = pathname != '/createprofile'
-
-  const getUser = async token => {
+  const showAppBar =
+    pathname == '/createprofile' ||
+    pathname == '/verify' ||
+    pathname == '/preferences' ||
+    pathname == '/teststart' ||
+    pathname == '/test'
+      ? false
+      : true
+  console.log('app.js pathname: ', pathname)
+  const getUser = async body => {
     try {
-      const { data } = await LoginWithToken(token)
+      const { data } = await LoginWithToken(body)
       dispatch(USER_LOGIN({ id: data.id, token: data.hash, name: data.name, email: data.email }))
       const { data: details } = await getProfileDetails(data.id)
       console.log('app.js user: ', details)
@@ -28,16 +35,17 @@ const App = () => {
     } catch (error) {
       console.log('Login Error: ', error)
       toast.error('User Login Faild, Try Again!')
-      navigate('/register')
+      navigate('/home')
     }
   }
 
   useEffect(() => {
     let token = localStorage.getItem('token')
+    let email = localStorage.getItem('email')
     if (token) {
-      getUser({ token: JSON.parse(token) })
+      getUser({ token: JSON.parse(token), email: JSON.parse(email) })
     } else {
-      navigate('/register')
+      navigate('/home')
     }
   }, [])
 

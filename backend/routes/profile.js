@@ -5,6 +5,20 @@ const con = require("../config/db");
 
 const router = express.Router();
 
+router.post("/chatsetdetails", async (req, res) => {
+  const { set } = req.body;
+  try {
+    var sql = `select u.id, u.name, p.image from users u JOIN profileDetails p on u.id = p.user_id where u.id in ${set}`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      const tempData = result;
+      return res.status(200).send(tempData);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: err.message });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -21,7 +35,7 @@ router.get("/:id", async (req, res) => {
         con.query(sql, (err, result) => {
           if (err) return res.status(400).send({ message: err.sqlMessage });
           currentUserDetailsPref = { ...currentUserDetailsPref, ...result[0] };
-          sql = `select id, DOB, height, personality_type, marital_status, mother_tongue, religion, income, occupation, education, city, caste, image from users u JOIN profileDetails p on u.id = p.user_id where gender = '${
+          sql = `select id, DOB, name, height, personality_type, marital_status, mother_tongue, religion, income, occupation, education, city, caste, image from users u JOIN profileDetails p on u.id = p.user_id where gender = '${
             currentUserDetailsPref.gender
           }' AND personality_type IN ${
             table[currentUserDetailsPref.personality_type]
@@ -29,6 +43,7 @@ router.get("/:id", async (req, res) => {
           con.query(sql, (err, result) => {
             if (err) return res.status(400).send({ message: err.sqlMessage });
             let matchedProfiles = [...result];
+            console.log("matchedProfiles: ", matchedProfiles);
 
             [currentUserDetailsPref.height1, currentUserDetailsPref.height2] =
               currentUserDetailsPref.height_range.split("-");
@@ -36,7 +51,6 @@ router.get("/:id", async (req, res) => {
               currentUserDetailsPref.age_range.split("-");
 
             matchedProfiles.map((item) => (item.age = getAge(item.DOB)));
-
             let pointedProfiles = getProfilesWithPoints(
               currentUserDetailsPref,
               matchedProfiles
@@ -58,9 +72,12 @@ router.get("/:id", async (req, res) => {
 router.get("/details/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    var sql = `select * from users u JOIN profileDetails p on u.id = p.user_id LEFT JOIN subscriptions su on su.plan_user_id = u.id where u.id = ${id}`;
+    var sql = `select * from users u LEFT JOIN profileDetails p on u.id = p.user_id LEFT JOIN subscriptions su on su.plan_user_id = u.id where u.id = ${id}`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
+      if (result.length == 0) {
+        return res.status(200).send([]);
+      }
       const tempData = result[0];
       tempData.age = getAge(tempData.DOB);
       return res.status(200).send(tempData);
@@ -105,10 +122,22 @@ const getProfilesWithPoints = (currentUserDetailsPref, matchedProf) => {
       if (
         matchedProfiles[index][key] == currentUserDetailsPref[key] &&
         key != "personality_type" &&
-        key != "id"
+        key != "id" &&
+        key != "name" &&
+        key != "religion"
       ) {
         points++;
         matchedKeys.push(key);
+      }
+
+      if (key == "religion") {
+        if (currentUserDetailsPref[key] == "Any(Muslim)") {
+          points++;
+          matchedKeys.push(key);
+        } else if (matchedProfiles[index][key] == currentUserDetailsPref[key]) {
+          points++;
+          matchedKeys.push(key);
+        }
       }
 
       if (key == "age1") {

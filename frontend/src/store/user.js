@@ -10,6 +10,7 @@ const slice = createSlice({
       user.email = action.payload.email
       user.id = action.payload.id
       localStorage.setItem('token', JSON.stringify(user.token))
+      localStorage.setItem('email', JSON.stringify(user.email))
     },
     USER_LOGIN: (user, action) => {
       user.token = action.payload.token
@@ -17,6 +18,7 @@ const slice = createSlice({
       user.email = action.payload.email
       user.id = action.payload.id
       localStorage.setItem('token', JSON.stringify(user.token))
+      localStorage.setItem('email', JSON.stringify(user.email))
     },
     USER_LOGOUT: user => {
       user.token = ''
@@ -24,6 +26,7 @@ const slice = createSlice({
       user.email = ''
       user.id = ''
       localStorage.removeItem('token')
+      localStorage.removeItem('email')
     }
   }
 })

@@ -4,7 +4,6 @@ import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import Button from '@mui/material/Button'
 
 import 'components/appbar/styles.css'
 
@@ -23,9 +22,12 @@ const Header = () => {
             className='d-flex justify-content-center'
             sx={{ flexGrow: 1, display: { md: 'flex' } }}
           >
-            <Button sx={{ my: 2, color: 'white', display: 'block', fontSize: '1.2rem' }}>
+            <Typography
+              style={{ textTransform: 'uppercase' }}
+              sx={{ my: 2, color: 'white', display: 'block', fontSize: '1.3rem' }}
+            >
               Create Your Profile
-            </Button>
+            </Typography>
           </Box>
         </Toolbar>
       </Container>

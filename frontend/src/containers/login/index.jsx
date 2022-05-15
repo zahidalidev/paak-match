@@ -12,6 +12,8 @@ import { login } from 'services/user'
 
 import 'containers/register/styles.css'
 import { toast } from 'react-toastify'
+import { getProfileDetails } from 'services/profile'
+import { ADD_CURRENT_PROFILE } from 'store/profiles'
 
 const { innerHeight } = window
 
@@ -50,6 +52,11 @@ const Login = () => {
 
       const { data } = await login(user)
       dispatch(USER_LOGIN({ id: data.id, token: data.hash, name: data.name, email: data.email }))
+      const { data: details } = await getProfileDetails(data.id)
+      dispatch(ADD_CURRENT_PROFILE({ currentprofileDetail: details }))
+
+      setLoading(false)
+      navigate('/home')
     } catch (error) {
       console.log('Register error: ', error)
       toast.error(error.response.data.message)

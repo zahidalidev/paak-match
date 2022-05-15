@@ -49,7 +49,8 @@ const VerifyImage = () => {
 
       try {
         const { data: result } = await verifyProfileImages(data)
-        if (result) {
+        console.log('result verify: ', result)
+        if (result == true) {
           let dataP = new FormData()
           dataP.append('file', uploadedImage)
           await addProfileImage(dataP, user.id)
@@ -58,6 +59,7 @@ const VerifyImage = () => {
           toast.error('Picture not verified try again!')
         }
       } catch (error) {
+        toast.error('Picture not verified try again!')
         console.log('Verification error: ', error)
       }
     }

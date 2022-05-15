@@ -1,7 +1,7 @@
 import { Route, Routes, Navigate } from 'react-router-dom'
 
 import Matches from 'containers/matches'
-import LandingPage from 'containers/landingPage'
+import Home from 'containers/home'
 import UserProfile from 'containers/userProfile'
 import Chat from 'containers/chat'
 import ProfileCreation from 'containers/ProfileCreation'
@@ -12,11 +12,13 @@ import TestStart from 'containers/testStart'
 import Preferences from 'containers/preferences'
 import Test from 'containers/test'
 import Subscription from 'containers/subscription'
+import Admin from 'containers/admin'
 
 const routeList = [
   { path: '/matches', component: <Matches /> },
-  { path: '/home', component: <LandingPage /> },
+  { path: '/home', component: <Home /> },
   { path: '/profile/:id', component: <UserProfile /> },
+  { path: '/chat/:id1/:id2', component: <Chat /> },
   { path: '/chat', component: <Chat /> },
   { path: '/createprofile', component: <ProfileCreation /> },
   { path: '/createprofile/:id', component: <ProfileCreation /> },
@@ -27,7 +29,8 @@ const routeList = [
   { path: '/preferences', component: <Preferences /> },
   { path: '/preferences/:id', component: <Preferences /> },
   { path: '/test', component: <Test /> },
-  { path: '/subscription', component: <Subscription /> }
+  { path: '/subscription', component: <Subscription /> },
+  { path: '/admin', component: <Admin /> }
 ]
 
 const AppRoutes = () => {

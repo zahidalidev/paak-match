@@ -1,8 +1,8 @@
 .home-container {
   margin-top: 4rem;
 }
+
 .profile-card-h {
-  /* margin-top: 1.8rem; */
   min-width: 18rem;
   background-color: #8f8ec37a !important;
   border-radius: 15px;
@@ -138,22 +138,21 @@
 
 .new-matches-h > div {
   display: flex !important;
-  /* justify-content: space-between; */
-  /* flex-wrap: wrap; */
 }
 
 .new-match-heading-h {
   font-size: 1.2rem;
 }
 
-.matches-profile-img {
-  width: 8rem;
-  height: 8rem;
+.matches-profile-img-admin {
+  width: 12rem;
+  height: 12rem;
   border-radius: 1rem;
   margin-top: 1rem;
-  /* object-fit: fill; */
   object-fit: cover;
   object-position: top;
+  box-shadow: 0 1px 5px 0 rgb(0 0 0 / 20%), 0 2px 22px 0 rgb(0 0 0 / 19%);
+  border: 3px outset #8f8ec350;
 }
 .matches-profile-img-total {
   width: 15rem;
@@ -162,19 +161,26 @@
   margin-top: 1rem;
 }
 
-.matches-h-wrapper {
+.matches-h-wrapper-admin {
   margin-right: 1rem;
   cursor: pointer;
+  min-width: 15rem;
 }
 
-.matches-profile-c {
+.matches-profile-c-admin {
   font-size: 0.8rem;
   color: #898989;
   font-weight: bold;
   text-align: left;
+  margin-bottom: 3px;
 }
 
 .matches-name {
   text-align: left;
   font-size: 1rem;
+}
+
+.subscription-card-wrapper {
+  margin: 2rem;
+  margin-bottom: 1rem;
 }

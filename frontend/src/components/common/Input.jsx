@@ -13,7 +13,8 @@ const Input = ({
   multiline = false,
   type = 'text',
   handleChange,
-  value
+  value,
+  onEnter
 }) => {
   return (
     <FormControl sx={{ m: 1, width, height: 10 }} variant='outlined'>
@@ -24,21 +25,20 @@ const Input = ({
         {title}
       </InputLabel>
       <OutlinedInput
+        onKeyPress={e => {
+          if (e.key === 'Enter') {
+            onEnter()
+          }
+        }}
         multiline={multiline}
         style={{ height }}
         type={type}
         id='outlined-adornment-password'
-        // type={values.showPassword ? 'text' : 'password'}
         value={value}
         onChange={handleChange}
         endAdornment={
           <InputAdornment position='end'>
-            <IconButton
-              aria-label='toggle password visibility'
-              //   onClick={handleClickShowPassword}
-              //   onMouseDown={handleMouseDownPassword}
-              edge='end'
-            >
+            <IconButton aria-label='toggle password visibility' edge='end'>
               {icon}
             </IconButton>
           </InputAdornment>
@@ -57,7 +57,8 @@ Input.propTypes = {
   icon: PropTypes.any,
   multiline: PropTypes.bool,
   handleChange: PropTypes.func,
-  value: PropTypes.string
+  value: PropTypes.string,
+  onEnter: PropTypes.func
 }
 
 export default Input

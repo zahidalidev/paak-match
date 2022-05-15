@@ -14,9 +14,15 @@ const slice = createSlice({
 
     ADD_MATCHED_PROFILE: (profile, action) => {
       profile.matchedProfiles = action.payload.matchedProfiles
+    },
+
+    REMOVE_PROFILE: profile => {
+      profile.matchedProfiles = []
+      profile.currentprofileDetail = {}
     }
   }
 })
 
-export const { ADD_CURRENT_PROFILE, UPDATE_CURRENT_ROFILE, ADD_MATCHED_PROFILE } = slice.actions
+export const { ADD_CURRENT_PROFILE, UPDATE_CURRENT_ROFILE, ADD_MATCHED_PROFILE, REMOVE_PROFILE } =
+  slice.actions
 export default slice.reducer

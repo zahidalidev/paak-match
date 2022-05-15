@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useEffect, useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -9,27 +9,70 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import Tooltip from '@mui/material/Tooltip'
 
-import 'components/appbar/styles.css'
+import { nodeBaseURL } from 'config/baseURL'
 
 import logo from 'assets/logo.png'
-import profileIcon from 'assets/profileIcon.png'
 
-const pages = ['Home', 'Search', 'Matches', 'Chat']
+import 'components/appbar/styles.css'
+import { USER_LOGOUT } from 'store/user'
+import { REMOVE_PROFILE } from 'store/profiles'
+
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 const ResponsiveAppBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null)
-  const [anchorElUser, setAnchorElUser] = React.useState(null)
+  const [anchorElNav, setAnchorElNav] = useState(null)
+  const [anchorElUser, setAnchorElUser] = useState(null)
+  const { currentprofileDetail } = useSelector(state => state.profile)
+  const user = useSelector(state => state.user)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [pages, setPages] = useState([{ name: 'Home', path: '/home' }])
+
+  const token = localStorage.getItem('token')
+  useEffect(() => {
+    let tempPages = [{ name: 'Home', path: '/home' }]
+    if (token) {
+      console.log('currentprofileDetail: ', currentprofileDetail, user)
+      if (currentprofileDetail.role == 'admin') {
+        tempPages = [
+          ...tempPages,
+          { name: 'admin', path: '/admin' },
+          { name: 'Logout', path: '/logout' }
+        ]
+      } else {
+        tempPages = [...tempPages, { name: 'Matches', path: '/matches' }]
+        if (currentprofileDetail.plan == 'premium') {
+          tempPages = [
+            ...tempPages,
+            { name: 'Chat', path: '/chat' },
+            { name: 'Logout', path: '/logout' }
+          ]
+        } else {
+          tempPages = [...tempPages, { name: 'Logout', path: '/logout' }]
+        }
+      }
+    } else {
+      tempPages = [
+        ...tempPages,
+        { name: 'Login', path: '/login' },
+        { name: 'Register', path: '/register' }
+      ]
+    }
+    setPages(tempPages)
+  }, [user, currentprofileDetail, token])
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget)
   }
-  const handleOpenUserMenu = event => {
-    setAnchorElUser(event.currentTarget)
-  }
+
+  // const handleOpenUserMenu = event => {
+  //   setAnchorElUser(event.currentTarget)
+  // }
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
@@ -37,6 +80,11 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
+  }
+
+  const handleLogout = () => {
+    dispatch(USER_LOGOUT())
+    dispatch(REMOVE_PROFILE())
   }
 
   return (
@@ -48,6 +96,7 @@ const ResponsiveAppBar = () => {
             noWrap
             component='div'
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+            onClick={() => navigate('/home')}
           >
             <img className='logo' src={logo} />
           </Typography>
@@ -79,9 +128,13 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseNavMenu}
               className='menu'
             >
-              {pages.map(page => (
-                <MenuItem key={page} className='menu-items' onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>{page}</Typography>
+              {pages.map((page, index) => (
+                <MenuItem
+                  key={index.toString()}
+                  className='menu-items'
+                  onClick={page.name === 'Logout' ? handleLogout : () => navigate(page.path)}
+                >
+                  <Typography textAlign='center'>{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -96,24 +149,33 @@ const ResponsiveAppBar = () => {
             <img className='logo' src={logo} />
           </Typography>
           <Box className='menu' sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map(page => (
+            {pages.map((page, index) => (
               <Button
                 className='menu-items'
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={index.toString()}
+                onClick={page.name === 'Logout' ? handleLogout : () => navigate(page.path)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title='Open settings'>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar className='profile-icon' alt='Profile icon' src={profileIcon} />
-              </IconButton>
-            </Tooltip>
+            {/* <Tooltip title='Open settings'> */}
+            {currentprofileDetail.image && (
+              <Tooltip title={user.name}>
+                <IconButton sx={{ p: 0 }}>
+                  <Avatar
+                    className='profile-icon'
+                    alt='Profile icon'
+                    src={`${nodeBaseURL}/${currentprofileDetail.image}`}
+                  />
+                </IconButton>
+              </Tooltip>
+            )}
+
+            {/* </Tooltip> */}
             <Menu
               sx={{ mt: '45px' }}
               id='menu-appbar'

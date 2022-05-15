@@ -9,7 +9,7 @@ import homeImg2 from 'assets/Rectangle 12.png'
 import shyChooseImg from 'assets/Rectangle 39.png'
 import momentBottom from 'assets/SVG File (1) 2.png'
 
-import 'containers/landingPage/styles.css'
+import 'containers/home/styles.css'
 import Footer from 'components/footer/Footer'
 
 const Home = () => {

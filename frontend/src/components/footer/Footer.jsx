@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import Button from 'components/button'
 
 import { colors } from 'config/theme'
@@ -5,6 +6,7 @@ import { colors } from 'config/theme'
 import logo from 'assets/footerLogo.png'
 
 const Footer = () => {
+  const navigate = useNavigate()
   return (
     <div>
       <div
@@ -70,7 +72,7 @@ const Footer = () => {
                 fontSize: '0.9rem'
               }}
             >
-              <i className='mr-2 fa fa-map-marker' aria-hidden='true'></i> Lower Mainland Canada
+              <i className='mr-2 fa fa-map-marker' aria-hidden='true'></i> Lahore, Punjab, Pakistan
             </p>
             <p
               style={{
@@ -78,7 +80,7 @@ const Footer = () => {
                 fontSize: '0.9rem'
               }}
             >
-              <i className='mr-2 fa fa-phone' aria-hidden='true'></i> 604-PAAKMATCH
+              <i className='mr-2 fa fa-phone' aria-hidden='true'></i> +92-336-7088018
             </p>
             <p
               style={{
@@ -86,7 +88,7 @@ const Footer = () => {
                 fontSize: '0.9rem'
               }}
             >
-              <i className='mr-2 fa fa-envelope mr-2'></i>support@paakmatch.ca
+              <i className='mr-2 fa fa-envelope mr-2'></i>support@paakmatch.com
             </p>
           </div>
           <div className='col-lg-2 col-md-5 mb-5'>
@@ -101,43 +103,9 @@ const Footer = () => {
                   cursor: 'pointer'
                 }}
                 className='text-white mb-2'
-                onClick={() => console.log('/home')}
+                onClick={() => navigate('/home')}
               >
                 Home
-              </a>
-              <a
-                style={{
-                  marginTop: '1rem',
-                  fontSize: '0.9rem',
-                  cursor: 'pointer'
-                }}
-                className='text-white mb-2'
-                onClick={() => console.log('/about')}
-              >
-                About Us
-              </a>
-
-              <a
-                style={{
-                  marginTop: '1rem',
-                  fontSize: '0.9rem',
-                  cursor: 'pointer'
-                }}
-                className='text-white mb-2'
-                onClick={() => console.log('/pricing')}
-              >
-                Pricing
-              </a>
-              <a
-                style={{
-                  marginTop: '1rem',
-                  fontSize: '0.9rem',
-                  cursor: 'pointer'
-                }}
-                className='text-white'
-                onClick={() => console.log('/contact')}
-              >
-                Contact Us
               </a>
             </div>
           </div>

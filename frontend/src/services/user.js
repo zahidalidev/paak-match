@@ -6,6 +6,11 @@ export const register = async user => await axios.post(`${nodeBaseURL}/api/user`
 export const login = async user =>
   await axios.get(`${nodeBaseURL}/api/user/${user.email}/${user.password}`)
 
+export const getAllUser = async id => await axios.get(`${nodeBaseURL}/api/user/allusers/${id}`)
+
+export const getAllUserSubscriptions = async () =>
+  await axios.get(`${nodeBaseURL}/api/user/allsubscriptions`)
+
 export const updateUserProfile = async profile =>
   await axios.put(`${nodeBaseURL}/api/user/createprofile`, profile)
 
@@ -27,5 +32,5 @@ export const updatePartnerPreferences = async data =>
 export const addProfileImage = async (file, id) =>
   await axios.post(`${nodeBaseURL}/api/user/userprofile/${id}`, file)
 
-export const LoginWithToken = async token =>
-  await axios.post(`${nodeBaseURL}/api/user/loginwithtoken`, token)
+export const LoginWithToken = async body =>
+  await axios.post(`${nodeBaseURL}/api/user/loginwithtoken`, body)
