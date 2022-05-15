@@ -37,16 +37,24 @@ const ResponsiveAppBar = () => {
   useEffect(() => {
     let tempPages = [{ name: 'Home', path: '/home' }]
     if (token) {
-      tempPages = [...tempPages, { name: 'Matches', path: '/matches' }]
       console.log('currentprofileDetail: ', currentprofileDetail, user)
-      if (currentprofileDetail.plan == 'premium') {
+      if (currentprofileDetail.role == 'admin') {
         tempPages = [
           ...tempPages,
-          { name: 'Chat', path: '/chat' },
-          { name: 'Logout', path: '/home' }
+          { name: 'admin', path: '/admin' },
+          { name: 'Logout', path: '/logout' }
         ]
       } else {
-        tempPages = [...tempPages, { name: 'Logout', path: '/home' }]
+        tempPages = [...tempPages, { name: 'Matches', path: '/matches' }]
+        if (currentprofileDetail.plan == 'premium') {
+          tempPages = [
+            ...tempPages,
+            { name: 'Chat', path: '/chat' },
+            { name: 'Logout', path: '/logout' }
+          ]
+        } else {
+          tempPages = [...tempPages, { name: 'Logout', path: '/logout' }]
+        }
       }
     } else {
       tempPages = [

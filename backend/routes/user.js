@@ -151,6 +151,19 @@ router.post("/loginwithtoken", async (req, res) => {
   }
 });
 
+router.get("/allusers/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    var sql = `select * from users where id != '${id}'`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      return res.status(200).send(result);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: err.message });
+  }
+});
+
 router.get("/:email/:password", async (req, res) => {
   const { email, password } = req.params;
   try {

@@ -34,17 +34,11 @@ const Input = ({
         style={{ height }}
         type={type}
         id='outlined-adornment-password'
-        // type={values.showPassword ? 'text' : 'password'}
         value={value}
         onChange={handleChange}
         endAdornment={
           <InputAdornment position='end'>
-            <IconButton
-              aria-label='toggle password visibility'
-              //   onClick={handleClickShowPassword}
-              //   onMouseDown={handleMouseDownPassword}
-              edge='end'
-            >
+            <IconButton aria-label='toggle password visibility' edge='end'>
               {icon}
             </IconButton>
           </InputAdornment>

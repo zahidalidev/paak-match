@@ -72,7 +72,7 @@ router.get("/:id", async (req, res) => {
 router.get("/details/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    var sql = `select * from users u JOIN profileDetails p on u.id = p.user_id LEFT JOIN subscriptions su on su.plan_user_id = u.id where u.id = ${id}`;
+    var sql = `select * from users u LEFT JOIN profileDetails p on u.id = p.user_id LEFT JOIN subscriptions su on su.plan_user_id = u.id where u.id = ${id}`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
       if (result.length == 0) {
