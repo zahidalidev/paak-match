@@ -151,6 +151,19 @@ router.post("/loginwithtoken", async (req, res) => {
   }
 });
 
+router.get("/allsubscriptions", async (req, res) => {
+  try {
+    var sql = `select * from users u JOIN subscriptions s on u.id = s.plan_user_id`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      console.log(result);
+      return res.status(200).send(result);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: err.message });
+  }
+});
+
 router.get("/allusers/:id", async (req, res) => {
   const { id } = req.params;
   try {
