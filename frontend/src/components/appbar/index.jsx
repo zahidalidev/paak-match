@@ -70,10 +70,6 @@ const ResponsiveAppBar = () => {
     setAnchorElNav(event.currentTarget)
   }
 
-  // const handleOpenUserMenu = event => {
-  //   setAnchorElUser(event.currentTarget)
-  // }
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
   }
@@ -85,6 +81,7 @@ const ResponsiveAppBar = () => {
   const handleLogout = () => {
     dispatch(USER_LOGOUT())
     dispatch(REMOVE_PROFILE())
+    navigate('/home')
   }
 
   return (
