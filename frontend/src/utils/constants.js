@@ -34,37 +34,22 @@ export const faqs = [
   {
     question: 'How to register on PaakMatch Matrimony?',
     answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
+      'After clicking on sign up page you will be navigated to registration page where you would have to provide your name, valid email id, phone number and set a strong password for your account.'
   },
   {
-    question: 'What are come top-notch safety measures in PaakMatch Matrimony?',
+    question: 'What are some safety features of PaakMatch?',
     answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
+      'PaakMatch is safe to use as it ensures users data is protected and filters out fake IDs during verification process.'
   },
   {
-    question: 'What is PaakMatch Matrimony "Prime"?',
+    question: 'What are the features of PaakMatch?',
     answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
+      'PaakMatch differs from traditional matrimonial websites in a way that it combines personality correlation with physical traits, making sure that users get their compatible matches based on personality compatibility.'
   },
   {
-    question: 'Why choose PaakMatch Premium Membership plan?',
+    question: 'How can I verify my profile?',
     answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
-  },
-  {
-    question: 'What are the features of PaakMatch Matrimony?',
-    answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
-  },
-  {
-    question: 'How can I varify my profile on PaakMatch Matrimony?',
-    answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
-  },
-  {
-    question: 'What is assisted service from PaakMatch Matrimony?',
-    answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
+      'Profile verification can be done by providing picture via webcam during registration process.'
   }
 ]
 

@@ -9,10 +9,10 @@ import testimonial_3 from 'assets/Rectangle 42.png'
 
 import 'react-multi-carousel/lib/styles.css'
 import 'components/testimonials/styles.css'
+import { useNavigate } from 'react-router-dom'
 
 const responsive = {
   superLargeDesktop: {
-    // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 5
   },
@@ -34,26 +34,29 @@ function Testimonial(props) {
   const allTestimonials = [
     {
       id: 0,
-      name: 'Jhon & Olivia',
+      name: 'Hamid & Alisha',
 
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      description: 'We connected through PaakMatch, met each other, and exchanged our ...',
       image: testimonial_1
     },
     {
       id: 1,
-      name: 'Jhon & Cloee',
+      name: 'Ali  & Marium',
 
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      description:
+        'I created my profile here on suggestion of my very close friend who also got...',
       image: testimonial_2
     },
     {
       id: 2,
-      name: 'Jhon & Cloee',
+      name: 'Abdul Rehman & Faiqha',
 
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      description: 'Newly married and happy. I am happ I found PaakMatch...',
       image: testimonial_3
     }
   ]
+  const navigate = useNavigate()
+
   return (
     <div className='d-lg-flex flex-column container-fluid justify-content-center align-items-center testimonial-container'>
       <hr className='h-break' />
@@ -99,7 +102,12 @@ function Testimonial(props) {
         Now it is your turn to be happily married
       </h6>
       <div className='testimonial-btn'>
-        <Button title='Sign Up' width='19rem' borderRadius='12px' />
+        <Button
+          onClick={() => navigate('/register')}
+          title='Sign Up'
+          width='19rem'
+          borderRadius='12px'
+        />
       </div>
     </div>
   )

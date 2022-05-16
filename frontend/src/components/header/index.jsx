@@ -8,8 +8,12 @@ import headerImg1 from 'assets/slider/v2_17.png'
 import headerImg2 from 'assets/slider/v2_18.png'
 import headerImg3 from 'assets/slider/v2_14.png'
 import headerImg4 from 'assets/slider/v2_15.png'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 
 const Header = () => {
+  const user = useSelector(state => state.user)
+  const navigate = useNavigate()
   return (
     <>
       <div className='d-flex flex-row align-align-items-center main-header-back'>
@@ -37,8 +41,8 @@ const Header = () => {
               <img src={headerImg4} className='header-img4'></img>
             </div>
             <span className='header-description'>
-              10 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore.
+              Many of the people found their personality match to marry. You too can find a life
+              partner
             </span>
           </div>
         </div>
@@ -47,7 +51,11 @@ const Header = () => {
             <span className='header-c3 '>Matrimonial</span>
           </div>
           <div className='d-flex col-5 justify-content-center'>
-            <Button title='Get Match' />
+            {user.email ? (
+              <Button onClick={() => navigate('/matches')} title='Get Match' />
+            ) : (
+              <Button onClick={() => navigate('/register')} title='SIGN UP' />
+            )}
           </div>
         </div>
       </div>

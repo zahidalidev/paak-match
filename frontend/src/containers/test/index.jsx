@@ -402,7 +402,7 @@ const Test = () => {
                 <img
                   onClick={() => handleChange(0, item.id)}
                   className='bluecircle'
-                  src={item.choice == 0 ? bluecircle : blueOutlineCircle}
+                  src={item.choice == 0 ? blueOutlineCircle : bluecircle}
                 />
                 <p className='mt-4'>{item.answerA}</p>
               </div>
@@ -410,7 +410,7 @@ const Test = () => {
                 <img
                   onClick={() => handleChange(1, item.id)}
                   className='bluecircle'
-                  src={item.choice == 1 ? orangeCircle : orangeOutlineCircle}
+                  src={item.choice == 1 ? orangeOutlineCircle : orangeCircle}
                 />
                 <p className='mt-4'>{item.answerB}</p>
               </div>
