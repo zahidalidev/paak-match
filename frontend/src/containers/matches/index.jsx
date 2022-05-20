@@ -136,7 +136,7 @@ const Matches = () => {
                   <img className='matches-profile-img' src={nodeBaseURL + '/' + item.image} />
                   <h5 className='recent-profile-c matches-name ml-1'>{item.name}</h5>
                   <p className='matches-profile-c ml-1'>
-                    {item.points * 10}%, Type: {item.personality_type}
+                    {item.points}%, Type: {item.personality_type}
                   </p>
                 </div>
               ))}
