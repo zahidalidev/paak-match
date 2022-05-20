@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router-dom'
 import { Home, Article, Photo, People } from '@mui/icons-material'
 
 import Button from 'components/button'
-import { matchedUserProfile } from 'services/profile'
+import { matchedUserProfile, getProfileDetails } from 'services/profile'
 
 import { toast } from 'react-toastify'
 import { nodeBaseURL } from 'config/baseURL'
 
 import 'containers/matches/styles.css'
-import { ADD_MATCHED_PROFILE } from 'store/profiles'
+import { ADD_CURRENT_PROFILE, ADD_MATCHED_PROFILE } from 'store/profiles'
 
 const Matches = () => {
   const { pathname } = useLocation()
@@ -56,8 +56,18 @@ const Matches = () => {
     }
   }
 
+  const getUser = async () => {
+    try {
+      const { data: details } = await getProfileDetails(user.id)
+      dispatch(ADD_CURRENT_PROFILE({ currentprofileDetail: details }))
+    } catch (error) {
+      console.log('Login Error: ', error)
+    }
+  }
+
   useEffect(() => {
     getMatchedProfiles()
+    getUser()
   }, [user])
 
   console.log('currentprofileDetail: ', currentprofileDetail)
@@ -75,7 +85,9 @@ const Matches = () => {
             <h5 className='profile-heading-h'>{currentprofileDetail.name}</h5>
             <p className='profile-title-h'>{currentprofileDetail.occupation}</p>
             <span className='horizontal-c-barder' />
-            <h6 className='profile-completion'>Your Profile is complete 100%</h6>
+            <h6 className='profile-completion'>
+              Perosnality Type: {currentprofileDetail.personality_type}
+            </h6>
             <div className='btn-pro-h'>
               <Button
                 onClick={() =>

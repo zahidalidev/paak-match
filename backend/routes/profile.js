@@ -51,13 +51,21 @@ router.get("/:id", async (req, res) => {
               currentUserDetailsPref.age_range.split("-");
 
             matchedProfiles.map((item) => (item.age = getAge(item.DOB)));
-            let pointedProfiles = getProfilesWithPoints(
-              currentUserDetailsPref,
-              matchedProfiles
-            );
 
-            pointedProfiles = sortByPoints(pointedProfiles);
-            return res.status(200).send(pointedProfiles);
+            sql = `select * from preferences_weight where user_id = ${currentUserDetailsPref.id}`;
+            con.query(sql, (err, result) => {
+              if (err) return res.status(400).send({ message: err.sqlMessage });
+              let weightages = result[0];
+
+              let pointedProfiles = getProfilesWithPoints(
+                currentUserDetailsPref,
+                matchedProfiles,
+                weightages
+              );
+
+              pointedProfiles = sortByPoints(pointedProfiles);
+              return res.status(200).send(pointedProfiles);
+            });
           });
         });
       } else {
@@ -113,7 +121,11 @@ const getAge = (dateString) => {
   return age;
 };
 
-const getProfilesWithPoints = (currentUserDetailsPref, matchedProf) => {
+const getProfilesWithPoints = (
+  currentUserDetailsPref,
+  matchedProf,
+  weightages
+) => {
   let matchedProfiles = [...matchedProf];
   matchedProfiles.forEach((obj, index) => {
     let points = 0;
@@ -126,16 +138,19 @@ const getProfilesWithPoints = (currentUserDetailsPref, matchedProf) => {
         key != "name" &&
         key != "religion"
       ) {
-        points++;
+        let newPoint = 1 * parseFloat(weightages[key]);
+        points = points + newPoint;
         matchedKeys.push(key);
       }
 
       if (key == "religion") {
         if (currentUserDetailsPref[key] == "Any(Muslim)") {
-          points++;
+          let newPoint = 1 * parseFloat(weightages[key]);
+          points = points + newPoint;
           matchedKeys.push(key);
         } else if (matchedProfiles[index][key] == currentUserDetailsPref[key]) {
-          points++;
+          let newPoint = 1 * parseFloat(weightages[key]);
+          points = points + newPoint;
           matchedKeys.push(key);
         }
       }
@@ -146,7 +161,8 @@ const getProfilesWithPoints = (currentUserDetailsPref, matchedProf) => {
             currentUserDetailsPref.age1 &&
           parseInt(matchedProfiles[index]["age"]) <= currentUserDetailsPref.age2
         ) {
-          points++;
+          let newPoint = 1 * parseFloat(weightages["age_range"]);
+          points = points + newPoint;
           matchedKeys.push(key);
         }
       }
@@ -157,7 +173,8 @@ const getProfilesWithPoints = (currentUserDetailsPref, matchedProf) => {
           parseInt(matchedProfiles[index]["height"]) <=
             currentUserDetailsPref.height2
         ) {
-          points++;
+          let newPoint = 1 * parseFloat(weightages["height_range"]);
+          points = points + newPoint;
           matchedKeys.push(key);
         }
       }
@@ -165,7 +182,7 @@ const getProfilesWithPoints = (currentUserDetailsPref, matchedProf) => {
     matchedProfiles[index]["age_range"] = currentUserDetailsPref.age_range;
     matchedProfiles[index]["height_range"] =
       currentUserDetailsPref.height_range;
-    matchedProfiles[index]["points"] = points;
+    matchedProfiles[index]["points"] = points * 10;
     matchedProfiles[index]["matchedKeys"] = matchedKeys;
   });
 

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
+import { MenuItem } from '@material-ui/core'
+import InputLabel from '@mui/material/InputLabel'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 
 import Input from 'components/common/Input'
 import Button from 'components/button'
@@ -14,6 +14,7 @@ import { addPartnerPreferences, updatePartnerPreferences } from 'services/user'
 
 import 'containers/preferences/styles.css'
 import { getProfilePreferences } from 'services/profile'
+import WeightageSelect from 'components/WeightageSelect'
 
 const Preferences = () => {
   const [loading, setLoading] = useState(false)
@@ -32,6 +33,19 @@ const Preferences = () => {
     city: '',
     education: '',
     caste: ''
+  })
+
+  const [weight, setWeight] = useState({
+    age: 1,
+    height: 1,
+    maritalStatus: 1,
+    motherTongue: 1,
+    religion: 1,
+    income: 1,
+    occupation: 1,
+    city: 1,
+    education: 1,
+    caste: 1
   })
 
   const getUserPreferences = async () => {
@@ -75,17 +89,25 @@ const Preferences = () => {
     setProfData(tempFeilds)
   }
 
+  const handleChangeWeight = (value, key) => {
+    const tempFeilds = { ...weight }
+    tempFeilds[key] = value
+    setWeight(tempFeilds)
+  }
+
   const handleSubmit = async () => {
     setLoading(true)
     const tempObj = { ...profData }
     tempObj.userID = user.id
+    const tempObj2 = { ...weight }
+    tempObj2.userID = user.id
     try {
       if (params.id) {
-        await updatePartnerPreferences(tempObj)
+        await updatePartnerPreferences(tempObj, tempObj2)
         setLoading(false)
         navigate('/matches')
       } else {
-        await addPartnerPreferences(tempObj)
+        await addPartnerPreferences(tempObj, tempObj2)
         setLoading(false)
         navigate('/teststart')
       }
@@ -114,7 +136,7 @@ const Preferences = () => {
           <p className='pref-h'>Basic Partner Preferences</p>
         </div>
 
-        <div className='d-flex d-flex col-md-11 flex-column mt-3 align-items-center '>
+        <div className='d-flex d-flex col-md-12 flex-column mt-3 align-items-center '>
           <div className='d-flex col-md-12 mb-4 flex-row mt-2 align-items-center '>
             <div className='d-flex col-md-3'>
               <h6 style={{ marginBottom: '-2rem', fontSize: '1rem' }}>Age Range</h6>
@@ -123,24 +145,30 @@ const Preferences = () => {
               <Input
                 handleChange={e => handleChange(e.target.value, 'age')}
                 value={profData.age}
-                width='35rem'
+                width='29rem'
                 height='45px'
                 title='20-25'
               />
+              <WeightageSelect value={weight.age} handleChange={handleChangeWeight} type='age' />
             </div>
           </div>
-          <div className='d-flex col-md-11 range-pref-b'></div>
+          <div className='d-flex col-md-12 range-pref-b'></div>
           <div className='d-flex col-md-12 mb-4 flex-row mt-2 align-items-center '>
             <div className='d-flex col-md-3'>
               <h6 style={{ marginBottom: '-2rem', fontSize: '1rem' }}>Height Range</h6>
             </div>
-            <div className='d-flex col-md-9'>
+            <div className='d-flex col-md-9 mt-3'>
               <Input
                 handleChange={e => handleChange(e.target.value, 'height')}
                 value={profData.height}
-                width='35rem'
+                width='29rem'
                 height='45px'
                 title='50-55 in inch'
+              />
+              <WeightageSelect
+                value={weight.height}
+                handleChange={handleChangeWeight}
+                type='height'
               />
             </div>
           </div>
@@ -150,7 +178,7 @@ const Preferences = () => {
               <h6 style={{ fontSize: '1rem' }}>Marital Status</h6>
             </div>
             <div className='d-flex col-md-9'>
-              <FormControl style={{ width: '33rem', marginLeft: 9 }}>
+              <FormControl style={{ width: '28rem', marginLeft: 9, marginRight: 10 }}>
                 <InputLabel style={{ fontSize: 15, marginTop: -2 }} id='demo-simple-select-label'>
                   Marital Status
                 </InputLabel>
@@ -168,6 +196,11 @@ const Preferences = () => {
                   <MenuItem value='Divorced'>Divorced</MenuItem>
                 </Select>
               </FormControl>
+              <WeightageSelect
+                value={weight.maritalStatus}
+                handleChange={handleChangeWeight}
+                type='maritalStatus'
+              />
             </div>
           </div>
           <div className='d-flex col-md-11 range-pref-b'></div>
@@ -176,7 +209,7 @@ const Preferences = () => {
               <h6 style={{ fontSize: '1rem' }}>Mother Tongue</h6>
             </div>
             <div className='d-flex col-md-9'>
-              <FormControl style={{ width: '33rem', marginLeft: 9 }}>
+              <FormControl style={{ width: '28rem', marginLeft: 9, marginRight: 10 }}>
                 <InputLabel style={{ fontSize: 15, marginTop: -2 }} id='demo-simple-select-label'>
                   Mother Tongue
                 </InputLabel>
@@ -201,6 +234,11 @@ const Preferences = () => {
                   <MenuItem value='Other'>Other</MenuItem>
                 </Select>
               </FormControl>
+              <WeightageSelect
+                value={weight.motherTongue}
+                handleChange={handleChangeWeight}
+                type='motherTongue'
+              />
             </div>
           </div>
           <div className='d-flex col-md-11 range-pref-b'></div>
@@ -209,7 +247,7 @@ const Preferences = () => {
               <h6 style={{ fontSize: '1rem' }}>Religion</h6>
             </div>
             <div className='d-flex col-md-9'>
-              <FormControl style={{ width: '33rem', marginLeft: 9 }}>
+              <FormControl style={{ width: '28rem', marginLeft: 9, marginRight: 10 }}>
                 <InputLabel style={{ fontSize: 15, marginTop: -2 }} id='demo-simple-select-label'>
                   Religion
                 </InputLabel>
@@ -234,6 +272,11 @@ const Preferences = () => {
                   <MenuItem value='Other'>Other</MenuItem>
                 </Select>
               </FormControl>
+              <WeightageSelect
+                value={weight.religion}
+                handleChange={handleChangeWeight}
+                type='religion'
+              />
             </div>
           </div>
           <div className='d-flex col-md-11 range-pref-b'></div>
@@ -242,7 +285,7 @@ const Preferences = () => {
               <h6 style={{ fontSize: '1rem' }}>Income</h6>
             </div>
             <div className='d-flex col-md-9'>
-              <FormControl style={{ width: '33rem', marginLeft: 9 }}>
+              <FormControl style={{ width: '28rem', marginLeft: 9, marginRight: 10 }}>
                 <InputLabel style={{ fontSize: 15, marginTop: -2 }} id='demo-simple-select-label'>
                   Income
                 </InputLabel>
@@ -287,6 +330,11 @@ const Preferences = () => {
                   <MenuItem value='5000000-100000000'>50,00,000-1,00,00,000</MenuItem>
                 </Select>
               </FormControl>
+              <WeightageSelect
+                value={weight.income}
+                handleChange={handleChangeWeight}
+                type='income'
+              />
             </div>
           </div>
           <div className='d-flex col-md-11 range-pref-b'></div>
@@ -295,7 +343,7 @@ const Preferences = () => {
               <h6 style={{ fontSize: '1rem' }}>Occupation</h6>
             </div>
             <div className='d-flex col-md-9'>
-              <FormControl style={{ width: '33rem', marginLeft: 9 }}>
+              <FormControl style={{ width: '28rem', marginLeft: 9, marginRight: 10 }}>
                 <InputLabel style={{ fontSize: 16, marginTop: -2 }} id='demo-simple-select-label'>
                   Occupation
                 </InputLabel>
@@ -461,6 +509,11 @@ const Preferences = () => {
                   <MenuItem value='Not Applicable'>- Not Applicable</MenuItem>
                 </Select>
               </FormControl>
+              <WeightageSelect
+                value={weight.occupation}
+                handleChange={handleChangeWeight}
+                type='occupation'
+              />
             </div>
           </div>
           <div className='d-flex col-md-11 range-pref-b'></div>
@@ -468,14 +521,15 @@ const Preferences = () => {
             <div className='d-flex col-md-3'>
               <h6 style={{ marginBottom: '-2rem', fontSize: '1rem' }}>City</h6>
             </div>
-            <div className='d-flex col-md-9'>
+            <div className='d-flex col-md-9 mt-3'>
               <Input
                 handleChange={e => handleChange(e.target.value, 'city')}
                 value={profData.city}
-                width='35rem'
+                width='29rem'
                 height='45px'
                 title='City Name'
               />
+              <WeightageSelect value={weight.city} handleChange={handleChangeWeight} type='city' />
             </div>
           </div>
           <div className='d-flex col-md-11 range-pref-b'></div>
@@ -485,7 +539,7 @@ const Preferences = () => {
               <h6 style={{ fontSize: '1rem' }}>Education</h6>
             </div>
             <div className='d-flex col-md-9'>
-              <FormControl style={{ width: '33rem', marginLeft: 9 }}>
+              <FormControl style={{ width: '28rem', marginLeft: 9, marginRight: 10 }}>
                 <InputLabel style={{ fontSize: 15, marginTop: -2 }} id='demo-simple-select-label'>
                   Education
                 </InputLabel>
@@ -512,6 +566,11 @@ const Preferences = () => {
                   <MenuItem value='Doctorate or higher'>Doctorate or higher</MenuItem>
                 </Select>
               </FormControl>
+              <WeightageSelect
+                value={weight.education}
+                handleChange={handleChangeWeight}
+                type='education'
+              />
             </div>
           </div>
           <div className='d-flex col-md-11 range-pref-b'></div>
@@ -521,7 +580,7 @@ const Preferences = () => {
               <h6 style={{ fontSize: '1rem' }}>Caste</h6>
             </div>
             <div className='d-flex col-md-9'>
-              <FormControl style={{ width: '33rem', marginLeft: 9 }}>
+              <FormControl style={{ width: '28rem', marginLeft: 9, marginRight: 10 }}>
                 <InputLabel style={{ fontSize: 15, marginTop: -2 }} id='demo-simple-select-label'>
                   Caste
                 </InputLabel>
@@ -560,6 +619,11 @@ const Preferences = () => {
                   <MenuItem value='Other'>Other</MenuItem>
                 </Select>
               </FormControl>
+              <WeightageSelect
+                value={weight.caste}
+                handleChange={handleChangeWeight}
+                type='caste'
+              />
             </div>
           </div>
 
