@@ -10,8 +10,8 @@
   display: flex !important;
   flex: row;
   justify-content: space-between;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 4rem;
+  margin-bottom: 3rem;
 }
 
 .next-btn-wrapper {
@@ -19,8 +19,18 @@
   margin-bottom: 4rem;
 }
 
-.bluecircle {
-  width: 6rem;
-  height: 6rem;
+.bluecircle1 {
+  width: 5.5rem;
+  height: 5.5rem;
+  cursor: pointer;
+}
+.bluecircle2 {
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+}
+.bluecircle3 {
+  width: 2.8rem;
+  height: 2.8rem;
   cursor: pointer;
 }
