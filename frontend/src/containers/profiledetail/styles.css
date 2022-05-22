@@ -38,6 +38,17 @@
   border-top-right-radius: 10px;
   margin-top: 2rem;
 }
+.profile-det-box {
+  background-color: #8f8ec3;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.det-abt-headings {
+  font-weight: bold;
+}
+
 .about-d-wrapper {
   background-color: #ffffff;
   padding: 1rem;
@@ -46,8 +57,17 @@
 }
 
 .prof-det-type-h {
-  margin-top: 1rem;
-  color: #5d46c2;
+  margin-top: 2rem;
   font-weight: bold;
   cursor: pointer;
+}
+
+.result-per-heading-det {
+  margin-top: 2rem;
+  font-size: 3rem;
+}
+
+.result-per-type-det {
+  font-size: 1.5rem;
+  margin-top: 1rem;
 }

@@ -1,11 +1,14 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getProfileDetails } from 'services/profile'
 import { useDispatch, useSelector } from 'react-redux'
 import { LocationOn, Female, Male, DateRange } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
 
 import { ADD_CURRENT_PROFILE } from 'store/profiles'
 import Footer from 'components/footer/Footer'
 import { nodeBaseURL } from 'config/baseURL'
+import { personalityDesc } from 'utils/constants'
+import Button from 'components/button'
 
 import headerImg from 'assets/profileheadbackground.png'
 
@@ -16,6 +19,8 @@ const { innerHeight, innerWidth } = window
 const ProfileDetail = () => {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [currentDet, setCurrentDet] = useState('personality')
   const { currentprofileDetail } = useSelector(state => state.profile)
 
   const getUser = async () => {
@@ -78,21 +83,103 @@ const ProfileDetail = () => {
             <h1 className='pro-det-heading'>More Detail</h1>
             <div className='d-flex flex-row'>
               <h4
-                style={{ borderBottom: '2px solid #5d46c2' }}
+                style={{ color: currentDet === 'aboutme' ? '#5d46c2' : '#5d46c250' }}
                 className='d-flex prof-det-type-h mr-2'
+                onClick={() => setCurrentDet('aboutme')}
               >
                 About me
               </h4>
               <h4
-                style={{ borderBottom: '2px solid #5d46c2' }}
+                style={{ color: currentDet === 'personality' ? '#5d46c2' : '#5d46c250' }}
                 className='d-flex prof-det-type-h ml-4'
+                onClick={() => setCurrentDet('personality')}
               >
                 Personality
               </h4>
             </div>
-            <div className='d-flex align-items-center about-d-wrapper mt-5'>
-              <h5 className='text-black mt-1'>{currentprofileDetail.about}</h5>
-            </div>
+            {currentDet === 'personality' ? (
+              <div className='d-flex align-items-center about-d-wrapper mt-4'>
+                <div className='d-flex col-md-12 mb-4 flex-column'>
+                  <h1 className='result-per-heading-det'>Your Personality Type</h1>
+                  <h1 className='result-per-type'>{currentprofileDetail.personality_type}</h1>
+                  <p className='result-per-type-det'>
+                    {personalityDesc[currentprofileDetail.personality_type]}
+                  </p>
+                  <div className='mt-5'>
+                    <Button title='Retake Test' width='13rem' onClick={() => navigate('/test')} />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className='d-flex align-items-center about-d-wrapper mt-4'>
+                <div className='d-flex col-md-12 mb-4 flex-column'>
+                  <div className='d-flex align-items-center profile-det-box'>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white det-abt-headings'>Religion</h5>
+                    </div>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white'>{currentprofileDetail.religion}</h5>
+                    </div>
+                  </div>
+                  <div className='d-flex align-items-center profile-det-box'>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white det-abt-headings'>Mother tongue</h5>
+                    </div>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white'>{currentprofileDetail.mother_tongue}</h5>
+                    </div>
+                  </div>
+                  <div className='d-flex align-items-center profile-det-box'>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white det-abt-headings'>Status</h5>
+                    </div>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white'>{currentprofileDetail.marital_status}</h5>
+                    </div>
+                  </div>
+                  <div className='d-flex align-items-center profile-det-box'>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white det-abt-headings'>Hieght</h5>
+                    </div>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white'>{currentprofileDetail.height}&quot;</h5>
+                    </div>
+                  </div>
+                  <div className='d-flex align-items-center profile-det-box'>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white det-abt-headings'>Caste</h5>
+                    </div>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white'>{currentprofileDetail.caste}</h5>
+                    </div>
+                  </div>
+                  <div className='d-flex align-items-center profile-det-box'>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white det-abt-headings'>Education</h5>
+                    </div>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white'>{currentprofileDetail.education}</h5>
+                    </div>
+                  </div>
+                  <div className='d-flex align-items-center profile-det-box'>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white det-abt-headings'>Ocupation</h5>
+                    </div>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white'>{currentprofileDetail.occupation}</h5>
+                    </div>
+                  </div>
+                  <div className='d-flex align-items-center profile-det-box'>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white det-abt-headings'>Income</h5>
+                    </div>
+                    <div className='d-flex col-md-6'>
+                      <h5 className='mt-1 text-white'>{currentprofileDetail.income}</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
