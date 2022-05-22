@@ -82,12 +82,11 @@ const Home = () => {
               </div>
             </div>
             <div className='intro-btn'>
-              <Button
-                onClick={() => navigate('/register')}
-                title='Sign Up'
-                width='19rem'
-                borderRadius='12px'
-              />
+              {user.email ? (
+                <Button onClick={() => navigate('/matches')} width='19rem' title='Get Match' />
+              ) : (
+                <Button onClick={() => navigate('/register')} width='19rem' title='SIGN UP' />
+              )}
             </div>
           </div>
           <div className='d-flex flex-column col-md-4'>

@@ -10,6 +10,7 @@ import testimonial_3 from 'assets/Rectangle 42.png'
 import 'react-multi-carousel/lib/styles.css'
 import 'components/testimonials/styles.css'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const responsive = {
   superLargeDesktop: {
@@ -30,7 +31,10 @@ const responsive = {
   }
 }
 
-function Testimonial(props) {
+const Testimonial = props => {
+  const navigate = useNavigate()
+  const user = useSelector(state => state.user)
+
   const allTestimonials = [
     {
       id: 0,
@@ -55,7 +59,6 @@ function Testimonial(props) {
       image: testimonial_3
     }
   ]
-  const navigate = useNavigate()
 
   return (
     <div className='d-lg-flex flex-column container-fluid justify-content-center align-items-center testimonial-container'>
@@ -102,12 +105,11 @@ function Testimonial(props) {
         Now it is your turn to be happily married
       </h6>
       <div className='testimonial-btn'>
-        <Button
-          onClick={() => navigate('/register')}
-          title='Sign Up'
-          width='19rem'
-          borderRadius='12px'
-        />
+        {user.email ? (
+          <Button onClick={() => navigate('/matches')} width='19rem' title='Get Match' />
+        ) : (
+          <Button onClick={() => navigate('/register')} width='19rem' title='SIGN UP' />
+        )}
       </div>
     </div>
   )

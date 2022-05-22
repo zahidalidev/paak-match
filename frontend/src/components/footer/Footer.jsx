@@ -16,7 +16,7 @@ const Footer = () => {
         <div className='row pt-5'>
           <div className='col-lg-4 col-md-6 mb-4'>
             <div className='col-lg-10 col-md-10'>
-              <h4 className='text-white mb-4'>Newsletter</h4>
+              <h4 className='text-white mb-4'>PAAKMATCH</h4>
               <form action=''>
                 <div className='form-group'>
                   <input

@@ -108,7 +108,7 @@ const Matches = () => {
                 />
               </div>
             </Card>
-            <div className='d-flex flex-column side-menues-h justify-content-center align-items-start mb-2'>
+            <div className='d-flex flex-column side-menues-h justify-content-center align-items-start mb-4'>
               {sideBarHomeMenues.map(item => (
                 <div
                   onClick={() => navigate(item.path)}
