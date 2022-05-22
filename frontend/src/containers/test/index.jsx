@@ -1,8 +1,5 @@
 import { useState } from 'react'
 import { ArrowForward } from '@material-ui/icons'
-// import Radio from '@mui/material/Radio'
-// import RadioGroup from '@mui/material/RadioGroup'
-// import FormControlLabel from '@mui/material/FormControlLabel'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -16,6 +13,8 @@ import bluecircle from 'assets/bluecircle.png'
 import blueOutlineCircle from 'assets/blueOutlineCircle.png'
 import orangeCircle from 'assets/orangeCircle.png'
 import orangeOutlineCircle from 'assets/orangeOutlineCircle.png'
+import blackOutlineCircle from 'assets/blacoutilecircle.png'
+import blackCircle from 'assets/blackCircle.png'
 
 import 'containers/test/styles.css'
 
@@ -374,6 +373,7 @@ const Test = () => {
       else choices4.push(item.choice)
     })
     try {
+      console.log((choices1, choices2, choices3, choices4))
       const { data } = await detectPersonality(choices1, choices2, choices3, choices4)
       let predictedPersonality = ''
       data.forEach((element, index) => {
@@ -381,7 +381,7 @@ const Test = () => {
       })
       await addPersonality({ id: user.id, type: predictedPersonality })
       setLoading(false)
-      navigate('/matches')
+      navigate('/testresult')
     } catch (error) {
       toast.error(error.response.data.message)
       console.log(error)
@@ -416,23 +416,23 @@ const Test = () => {
                   {item.answerA}
                 </p>
                 <img
-                  onClick={() => handleChange(0, item.id)}
+                  onClick={() => handleChange(-2, item.id)}
                   className='bluecircle1'
-                  src={item.choice == 0 ? blueOutlineCircle : bluecircle}
+                  src={item.choice == -2 ? blueOutlineCircle : bluecircle}
+                />
+              </div>
+              <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-2'>
+                <img
+                  onClick={() => handleChange(-1, item.id)}
+                  className='bluecircle2'
+                  src={item.choice == -1 ? blueOutlineCircle : bluecircle}
                 />
               </div>
               <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-2'>
                 <img
                   onClick={() => handleChange(0, item.id)}
-                  className='bluecircle2'
-                  src={item.choice == 0 ? blueOutlineCircle : bluecircle}
-                />
-              </div>
-              <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-2'>
-                <img
-                  onClick={() => handleChange(1, item.id)}
                   className='bluecircle3'
-                  src={item.choice == 1 ? blueOutlineCircle : bluecircle}
+                  src={item.choice == 0 ? blackOutlineCircle : blackCircle}
                 />
               </div>
               <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-2'>
@@ -444,9 +444,9 @@ const Test = () => {
               </div>
               <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-3'>
                 <img
-                  onClick={() => handleChange(1, item.id)}
+                  onClick={() => handleChange(2, item.id)}
                   className='bluecircle1'
-                  src={item.choice == 1 ? orangeOutlineCircle : orangeCircle}
+                  src={item.choice == 2 ? orangeOutlineCircle : orangeCircle}
                 />
                 <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }} className='mt-4 ml-5'>
                   {item.answerB}

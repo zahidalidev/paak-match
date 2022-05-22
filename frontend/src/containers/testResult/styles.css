@@ -1,0 +1,55 @@
+.header-back-result {
+  background-image: url('assets/testresulback.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+}
+
+.test-result-h {
+  font-weight: bold;
+  margin-top: 4rem;
+  font-size: 2.8rem;
+}
+
+.result-per-hea {
+  margin-top: 4rem;
+  font-size: 3rem;
+}
+.result-char-hea {
+  margin-top: 4rem;
+  font-weight: 600;
+  font-size: 2rem;
+}
+
+.result-per-type {
+  font-weight: bold;
+  font-size: 4rem;
+  margin-top: 1rem;
+}
+.result-per-type-d {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.char-det-border {
+  background-color: #8f8ec3;
+  height: 27rem;
+  width: 3px;
+  margin-right: 4rem;
+  border-radius: 20px;
+  margin-top: 1rem;
+}
+.char-pers-type-h {
+  font-weight: bold;
+  margin-top: 2.5rem;
+  margin-right: 2.5rem;
+  width: 5rem;
+}
+
+.char-pers-type-d {
+  margin-top: 2.5rem;
+  margin-right: 2.5rem;
+  width: 50rem;
+}

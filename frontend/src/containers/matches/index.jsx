@@ -3,7 +3,7 @@ import { Card } from '@material-ui/core'
 import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { Home, Article, Photo, People } from '@mui/icons-material'
+import { Home, Article, Photo, People, Person } from '@mui/icons-material'
 
 import Button from 'components/button'
 import { matchedUserProfile, getProfileDetails } from 'services/profile'
@@ -26,6 +26,11 @@ const Matches = () => {
       title: 'Home',
       path: '/home',
       icon: <Home sx={{ height: 25, width: 25 }} className='home-menu-icons' />
+    },
+    {
+      title: 'Profile',
+      path: '/profiledetail',
+      icon: <Person sx={{ height: 25, width: 25 }} className='home-menu-icons' />
     },
     {
       title: 'Edit Preferences',

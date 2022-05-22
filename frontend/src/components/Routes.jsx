@@ -13,6 +13,8 @@ import Preferences from 'containers/preferences'
 import Test from 'containers/test'
 import Subscription from 'containers/subscription'
 import Admin from 'containers/admin'
+import TestResult from 'containers/testResult'
+import ProfileDetail from 'containers/profiledetail'
 
 const routeList = [
   { path: '/matches', component: <Matches /> },
@@ -30,7 +32,9 @@ const routeList = [
   { path: '/preferences/:id', component: <Preferences /> },
   { path: '/test', component: <Test /> },
   { path: '/subscription', component: <Subscription /> },
-  { path: '/admin', component: <Admin /> }
+  { path: '/admin', component: <Admin /> },
+  { path: '/profiledetail', component: <ProfileDetail /> },
+  { path: '/testresult', component: <TestResult /> }
 ]
 
 const AppRoutes = () => {

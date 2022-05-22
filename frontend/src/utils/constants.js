@@ -190,3 +190,33 @@ export const CompaTable = {
   ENFJ: 'The ENFJ and these introverts are equally intuitive, so can easily cater to each other’s needs within a relationship',
   ENTJ: 'ENTJs aren’t comfortable discussing emotional topics, which these introverts understand'
 }
+
+export const personalityDesc = {
+  ISTJ: 'The Inspector Serious, Practical, Hard worker',
+  ISTP: 'The Craftsman Rational, Logical, Experimenter',
+  ESTP: 'The Entrepreneur Social Interaction, Energetic, Smart',
+  ESTJ: 'The Supervisor Honest, Dignified, Dedicated',
+  ISFJ: 'The Nurturer Generous, Warm, Cooperative',
+  ISFP: 'The Composer Warm, Friendly, Charming',
+  ESFP: 'The Entertainer Lively, Fun, Entertainer',
+  ESFJ: 'The Provider Social Butterflies, Caring, Popular',
+  INFJ: 'The Advocate Idealist, Deep Thinker, Inspiring',
+  INFP: 'The Idealist Poetic, Reserved, Daydreamer',
+  ENFP: 'The Campaigner Sociable, Creative, Enthusiastic',
+  ENFJ: 'The Giver Idealistic, Ethical, Outspoken',
+  INTJ: 'The Mastermind Strategic Thinker, Interested in ideas',
+  INTP: 'The Thinker Logical Minded, Creative',
+  ENTP: 'The Visionary Knowledgeable, Theories & Facts',
+  ENTJ: 'The Commander Bold, Leadership, Challenges'
+}
+
+export const personalityChaDetails = {
+  E: 'Extraverts (also often spelled extroverts) are outward-turning and tend to be action-oriented, enjoy more frequent social interaction, and feel energized after spending time with other people.',
+  I: 'Introverts are inward-turning and tend to be thought-oriented, enjoy deep and meaningful social interactions, and feel recharged after spending time alone.',
+  S: 'People who prefer sensing tend to pay a great deal of attention to reality, particularly to what they can learn from their own senses. They tend to focus on facts and details and enjoy getting hands-on experience.',
+  N: 'Those who prefer intuition pay more attention to things like patterns and impressions. They enjoy thinking about possibilities, imagining the future, and abstract theories.',
+  T: 'They tend to be consistent, logical, and impersonal when weighing a decision.',
+  F: 'Those who prefer feeling are more likely to consider people and emotions when arriving at a conclusion.',
+  J: 'They seek closure from the outer world through order, planning, and organization. When possible, their prefer for things to be settled and crossed off their list. They may want to find work that allows them to set goals, be organized, and make decisions',
+  P: 'They cope with challenges by keeping an open schedule that allows them the flexibility to work at their own pace and change tasks as needed. In the workplace, people with a perceiving preference are adaptable and nonjudgmental.'
+}
