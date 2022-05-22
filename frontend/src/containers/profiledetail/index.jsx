@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { getProfileDetails } from 'services/profile'
 import { useDispatch, useSelector } from 'react-redux'
 import { LocationOn, Female, Male, DateRange } from '@mui/icons-material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { Home, Article, Photo, People, Person } from '@mui/icons-material'
 
 import { ADD_CURRENT_PROFILE } from 'store/profiles'
 import Footer from 'components/footer/Footer'
@@ -20,8 +21,37 @@ const ProfileDetail = () => {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
   const [currentDet, setCurrentDet] = useState('personality')
   const { currentprofileDetail } = useSelector(state => state.profile)
+
+  const sideBarHomeMenues = [
+    {
+      title: 'Home',
+      path: '/home',
+      icon: <Home sx={{ height: 35, width: 35 }} className='home-menu-icons' />
+    },
+    {
+      title: 'Profile',
+      path: '/profiledetail',
+      icon: <Person sx={{ height: 35, width: 35 }} className='home-menu-icons' />
+    },
+    {
+      title: 'Edit Preferences',
+      path: `/preferences/${user.id}`,
+      icon: <Article sx={{ height: 35, width: 35 }} className='home-menu-icons' />
+    },
+    {
+      title: 'Your Matches',
+      path: '/matches',
+      icon: <Photo sx={{ height: 35, width: 35 }} className='home-menu-icons' />
+    },
+    {
+      title: 'Edit Profile',
+      path: `/createprofile/${user.id}`,
+      icon: <People sx={{ height: 35, width: 35 }} className='home-menu-icons' />
+    }
+  ]
 
   const getUser = async () => {
     try {
@@ -66,6 +96,28 @@ const ProfileDetail = () => {
           <div className='d-flex flex-row align-align-items-center mt-4'>
             <DateRange sx={{ height: 30, width: 30, marginRight: 2 }} />
             <h3>{new Date(currentprofileDetail.DOB).toDateString()}</h3>
+          </div>
+          <div
+            style={{
+              width: '37rem',
+              height: '2px',
+              backgroundColor: '#bfbfbf80',
+              marginTop: '1.4rem'
+            }}
+          ></div>
+          <div className='d-flex flex-column side-menues-h detail-routes-prof justify-content-center align-items-start'>
+            {sideBarHomeMenues.map(item => (
+              <div
+                onClick={() => navigate(item.path)}
+                className={`d-flex ${
+                  pathname === item.path ? 'menu-container-active' : null
+                } menu-container-h flex-row justify-content-start align-items-center`}
+                key={item.title}
+              >
+                {item.icon}
+                <h6 className='menu-heading-h-detail'>{item.title}</h6>
+              </div>
+            ))}
           </div>
         </div>
         <div className='d-flex col-md-7 flex-column'>
