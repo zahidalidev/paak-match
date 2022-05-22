@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getProfileDetails } from 'services/profile'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -15,15 +15,18 @@ const { innerHeight, innerWidth } = window
 const TestResult = () => {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
-  const { currentprofileDetail } = useSelector(state => state.profile)
   const navigate = useNavigate()
+  const [personType, setPersonType] = useState('null')
 
   const getUser = async () => {
     try {
-      const { data: details } = await getProfileDetails(user.id)
-      dispatch(ADD_CURRENT_PROFILE({ currentprofileDetail: details }))
+      if (user) {
+        const { data: details } = await getProfileDetails(user.id)
+        dispatch(ADD_CURRENT_PROFILE({ currentprofileDetail: details }))
+        setPersonType(details.personality_type)
+      }
     } catch (error) {
-      console.log('Login Error: ', error)
+      console.log('getting personality errr: ', error)
     }
   }
 
@@ -41,10 +44,8 @@ const TestResult = () => {
           <h1 className='text-center test-result-h'>Personality Test Results</h1>
           <div className='d-flex col-md-10 mt-4 flex-column'>
             <h1 className='result-per-hea'>Your Personality Type</h1>
-            <h1 className='result-per-type'>{currentprofileDetail.personality_type}</h1>
-            <p className='result-per-type-d'>
-              {personalityDesc[currentprofileDetail.personality_type]}
-            </p>
+            <h1 className='result-per-type'>{personType}</h1>
+            <p className='result-per-type-d'>{personalityDesc[personType]}</p>
             <div className='mt-5'>
               <Button title='See Matches' width='13rem' onClick={() => navigate('/matches')} />
             </div>
@@ -58,28 +59,20 @@ const TestResult = () => {
             <div className='char-det-border'></div>
             <div className='d-flex flex-column'>
               <div className='d-flex flex-row'>
-                <h1 className='char-pers-type-h'>{currentprofileDetail.personality_type[0]}</h1>
-                <p className='char-pers-type-d'>
-                  {personalityChaDetails[currentprofileDetail.personality_type[0]]}
-                </p>
+                <h1 className='char-pers-type-h'>{personType[0]}</h1>
+                <p className='char-pers-type-d'>{personalityChaDetails[personType[0]]}</p>
               </div>
               <div className='d-flex flex-row'>
-                <h1 className='char-pers-type-h'>{currentprofileDetail.personality_type[1]}</h1>
-                <p className='char-pers-type-d'>
-                  {personalityChaDetails[currentprofileDetail.personality_type[1]]}
-                </p>
+                <h1 className='char-pers-type-h'>{personType[1]}</h1>
+                <p className='char-pers-type-d'>{personalityChaDetails[personType[1]]}</p>
               </div>
               <div className='d-flex flex-row'>
-                <h1 className='char-pers-type-h'>{currentprofileDetail.personality_type[2]}</h1>
-                <p className='char-pers-type-d'>
-                  {personalityChaDetails[currentprofileDetail.personality_type[2]]}
-                </p>
+                <h1 className='char-pers-type-h'>{personType[2]}</h1>
+                <p className='char-pers-type-d'>{personalityChaDetails[personType[2]]}</p>
               </div>
               <div className='d-flex flex-row'>
-                <h1 className='char-pers-type-h'>{currentprofileDetail.personality_type[3]}</h1>
-                <p className='char-pers-type-d'>
-                  {personalityChaDetails[currentprofileDetail.personality_type[3]]}
-                </p>
+                <h1 className='char-pers-type-h'>{personType[3]}</h1>
+                <p className='char-pers-type-d'>{personalityChaDetails[personType[3]]}</p>
               </div>
             </div>
           </div>

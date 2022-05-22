@@ -138,6 +138,7 @@ const getProfilesWithPoints = (
         key != "name" &&
         key != "religion"
       ) {
+        console.log(key);
         let newPoint = 1 * parseFloat(weightages[key]);
         points = points + newPoint;
         matchedKeys.push(key);
