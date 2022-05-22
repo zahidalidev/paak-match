@@ -219,7 +219,7 @@ router.get("/allsubscriptions", async (req, res) => {
 router.get("/allusers/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    var sql = `select * from users where id != '${id}'`;
+    var sql = `select * from users u LEFT JOIN profileDetails p on u.id = p.user_id where u.id != '${id}'`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
       return res.status(200).send(result);
