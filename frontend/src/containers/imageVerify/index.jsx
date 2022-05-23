@@ -4,8 +4,7 @@ import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-// import { addProfileImage, verifyProfileImages } from 'services/user'
-import { addProfileImage } from 'services/user'
+import { addProfileImage, verifyProfileImages } from 'services/user'
 import Button from 'components/button'
 
 import sideImg from 'assets/Group 37302.png'
@@ -49,16 +48,15 @@ const VerifyImage = () => {
       data.append('image2', uploadedImage)
 
       try {
-        // const { data: result } = await verifyProfileImages(data)
-        console.log('result verify: ', data)
-        // if (result == true) {
-        let dataP = new FormData()
-        dataP.append('file', uploadedImage)
-        await addProfileImage(dataP, user.id)
-        navigate('/createprofile')
-        // } else {
-        //   toast.error('Picture not verified try again!')
-        // }
+        const { data: result } = await verifyProfileImages(data)
+        if (result == true) {
+          let dataP = new FormData()
+          dataP.append('file', uploadedImage)
+          await addProfileImage(dataP, user.id)
+          navigate('/createprofile')
+        } else {
+          toast.error('Picture not verified try again!')
+        }
       } catch (error) {
         toast.error('Picture not verified try again!')
         console.log('Verification error: ', error)

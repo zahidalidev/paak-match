@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import Button from 'components/button'
 
 import { colors } from 'config/theme'
 
@@ -18,29 +17,13 @@ const Footer = () => {
             <div className='col-lg-10 col-md-10'>
               <h4 className='text-white mb-4'>PAAKMATCH</h4>
               <form action=''>
-                <div className='form-group'>
-                  <input
-                    type='text'
-                    className='form-control border-0'
-                    placeholder='Your Name'
-                    required='required'
-                    onChange={e => console.log(e.target.value)}
-                    style={{ borderRadius: '0.5rem' }}
-                  />
-                </div>
-                <div className='form-group'>
-                  <input
-                    type='email'
-                    className='form-control border-0'
-                    placeholder='Your Email'
-                    required='required'
-                    onChange={e => console.log(e.target.value)}
-                    style={{ borderRadius: '0.5rem' }}
-                  />
-                </div>
-                <div style={{ marginTop: 20 }}>
-                  <Button title='Submitt Now' borderRadius='5px' onClick={() => console.log()} />
-                </div>
+                <p>
+                  Existing systems find the match based on physical characteristics. But the
+                  drawback of such systems is they don&apos;t rank the matches based on personality
+                  traits. “To rank the potential matches based on the Myers-Briggs Test, we need a
+                  Matrimonial Application that uses a personality-based as well as the
+                  constraints-based procedure to rank the matched profiles.
+                </p>
                 <div style={{ marginTop: '2rem' }}>
                   <div className='row'>
                     <div className='col-6' style={{ marginTop: '0.2rem' }}>
