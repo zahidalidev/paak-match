@@ -22,7 +22,6 @@ const Matches = () => {
   const { currentprofileDetail, matchedProfiles } = useSelector(state => state.profile)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [search, setSearch] = useState('')
   const [filteredProfile, setFilteredProfile] = useState([])
 
   const sideBarHomeMenues = [
@@ -80,9 +79,9 @@ const Matches = () => {
     getUser()
   }, [user])
 
-  const handleSearch = () => {
+  const handleSearch = value => {
     const tempProf = [...matchedProfiles]
-    const tempFilteredProfile = tempProf.filter(item => item.name.includes(search))
+    const tempFilteredProfile = tempProf.filter(item => item.name.includes(value))
     setFilteredProfile(tempFilteredProfile)
   }
 
@@ -136,10 +135,9 @@ const Matches = () => {
           <div className='d-flex flex-column col-md-9'>
             <div className='d-flex mb-5' style={{ marginLeft: -10 }}>
               <Input
-                value={search}
-                handleChange={e => setSearch(e.target.value)}
+                handleChange={e => handleSearch(e.target.value)}
                 width='30rem'
-                icon={<Search onClick={handleSearch} />}
+                icon={<Search />}
                 title='Search'
               />
             </div>
