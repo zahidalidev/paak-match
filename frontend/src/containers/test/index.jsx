@@ -410,10 +410,10 @@ const Test = () => {
                 <h5>{item.question}</h5>
               </div>
             </div>
-            <div className='d-flex justify-content-center align-items-center col-md-10 test-options-wrapper text-center'>
-              <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-3'>
+            <div className='d-flex justify-content-center align-items-center col-md-12 test-options-wrapper text-center'>
+              <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-4'>
                 <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }} className='mt-4 mr-5'>
-                  {item.answerA}
+                  strongly agree
                 </p>
                 <img
                   onClick={() => handleChange(-2, item.id)}
@@ -422,13 +422,26 @@ const Test = () => {
                 />
               </div>
               <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-2'>
+                <p
+                  style={{ fontWeight: 'bold', fontSize: '1.2rem', flexWrap: 'nowrap' }}
+                  className='mt-4 ml-5 mr-5'
+                >
+                  Agree
+                </p>
                 <img
                   onClick={() => handleChange(-1, item.id)}
                   className='bluecircle2'
                   src={item.choice == -1 ? blueOutlineCircle : bluecircle}
                 />
               </div>
+
               <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-2'>
+                <p
+                  style={{ fontWeight: 'bold', fontSize: '1.2rem', flexWrap: 'nowrap' }}
+                  className='mt-4 ml-5 mr-5'
+                >
+                  Neutral
+                </p>
                 <img
                   onClick={() => handleChange(0, item.id)}
                   className='bluecircle3'
@@ -436,21 +449,30 @@ const Test = () => {
                 />
               </div>
               <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-2'>
+                <p
+                  style={{ fontWeight: 'bold', fontSize: '1.2rem', flexWrap: 'nowrap' }}
+                  className='mt-4 ml-5 mr-5'
+                >
+                  Disagree
+                </p>
                 <img
                   onClick={() => handleChange(1, item.id)}
                   className='bluecircle2'
                   src={item.choice == 1 ? orangeOutlineCircle : orangeCircle}
                 />
               </div>
-              <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-3'>
+              <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-4'>
+                <p
+                  style={{ fontWeight: 'bold', fontSize: '1.2rem', flexWrap: 'nowrap' }}
+                  className='mt-4 ml-5 mr-5'
+                >
+                  Strongly disagree
+                </p>
                 <img
                   onClick={() => handleChange(2, item.id)}
                   className='bluecircle1'
                   src={item.choice == 2 ? orangeOutlineCircle : orangeCircle}
                 />
-                <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }} className='mt-4 ml-5'>
-                  {item.answerB}
-                </p>
               </div>
             </div>
           </div>
