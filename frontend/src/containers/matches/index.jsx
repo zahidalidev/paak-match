@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Card } from '@material-ui/core'
 import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { Home, Article, Photo, People, Person } from '@mui/icons-material'
+import { Home, Article, Photo, People, Person, Search } from '@mui/icons-material'
 
 import Button from 'components/button'
 import { matchedUserProfile, getProfileDetails } from 'services/profile'
@@ -14,6 +14,7 @@ import { nodeBaseURL } from 'config/baseURL'
 import 'containers/matches/styles.css'
 import { ADD_CURRENT_PROFILE, ADD_MATCHED_PROFILE } from 'store/profiles'
 import Footer from 'components/footer/Footer'
+import Input from 'components/common/Input'
 
 const Matches = () => {
   const { pathname } = useLocation()
@@ -21,6 +22,8 @@ const Matches = () => {
   const { currentprofileDetail, matchedProfiles } = useSelector(state => state.profile)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [search, setSearch] = useState('')
+  const [filteredProfile, setFilteredProfile] = useState([])
 
   const sideBarHomeMenues = [
     {
@@ -54,6 +57,7 @@ const Matches = () => {
     try {
       const { data } = await matchedUserProfile(user.id)
       if (data) {
+        setFilteredProfile(data)
         dispatch(ADD_MATCHED_PROFILE({ matchedProfiles: data }))
       }
     } catch (error) {
@@ -75,6 +79,12 @@ const Matches = () => {
     getMatchedProfiles()
     getUser()
   }, [user])
+
+  const handleSearch = () => {
+    const tempProf = [...matchedProfiles]
+    const tempFilteredProfile = tempProf.filter(item => item.name.includes(search))
+    setFilteredProfile(tempFilteredProfile)
+  }
 
   console.log('currentprofileDetail: ', currentprofileDetail)
   console.log('matchedProfiles: ', matchedProfiles)
@@ -124,6 +134,15 @@ const Matches = () => {
             </div>
           </div>
           <div className='d-flex flex-column col-md-9'>
+            <div className='d-flex mb-5' style={{ marginLeft: -10 }}>
+              <Input
+                value={search}
+                handleChange={e => setSearch(e.target.value)}
+                width='30rem'
+                icon={<Search onClick={handleSearch} />}
+                title='Search'
+              />
+            </div>
             <div className='d-flex flex-column new-matches-h p-4'>
               <div className='d-flex flex-row align-items-center'>
                 <div className='d-flex flex-column'>
@@ -134,7 +153,7 @@ const Matches = () => {
                 </div>
               </div>
               <div className='d-flex flex-row recent-h-container'>
-                {matchedProfiles.map((item, index) => (
+                {filteredProfile.map((item, index) => (
                   <div
                     onClick={() => navigate(`/profile/${item.id}`)}
                     key={index.toString()}
