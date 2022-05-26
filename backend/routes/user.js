@@ -67,12 +67,37 @@ router.post("/addpartnerpreferences", async (req, res) => {
     education,
     caste,
   } = req.body;
-  console.log(req.body);
   try {
     var sql = `INSERT INTO preferences VALUES (${userID}, '${age}', '${height}', '${maritalStatus}', '${motherTongue}', '${religion}', '${income}', '${occupation}', '${education}', '${city}', '${caste}');`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
       return res.status(200).send(`${result.affectedRows} Affected`);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+});
+
+router.post("/feedback", async (req, res) => {
+  const { userId, name, description, image } = req.body;
+  console.log(req.body);
+  try {
+    var sql = `INSERT INTO feedbacks (name, description, user_id, image) VALUES ('${name}', '${description}', ${userId}, '${image}');`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      return res.status(200).send(`${result.affectedRows} Affected`);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+});
+
+router.get("/feedback", async (req, res) => {
+  try {
+    var sql = `SELECT * FROM feedbacks;`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      return res.status(200).send(result);
     });
   } catch (error) {
     return res.status(500).send({ message: error.message });

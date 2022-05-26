@@ -14,6 +14,10 @@ import Button from 'components/button'
 import headerImg from 'assets/profileheadbackground.png'
 
 import 'containers/profiledetail/styles.css'
+import Input from 'components/common/Input'
+import { addFeedBack } from 'services/user'
+import { toast } from 'react-toastify'
+import Loader from 'components/loader'
 
 const { innerHeight, innerWidth } = window
 
@@ -24,6 +28,9 @@ const ProfileDetail = () => {
   const { pathname } = useLocation()
   const [currentDet, setCurrentDet] = useState('personality')
   const { currentprofileDetail } = useSelector(state => state.profile)
+  const [fname, setFName] = useState('')
+  const [fdesc, setFDesc] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const sideBarHomeMenues = [
     {
@@ -62,13 +69,30 @@ const ProfileDetail = () => {
     }
   }
 
-  console.log('currentprofileDetail: sda', currentprofileDetail)
   useEffect(() => {
     getUser()
   }, [user])
 
+  const handleFeedBack = async () => {
+    try {
+      setLoading(true)
+      await addFeedBack({
+        name: fname,
+        description: fdesc,
+        image: currentprofileDetail.image,
+        userId: user.id
+      })
+      toast.success('Thanks for your feedback.')
+    } catch (error) {
+      toast.error('Feedback Error')
+      console.log('Feedback Error: ', error)
+    }
+    setLoading(false)
+  }
+
   return (
     <>
+      <Loader show={loading} />
       <div className='d-flex flex-column'>
         <img
           style={{ height: innerHeight - 550, width: innerWidth - 15 }}
@@ -118,6 +142,36 @@ const ProfileDetail = () => {
                 <h6 className='menu-heading-h-detail'>{item.title}</h6>
               </div>
             ))}
+          </div>
+          <div
+            style={{
+              width: '37rem',
+              height: '2px',
+              backgroundColor: '#bfbfbf80',
+              marginTop: '1.4rem'
+            }}
+          ></div>
+          <div className='d-flex flex-column side-menues-h detail-routes-prof justify-content-center align-items-start'>
+            <h3 className='pro-det-heading ml-4 mb-4  mt-3'>Add Feedback</h3>
+            <div className='d-flex ml-3'>
+              <Input
+                value={fname}
+                handleChange={e => setFName(e.target.value)}
+                title='Your and your patner name'
+                width='20rem'
+              />
+            </div>
+            <div className='d-flex mt-5 mb-3 ml-3'>
+              <Input
+                value={fdesc}
+                handleChange={e => setFDesc(e.target.value)}
+                title='Share somthing...'
+                width='30rem'
+              />
+            </div>
+            <div className='d-flex ml-4 mt-5 mb-5'>
+              <Button onClick={handleFeedBack} height='3rem' title='Submit' />
+            </div>
           </div>
         </div>
         <div className='d-flex col-md-7 flex-column'>
