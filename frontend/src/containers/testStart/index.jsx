@@ -31,7 +31,7 @@ const TestStart = () => {
 
           <p className='test-start-d'>Take our official Test to find out your type:</p>
           <div className='test-start-bnt'>
-            <Button onClick={() => navigate('/test')} width='20rem' title='Let’s Begin' />
+            <Button onClick={() => navigate('/test')} width='20rem' title='Know thyself' />
           </div>
         </div>
       </div>

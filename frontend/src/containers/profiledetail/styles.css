@@ -1,0 +1,84 @@
+.header-back-profile {
+  background-repeat: no-repeat;
+  object-fit: cover;
+  object-position: top;
+}
+
+.detail-profile-img {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 20rem;
+  object-fit: cover;
+  object-position: top;
+  margin-left: 5rem;
+  margin-top: -10rem;
+}
+
+.profile-det-name {
+  font-weight: bold;
+  margin-top: 4rem;
+}
+
+.profile-detail-wrapper1 {
+  background-color: #eaeaea;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 80%;
+  margin-left: 3rem;
+}
+
+.pro-det-heading {
+  font-weight: bold;
+}
+
+.about-wrapper {
+  background-color: #8f8ec3;
+  padding: 1rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-top: 2rem;
+}
+.profile-det-box {
+  background-color: #8f8ec3;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.det-abt-headings {
+  font-weight: bold;
+}
+
+.about-d-wrapper {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.prof-det-type-h {
+  margin-top: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.result-per-heading-det {
+  margin-top: 2rem;
+  font-size: 3rem;
+}
+
+.result-per-type-det {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.menu-heading-h-detail {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.detail-routes-prof {
+  margin-left: -1.8rem;
+}

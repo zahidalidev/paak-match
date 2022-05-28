@@ -49,7 +49,6 @@ const VerifyImage = () => {
 
       try {
         const { data: result } = await verifyProfileImages(data)
-        console.log('result verify: ', result)
         if (result == true) {
           let dataP = new FormData()
           dataP.append('file', uploadedImage)

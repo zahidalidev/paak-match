@@ -1,8 +1,5 @@
 import { useState } from 'react'
 import { ArrowForward } from '@material-ui/icons'
-// import Radio from '@mui/material/Radio'
-// import RadioGroup from '@mui/material/RadioGroup'
-// import FormControlLabel from '@mui/material/FormControlLabel'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -16,6 +13,8 @@ import bluecircle from 'assets/bluecircle.png'
 import blueOutlineCircle from 'assets/blueOutlineCircle.png'
 import orangeCircle from 'assets/orangeCircle.png'
 import orangeOutlineCircle from 'assets/orangeOutlineCircle.png'
+import blackOutlineCircle from 'assets/blacoutilecircle.png'
+import blackCircle from 'assets/blackCircle.png'
 
 import 'containers/test/styles.css'
 
@@ -31,289 +30,302 @@ const Test = () => {
     {
       id: 1,
       category: 'EI',
-      question: 'At a social event I:',
-      answerA: 'Interact with many people including strangers',
-      answerB: 'Interact with a few people I know',
+      question: 'You regularly make new friends',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 2,
       category: 'EI',
-      question: 'At parties I:',
-      answerA: 'Stay late with increasing energy',
-      answerB: 'Leave early with decreased energy',
+      question:
+        'At social events, you usually try to introduce yourself to new people and also enjoy talking to the ones you already know',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 3,
       category: 'EI',
-      question: 'In my social groups I:',
-      answerA: "Keep abreast of other's happenings",
-      answerB: 'Get behind on the news',
+      question:
+        'You feel comfortable just walking up to someone you find interesting and striking up a conversation',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 4,
       category: 'EI',
-      question: 'When making a phone call I:',
-      answerA: 'Rarely question that it will all be said',
-      answerB: "Rehearse what I'll say",
+      question: 'You enjoy participating in group activities',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 5,
       category: 'EI',
-      question: 'In the company of others I tend to:',
-      answerA: 'Initiate conversation',
-      answerB: 'Wait to be approached',
+      question: 'You enjoy making phone calls',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 6,
       category: 'EI',
-      question: 'New and non-routine interaction with others:',
-      answerA: 'Stimulates and energizes me',
-      answerB: 'Taxes my reserves',
+      question:
+        'In your social circle, you are often the one who contacts your friends and initiates activities',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 7,
       category: 'EI',
-      question: 'I prefer:',
-      answerA: 'Many friends with brief contact',
-      answerB: 'A few friends with lengthier contact',
+      question:
+        'Your personal work style is not closer to spontaneous bursts of energy than organized and consistent efforts',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 8,
       category: 'EI',
-      question: 'I tend to:',
-      answerA: 'Speak easily and at length with strangers',
-      answerB: 'Find little to say to strangers',
+      question: 'You would not love a job that requires you to work alone most of the time',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 9,
       category: 'EI',
-      question: "I'm more inclined to be:",
-      answerA: 'Easy to approach',
-      answerB: 'Somewhat reserved',
+      question:
+        'You feel more drawn to places with busy, bustling atmospheres than quiet, intimate places',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 10,
       category: 'SN',
-      question: 'I am more:',
-      answerA: 'Realistic than speculative',
-      answerB: 'Speculative than realistic',
+      question: 'You solve problems by working through facts until you understand the problem',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 11,
       category: 'SN',
-      question: "It's worse to:",
-      answerA: 'Have your head in the clouds',
-      answerB: 'Be in a rut',
+      question:
+        'You remember events as snapshots of what actually happened and dont read between the lines about their meaning',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 12,
       category: 'SN',
-      question: 'I am more attracted to:',
-      answerA: 'Sensible people',
-      answerB: 'Imaginative people',
+      question: 'You are pragmatic (practical) and look to the bottom line',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 13,
       category: 'SN',
-      question: 'I am more interested in:',
-      answerA: 'What is actual',
-      answerB: 'What is possible',
+      question: 'You start with facts and then form a big picture',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 14,
       category: 'SN',
-      question: 'In doing ordinary things I am more likely to:',
-      answerA: 'Do it the usual way',
-      answerB: 'Do it my own way',
+      question: 'You trust experience first and trust words and symbols less',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 15,
       category: 'SN',
-      question: 'Writers should:',
-      answerA: 'Say what they mean and mean what they say',
-      answerB: 'Express things more by use of analogy',
+      question:
+        'Sometimes you pay so much attention to facts, either present or past, that you miss new possibilities',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 16,
       category: 'SN',
-      question: 'Facts:',
-      answerA: 'Speak for themselves',
-      answerB: 'Illustrate principles',
+      question:
+        'You work well with details and are happy to dig into the nitty-gritty(important aspects) of a situation',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 17,
       category: 'SN',
-      question: 'I believe visionaries are:',
-      answerA: 'Somewhat annoying',
-      answerB: 'Rather fascinating',
+      question: 'You like concrete tasks and tend to pursue things in a linear sequence',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 18,
       category: 'SN',
-      question: 'Common sense is:',
-      answerA: 'Rarely questionable',
-      answerB: 'Frequently questionable',
+      question: 'You do not doubt things and test everything',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 19,
       category: 'TF',
-      question: 'I am impressed by:',
-      answerA: 'Principles',
-      answerB: 'Emotions',
+      question: 'Seeing other people cry can not easily make you feel like you want to cry too',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 20,
       category: 'TF',
-      question: 'I am more drawn to:',
-      answerA: 'That which I find convincing',
-      answerB: 'That which I find touching',
+      question: 'You enjoy watching people argue',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 21,
       category: 'TF',
-      question: 'In judging others I am more swayed by:',
-      answerA: 'Laws than circumstances',
-      answerB: 'Circumstances than laws',
+      question:
+        'You think world would be a better place if they relied more on rationality and less on feelings',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 22,
       category: 'TF',
-      question: 'In approaching others my inclination is usually more:',
-      answerA: 'Objective',
-      answerB: 'Personal',
+      question: 'You are not sentimental',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 23,
       category: 'TF',
-      question: 'This is what appeals me:',
-      answerA: 'Consistency of thought',
-      answerB: 'Harmonious human relationships',
+      question: 'You are more inclined to follow your head than your heart',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 24,
       category: 'TF',
-      question: 'I am more comfortable making:',
-      answerA: 'Logical judgments',
-      answerB: 'Value judgments',
+      question:
+        'Your happiness comes from your own accomplishments rather than helping others accomplish things',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 25,
       category: 'TF',
-      question: 'I am more often a:',
-      answerA: 'Cool-headed person',
-      answerB: 'Warm-hearted person',
+      question: 'Your mood can change very quickly',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 26,
       category: 'TF',
-      question: 'It is worse to be:',
-      answerA: 'Unjust',
-      answerB: 'Merciless',
+      question: 'You lose patience with people who are not as efficient as you',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 27,
       category: 'TF',
-      question: 'In making decisions I feel more comfortable with:',
-      answerA: 'Standards',
-      answerB: 'Feelings',
+      question:
+        'You rarely find it easy to empathize with a person whose experiences are very different from yours',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 28,
       category: 'JP',
-      question: 'I prefer to work:',
-      answerA: 'Toward deadlines',
-      answerB: 'Just "whenever"',
+      question: 'You often make a backup plan for a backup plan',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 29,
       category: 'JP',
-      question: 'I tend to choose:',
-      answerA: 'Rather carefully',
-      answerB: 'Somewhat impulsively',
+      question: 'You prefer to completely finish one project before starting another',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 30,
       category: 'JP',
-      question: 'I am more:',
-      answerA: 'Punctual',
-      answerB: 'Leisurely',
+      question: 'You like to use organizing tools like schedules and lists',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 31,
       category: 'JP',
-      question: 'It bothers me more to have things:',
-      answerA: 'Incomplete',
-      answerB: 'Completed',
+      question:
+        'You rarely prefer just doing what you feel like at any given moment instead of planning a particular daily routine',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 32,
       category: 'JP',
-      question: 'I prefer things be:',
-      answerA: 'Settled and decided',
-      answerB: 'Unsettled and undecided',
+      question: 'You like to have a to-do list for each day',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 33,
       category: 'JP',
-      question: 'I am more:',
-      answerA: 'Serious and determined',
-      answerB: 'Easy-going',
+      question:
+        'If your plans are interrupted, your top priority is to get back on track as soon as possible',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 34,
       category: 'JP',
-      question: 'One should usually let events occur:',
-      answerA: 'By careful selection and choice',
-      answerB: 'Randomly and by chance',
+      question: 'You complete things methodically without skipping over any steps',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 35,
       category: 'JP',
-      question: 'I feel better:',
-      answerA: 'After having purchased something',
-      answerB: 'While having the option to buy something',
+      question: 'You do not struggle with the deadlines, they are easy for you',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     },
     {
       id: 36,
       category: 'JP',
-      question: 'More admirable is:',
-      answerA: 'The ability to organize and be methodical',
-      answerB: 'The ability to adapt and make do',
+      question: 'You like to get your work done before playing',
+      answerA: 'Agree',
+      answerB: 'Disagree',
       choice: null
     }
   ])
@@ -361,6 +373,7 @@ const Test = () => {
       else choices4.push(item.choice)
     })
     try {
+      console.log((choices1, choices2, choices3, choices4))
       const { data } = await detectPersonality(choices1, choices2, choices3, choices4)
       let predictedPersonality = ''
       data.forEach((element, index) => {
@@ -368,7 +381,7 @@ const Test = () => {
       })
       await addPersonality({ id: user.id, type: predictedPersonality })
       setLoading(false)
-      navigate('/matches')
+      navigate('/testresult')
     } catch (error) {
       toast.error(error.response.data.message)
       console.log(error)
@@ -388,7 +401,7 @@ const Test = () => {
       <Loader show={loading} />
       {questionsData.slice(itemOffset, endOffset).map(item => (
         <div key={item.id.toString()} className='d-flex flex-column col-md-8 questions-wrapper'>
-          <div className='d-flex flex-column justify-content-center align-items-center  mt-3 range-pref-b'>
+          <div className='d-flex flex-column justify-content-center align-items-center mt-3 range-pref-b'>
             <div className='d-flex col-md-11 flex-row mt-3 '>
               <div className='d-flex col-md-2'>
                 <ArrowForward className='arrow-f-question' />
@@ -397,22 +410,69 @@ const Test = () => {
                 <h5>{item.question}</h5>
               </div>
             </div>
-            <div className='d-flex justify-content-center align-items-center col-md-11 test-options-wrapper text-center'>
-              <div className='d-flex flex-column justify-content-center align-items-center text-center col-md-6'>
+            <div className='d-flex justify-content-center align-items-center col-md-12 test-options-wrapper text-center'>
+              <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-4'>
+                <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }} className='mt-4 mr-5'>
+                  strongly agree
+                </p>
+                <img
+                  onClick={() => handleChange(-2, item.id)}
+                  className='bluecircle1'
+                  src={item.choice == -2 ? blueOutlineCircle : bluecircle}
+                />
+              </div>
+              <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-2'>
+                <p
+                  style={{ fontWeight: 'bold', fontSize: '1.2rem', flexWrap: 'nowrap' }}
+                  className='mt-4 ml-5 mr-5'
+                >
+                  Agree
+                </p>
+                <img
+                  onClick={() => handleChange(-1, item.id)}
+                  className='bluecircle2'
+                  src={item.choice == -1 ? blueOutlineCircle : bluecircle}
+                />
+              </div>
+
+              <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-2'>
+                <p
+                  style={{ fontWeight: 'bold', fontSize: '1.2rem', flexWrap: 'nowrap' }}
+                  className='mt-4 ml-5 mr-5'
+                >
+                  Neutral
+                </p>
                 <img
                   onClick={() => handleChange(0, item.id)}
-                  className='bluecircle'
-                  src={item.choice == 0 ? bluecircle : blueOutlineCircle}
+                  className='bluecircle3'
+                  src={item.choice == 0 ? blackOutlineCircle : blackCircle}
                 />
-                <p className='mt-4'>{item.answerA}</p>
               </div>
-              <div className='d-flex flex-column justify-content-center align-items-center text-center col-md-6'>
+              <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-2'>
+                <p
+                  style={{ fontWeight: 'bold', fontSize: '1.2rem', flexWrap: 'nowrap' }}
+                  className='mt-4 ml-5 mr-5'
+                >
+                  Disagree
+                </p>
                 <img
                   onClick={() => handleChange(1, item.id)}
-                  className='bluecircle'
-                  src={item.choice == 1 ? orangeCircle : orangeOutlineCircle}
+                  className='bluecircle2'
+                  src={item.choice == 1 ? orangeOutlineCircle : orangeCircle}
                 />
-                <p className='mt-4'>{item.answerB}</p>
+              </div>
+              <div className='d-flex flex-row justify-content-center align-items-center text-center col-md-4'>
+                <p
+                  style={{ fontWeight: 'bold', fontSize: '1.2rem', flexWrap: 'nowrap' }}
+                  className='mt-4 ml-5 mr-5'
+                >
+                  Strongly disagree
+                </p>
+                <img
+                  onClick={() => handleChange(2, item.id)}
+                  className='bluecircle1'
+                  src={item.choice == 2 ? orangeOutlineCircle : orangeCircle}
+                />
               </div>
             </div>
           </div>

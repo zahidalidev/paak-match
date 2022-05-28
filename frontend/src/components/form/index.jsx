@@ -3,14 +3,16 @@ import { toast } from 'react-toastify'
 import { updateUserProfile } from 'services/user'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
 import Button from 'components/button'
 import Input from 'components/common/Input'
 import Loader from 'components/loader'
 import { useNavigate, useParams } from 'react-router-dom'
+import { getProfileDetails } from 'services/profile'
+import { MenuItem } from '@material-ui/core'
+import InputLabel from '@mui/material/InputLabel'
+import FormControl from '@mui/material/FormControl'
+// import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
 
 import prof1Icon from 'assets/basic.png'
 import casteIcon from 'assets/caste.png'
@@ -18,7 +20,6 @@ import professionIcon from 'assets/prof.png'
 import bioIcon from 'assets/bio.png'
 
 import 'components/form/styles.css'
-import { getProfileDetails } from 'services/profile'
 
 const InfoHeading = ({ title, icon }) => (
   <div className='d-flex col-md-12 flex-row mt-3 align-items-center justify-content-center'>
@@ -143,7 +144,7 @@ const Form = () => {
           </div>
           <div className='d-flex col-md-9'>
             <Input
-              width='35rem'
+              width='34rem'
               handleChange={e => handleChange(e.target.value, 'city')}
               value={profData.city}
               title='City'
@@ -177,9 +178,7 @@ const Form = () => {
           </div>
           <div className='d-flex col-md-9'>
             <FormControl style={{ width: '33rem', marginLeft: 9 }}>
-              <InputLabel style={{ fontSize: 16, marginTop: -2 }} id='demo-simple-select-label'>
-                Religion
-              </InputLabel>
+              <InputLabel style={{ fontSize: 16, marginTop: -2 }}>Religion</InputLabel>
               <Select
                 onChange={e => handleChange(e.target.value, 'religion')}
                 value={profData.religion}

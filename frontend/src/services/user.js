@@ -23,14 +23,22 @@ export const addPersonality = async type =>
 export const verifyProfileImages = async data =>
   await axios.post(`${pythonBaseURL}/verifyimages`, data)
 
-export const addPartnerPreferences = async data =>
+export const addPartnerPreferences = async (data, data2) => {
   await axios.post(`${nodeBaseURL}/api/user/addpartnerpreferences`, data)
+  await axios.post(`${nodeBaseURL}/api/user/addpartnerpreferencesweight`, data2)
+}
 
-export const updatePartnerPreferences = async data =>
+export const updatePartnerPreferences = async (data, data2) => {
   await axios.put(`${nodeBaseURL}/api/user/updatePartnerPreferences`, data)
+  await axios.put(`${nodeBaseURL}/api/user/updatePartnerPreferencesweight`, data2)
+}
 
 export const addProfileImage = async (file, id) =>
   await axios.post(`${nodeBaseURL}/api/user/userprofile/${id}`, file)
+
+export const addFeedBack = async body => await axios.post(`${nodeBaseURL}/api/user/feedback`, body)
+
+export const getFeedBacks = async () => await axios.get(`${nodeBaseURL}/api/user/feedback`)
 
 export const LoginWithToken = async body =>
   await axios.post(`${nodeBaseURL}/api/user/loginwithtoken`, body)

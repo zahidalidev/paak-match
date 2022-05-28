@@ -1,18 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Carousel from 'react-multi-carousel'
 import PropTypes from 'prop-types'
 import Button from 'components/button'
 
-import testimonial_1 from 'assets/Rectangle 40.png'
-import testimonial_2 from 'assets/Rectangle 41.png'
-import testimonial_3 from 'assets/Rectangle 42.png'
-
 import 'react-multi-carousel/lib/styles.css'
 import 'components/testimonials/styles.css'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { getFeedBacks } from 'services/user'
+import { nodeBaseURL } from 'config/baseURL'
 
 const responsive = {
   superLargeDesktop: {
-    // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 5
   },
@@ -30,31 +29,26 @@ const responsive = {
   }
 }
 
-function Testimonial(props) {
-  const allTestimonials = [
-    {
-      id: 0,
-      name: 'Jhon & Olivia',
+const Testimonial = props => {
+  const navigate = useNavigate()
+  const user = useSelector(state => state.user)
 
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-      image: testimonial_1
-    },
-    {
-      id: 1,
-      name: 'Jhon & Cloee',
+  const [allTestimonials, setAllTestimonials] = useState([])
 
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-      image: testimonial_2
-    },
-    {
-      id: 2,
-      name: 'Jhon & Cloee',
-
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-      image: testimonial_3
+  const getAllFeedbacks = async () => {
+    try {
+      const { data } = await getFeedBacks()
+      setAllTestimonials(data)
+    } catch (error) {
+      console.log('getting testimonial error: ', error)
     }
-  ]
-  return (
+  }
+
+  useEffect(() => {
+    getAllFeedbacks()
+  }, [])
+
+  return allTestimonials.length === 0 ? null : (
     <div className='d-lg-flex flex-column container-fluid justify-content-center align-items-center testimonial-container'>
       <hr className='h-break' />
       <h6 className='testimonial-heading text-uppercase'>
@@ -81,7 +75,7 @@ function Testimonial(props) {
             <div key={index.toString()} style={{ minWidth: '70%' }} className='col-md-3'>
               <img
                 className='position-relative rounded-circle bg-white shadow mx-auto testimonial-img'
-                src={client.image}
+                src={`${nodeBaseURL}/${client.image}`}
                 alt=''
               />
               <div className='testimonial-body bg-light text-center p-4 pt-0'>
@@ -99,7 +93,11 @@ function Testimonial(props) {
         Now it is your turn to be happily married
       </h6>
       <div className='testimonial-btn'>
-        <Button title='Sign Up' width='19rem' borderRadius='12px' />
+        {user.email ? (
+          <Button onClick={() => navigate('/matches')} width='19rem' title='Get Match' />
+        ) : (
+          <Button onClick={() => navigate('/register')} width='19rem' title='SIGN UP' />
+        )}
       </div>
     </div>
   )

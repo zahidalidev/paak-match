@@ -24,7 +24,7 @@ const App = () => {
     pathname == '/test'
       ? false
       : true
-  console.log('app.js pathname: ', pathname)
+
   const getUser = async body => {
     try {
       const { data } = await LoginWithToken(body)

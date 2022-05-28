@@ -12,6 +12,8 @@
   "author": "Zahid Ali",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@mui/material": "^5.8.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.3",

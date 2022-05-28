@@ -209,11 +209,8 @@ const UserProfile = () => {
               </div>
               <div className='d-flex flex-row col-md-2 justify-content-center align-items-center'>
                 <Box sx={{ flexGrow: 1 }}>
-                  <p className='type-matches-p-h'>Type match {matchedProfileStored.points * 10}%</p>
-                  <BorderLinearProgress
-                    variant='determinate'
-                    value={matchedProfileStored.points * 10}
-                  />
+                  <p className='type-matches-p-h'>Type match {matchedProfileStored.points}%</p>
+                  <BorderLinearProgress variant='determinate' value={matchedProfileStored.points} />
                 </Box>
               </div>
               <div className='d-flex flex-row recent-h-container'>

@@ -26,6 +26,8 @@
 .profile-title-h {
   font-size: 0.8rem;
   color: #444444;
+  width: 80%;
+  text-align: center;
 }
 
 .horizontal-c-barder {

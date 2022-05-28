@@ -67,7 +67,6 @@ router.post("/addpartnerpreferences", async (req, res) => {
     education,
     caste,
   } = req.body;
-  console.log(req.body);
   try {
     var sql = `INSERT INTO preferences VALUES (${userID}, '${age}', '${height}', '${maritalStatus}', '${motherTongue}', '${religion}', '${income}', '${occupation}', '${education}', '${city}', '${caste}');`;
     con.query(sql, (err, result) => {
@@ -78,6 +77,59 @@ router.post("/addpartnerpreferences", async (req, res) => {
     return res.status(500).send({ message: error.message });
   }
 });
+
+router.post("/feedback", async (req, res) => {
+  const { userId, name, description, image } = req.body;
+  console.log(req.body);
+  try {
+    var sql = `INSERT INTO feedbacks (name, description, user_id, image) VALUES ('${name}', '${description}', ${userId}, '${image}');`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      return res.status(200).send(`${result.affectedRows} Affected`);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+});
+
+router.get("/feedback", async (req, res) => {
+  try {
+    var sql = `SELECT * FROM feedbacks;`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      return res.status(200).send(result);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+});
+
+router.post("/addpartnerpreferencesweight", async (req, res) => {
+  const {
+    userID,
+    age,
+    height,
+    maritalStatus,
+    motherTongue,
+    religion,
+    income,
+    occupation,
+    city,
+    education,
+    caste,
+  } = req.body;
+  console.log(req.body);
+  try {
+    var sql = `INSERT INTO preferences_weight VALUES (${userID}, '${age}', '${height}', '${maritalStatus}', '${motherTongue}', '${religion}', '${income}', '${occupation}', '${education}', '${city}', '${caste}');`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      return res.status(200).send(`${result.affectedRows} Affected`);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+});
+
 router.put("/updatePartnerPreferences", async (req, res) => {
   const {
     userID,
@@ -94,6 +146,31 @@ router.put("/updatePartnerPreferences", async (req, res) => {
   } = req.body;
   try {
     var sql = `UPDATE preferences SET age_range = '${age}', height_range = '${height}', marital_status = '${maritalStatus}', mother_tongue = '${motherTongue}', religion = '${religion}', income = '${income}', occupation = '${occupation}', education = '${education}', city = '${city}', caste = '${caste}' where user_id = ${userID}`;
+    con.query(sql, (err, result) => {
+      if (err) return res.status(400).send({ message: err.sqlMessage });
+      return res.status(200).send(`${result.affectedRows} Affected`);
+    });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+});
+
+router.put("/updatePartnerPreferencesweight", async (req, res) => {
+  const {
+    userID,
+    age,
+    height,
+    maritalStatus,
+    motherTongue,
+    religion,
+    income,
+    occupation,
+    city,
+    education,
+    caste,
+  } = req.body;
+  try {
+    var sql = `UPDATE preferences_weight SET age_range = '${age}', height_range = '${height}', marital_status = '${maritalStatus}', mother_tongue = '${motherTongue}', religion = '${religion}', income = '${income}', occupation = '${occupation}', education = '${education}', city = '${city}', caste = '${caste}' where user_id = ${userID}`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
       return res.status(200).send(`${result.affectedRows} Affected`);
@@ -167,7 +244,7 @@ router.get("/allsubscriptions", async (req, res) => {
 router.get("/allusers/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    var sql = `select * from users where id != '${id}'`;
+    var sql = `select * from users u LEFT JOIN profileDetails p on u.id = p.user_id where u.id != '${id}'`;
     con.query(sql, (err, result) => {
       if (err) return res.status(400).send({ message: err.sqlMessage });
       return res.status(200).send(result);

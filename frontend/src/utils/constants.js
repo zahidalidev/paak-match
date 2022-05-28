@@ -34,37 +34,22 @@ export const faqs = [
   {
     question: 'How to register on PaakMatch Matrimony?',
     answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
+      'After clicking on sign up page you will be navigated to registration page where you would have to provide your name, valid email id, phone number and set a strong password for your account.'
   },
   {
-    question: 'What are come top-notch safety measures in PaakMatch Matrimony?',
+    question: 'What are some safety features of PaakMatch?',
     answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
+      'PaakMatch is safe to use as it ensures users data is protected and filters out fake IDs during verification process.'
   },
   {
-    question: 'What is PaakMatch Matrimony "Prime"?',
+    question: 'What are the features of PaakMatch?',
     answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
+      'PaakMatch differs from traditional matrimonial websites in a way that it combines personality correlation with physical traits, making sure that users get their compatible matches based on personality compatibility.'
   },
   {
-    question: 'Why choose PaakMatch Premium Membership plan?',
+    question: 'How can I verify my profile?',
     answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
-  },
-  {
-    question: 'What are the features of PaakMatch Matrimony?',
-    answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
-  },
-  {
-    question: 'How can I varify my profile on PaakMatch Matrimony?',
-    answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
-  },
-  {
-    question: 'What is assisted service from PaakMatch Matrimony?',
-    answer:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
+      'Profile verification can be done by providing picture via webcam during registration process.'
   }
 ]
 
@@ -204,4 +189,34 @@ export const CompaTable = {
   ESFJ: 'Driven by emotion, the ESFJ needs the logic of the ISFP or ISTP to create a well-rounded dynamic',
   ENFJ: 'The ENFJ and these introverts are equally intuitive, so can easily cater to each other’s needs within a relationship',
   ENTJ: 'ENTJs aren’t comfortable discussing emotional topics, which these introverts understand'
+}
+
+export const personalityDesc = {
+  ISTJ: 'The Inspector Serious, Practical, Hard worker',
+  ISTP: 'The Craftsman Rational, Logical, Experimenter',
+  ESTP: 'The Entrepreneur Social Interaction, Energetic, Smart',
+  ESTJ: 'The Supervisor Honest, Dignified, Dedicated',
+  ISFJ: 'The Nurturer Generous, Warm, Cooperative',
+  ISFP: 'The Composer Warm, Friendly, Charming',
+  ESFP: 'The Entertainer Lively, Fun, Entertainer',
+  ESFJ: 'The Provider Social Butterflies, Caring, Popular',
+  INFJ: 'The Advocate Idealist, Deep Thinker, Inspiring',
+  INFP: 'The Idealist Poetic, Reserved, Daydreamer',
+  ENFP: 'The Campaigner Sociable, Creative, Enthusiastic',
+  ENFJ: 'The Giver Idealistic, Ethical, Outspoken',
+  INTJ: 'The Mastermind Strategic Thinker, Interested in ideas',
+  INTP: 'The Thinker Logical Minded, Creative',
+  ENTP: 'The Visionary Knowledgeable, Theories & Facts',
+  ENTJ: 'The Commander Bold, Leadership, Challenges'
+}
+
+export const personalityChaDetails = {
+  E: 'Extraverts (also often spelled extroverts) are outward-turning and tend to be action-oriented, enjoy more frequent social interaction, and feel energized after spending time with other people.',
+  I: 'Introverts are inward-turning and tend to be thought-oriented, enjoy deep and meaningful social interactions, and feel recharged after spending time alone.',
+  S: 'People who prefer sensing tend to pay a great deal of attention to reality, particularly to what they can learn from their own senses. They tend to focus on facts and details and enjoy getting hands-on experience.',
+  N: 'Those who prefer intuition pay more attention to things like patterns and impressions. They enjoy thinking about possibilities, imagining the future, and abstract theories.',
+  T: 'They tend to be consistent, logical, and impersonal when weighing a decision.',
+  F: 'Those who prefer feeling are more likely to consider people and emotions when arriving at a conclusion.',
+  J: 'They seek closure from the outer world through order, planning, and organization. When possible, their prefer for things to be settled and crossed off their list. They may want to find work that allows them to set goals, be organized, and make decisions',
+  P: 'They cope with challenges by keeping an open schedule that allows them the flexibility to work at their own pace and change tasks as needed. In the workplace, people with a perceiving preference are adaptable and nonjudgmental.'
 }

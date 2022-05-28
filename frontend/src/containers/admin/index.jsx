@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 import profiletemp from 'assets/profiletemp.png'
 import 'containers/admin/styles.css'
 import SubscriptionCard from 'components/SubscriptionCard'
+import { nodeBaseURL } from 'config/baseURL'
 
 const Admin = () => {
   const user = useSelector(state => state.user)
@@ -39,7 +40,6 @@ const Admin = () => {
   const allUserSubscriptions = async () => {
     try {
       const { data } = await getAllUserSubscriptions()
-      console.log('allSubscriptions: ', data)
       setAllSubscriptions(data)
     } catch (error) {
       console.log(error)
@@ -97,7 +97,10 @@ const Admin = () => {
                       key={index.toString()}
                       className='d-flex matches-h-wrapper-admin col-md-2 flex-column justify-content-center align-items-start'
                     >
-                      <img className='matches-profile-img-admin' src={profiletemp} />
+                      <img
+                        className='matches-profile-img-admin'
+                        src={item.image ? `${nodeBaseURL}/${item.image}` : profiletemp}
+                      />
                       <h5 className='recent-profile-c matches-name ml-1'>
                         {item.name}, {item.personality_type}
                       </h5>

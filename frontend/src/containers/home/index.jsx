@@ -3,6 +3,9 @@ import Header from 'components/header'
 import Button from 'components/button'
 import Testimonial from 'components/testimonials/Testimonial'
 import Faq from 'components/Faq'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import Footer from 'components/footer/Footer'
 
 import homeImg1 from 'assets/slider/v2_14.png'
 import homeImg2 from 'assets/Rectangle 12.png'
@@ -10,9 +13,11 @@ import shyChooseImg from 'assets/Rectangle 39.png'
 import momentBottom from 'assets/SVG File (1) 2.png'
 
 import 'containers/home/styles.css'
-import Footer from 'components/footer/Footer'
 
 const Home = () => {
+  const user = useSelector(state => state.user)
+  const navigate = useNavigate()
+
   return (
     <div>
       <Header />
@@ -24,13 +29,17 @@ const Home = () => {
         <div className='d-flex flex-column col-md-4'>
           <h3 className='c-section2'>Do you struggle with personality matchmaking</h3>
           <ul className='qu-wrapper'>
-            <li className='qu-list'>Problem number one goes here</li>
-            <li className='qu-list'>Problem number one goes here</li>
-            <li className='qu-list'>Problem number one goes here</li>
-            <li className='qu-list'>Problem number one goes here</li>
+            <li className='qu-list'>Most trusted Matchmaking</li>
+            <li className='qu-list'>Our Custom Algorithm</li>
+            <li className='qu-list'>Accurate personality test</li>
+            <li className='qu-list'>Verified Profiles</li>
           </ul>
           <div className='qu-btn'>
-            <Button title='Get Match' />
+            {user.email ? (
+              <Button onClick={() => navigate('/matches')} title='Get Match' />
+            ) : (
+              <Button onClick={() => navigate('/register')} title='SIGN UP' />
+            )}
           </div>
         </div>
       </div>
@@ -69,11 +78,15 @@ const Home = () => {
                   Our largest number of proflies increases your chances of meeting the right person
                 </li>
                 <li className='choose-des intro-c'>Mlilions have found their life partner here</li>
-                <li className='choose-des intro-c'>Trusted service for more than 21 years</li>
+                <li className='choose-des intro-c'>Trusted service</li>
               </div>
             </div>
             <div className='intro-btn'>
-              <Button title='Sign Up' width='19rem' borderRadius='12px' />
+              {user.email ? (
+                <Button onClick={() => navigate('/matches')} width='19rem' title='Get Match' />
+              ) : (
+                <Button onClick={() => navigate('/register')} width='19rem' title='SIGN UP' />
+              )}
             </div>
           </div>
           <div className='d-flex flex-column col-md-4'>
@@ -95,11 +108,7 @@ const Home = () => {
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
           allowFullScreen
         ></iframe>
-        <h4 className='moment-c'>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore.
-        </h4>
+        <h4 className='moment-c'>Playback the moments that matter to you.</h4>
       </div>
       <Testimonial />
       <Faq />
